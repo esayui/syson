@@ -51,7 +51,7 @@ export const DeleteSysMLExpressionMenuContribution = forwardRef(
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="Delete expression" />
+          <ListItemText primary="删除表达式" />
         </MenuItem>
       </Fragment>
     );

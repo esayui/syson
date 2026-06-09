@@ -1,0 +1,9 @@
+{
+  "validation": {
+    "empty": "没有验证结果",
+    "diagnostic": "诊断",
+    "noRootSelected": "没有选择诊断根对象",
+    "switchRoot": "切换根对象",
+    "selectRootTitle": "切换诊断根对象"
+  }
+}

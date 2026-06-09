@@ -12,6 +12,8 @@
  *******************************************************************************/
 package org.eclipse.syson;
 
+import java.util.Locale;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,6 +45,7 @@ public class SysONApplication {
      *            The command line arguments
      */
     public static void main(String[] args) {
+        Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
         SpringApplication.run(SysONApplication.class, args);
     }
 }

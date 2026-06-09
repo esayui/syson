@@ -59,7 +59,7 @@ export const NewSysMLExpressionMenuContribution = forwardRef(
           <ListItemIcon>
             <AddIcon fontSize="small" />
           </ListItemIcon>
-          <ListItemText primary="New expression" />
+          <ListItemText primary="新建表达式" />
         </MenuItem>
         {modalElement}
       </Fragment>

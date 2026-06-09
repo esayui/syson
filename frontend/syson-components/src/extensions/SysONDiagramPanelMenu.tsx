@@ -71,7 +71,7 @@ export const SysONDiagramPanelMenu = ({ editingContextId, diagramId }: DiagramTo
 
   return (
     <span>
-      <Tooltip title="Diagrams Options" placement="right">
+      <Tooltip title="图表选项" placement="right">
         <IconButton
           data-testid={'syson-diagram-panel-menu-icon'}
           color="inherit"

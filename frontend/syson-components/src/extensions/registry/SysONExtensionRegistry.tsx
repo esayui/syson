@@ -11,6 +11,7 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 
+import { ApolloLink, Observable } from '@apollo/client';
 import { ExtensionRegistry } from '@eclipse-sirius/sirius-components-core';
 import {
   diagramToolbarActionExtensionPoint,
@@ -92,9 +93,44 @@ const apolloClientOptionsConfigurer: ApolloClientOptionsConfigurer = (currentOpt
     documentTransform: newDocumentTransform,
   };
 };
+
+const zhLocaleConfigurer: ApolloClientOptionsConfigurer = (currentOptions) => {
+  // Apollo Link that intercepts the getLocale GraphQL response and forces language to "zh"
+  const zhLocaleLink = new ApolloLink((operation, forward) => {
+    return new Observable((observer) => {
+      const subscription = forward(operation).subscribe({
+        next: (response: any) => {
+          if (operation.operationName === 'getLocale' && response?.data?.viewer) {
+            observer.next({
+              ...response,
+              data: {
+                ...response.data,
+                viewer: {
+                  ...response.data.viewer,
+                  language: 'zh',
+                },
+              },
+            });
+          } else {
+            observer.next(response);
+          }
+        },
+        error: (err: any) => observer.error(err),
+        complete: () => observer.complete(),
+      });
+      return () => subscription.unsubscribe();
+    });
+  });
+
+  return {
+    ...currentOptions,
+    link: zhLocaleLink.concat(currentOptions.link),
+  };
+};
+
 sysONExtensionRegistry.putData(apolloClientOptionsConfigurersExtensionPoint, {
   identifier: `syson_${apolloClientOptionsConfigurersExtensionPoint.identifier}`,
-  data: [apolloClientOptionsConfigurer],
+  data: [zhLocaleConfigurer, apolloClientOptionsConfigurer],
 });
 
 sysONExtensionRegistry.addComponent(diagramToolbarActionExtensionPoint, {

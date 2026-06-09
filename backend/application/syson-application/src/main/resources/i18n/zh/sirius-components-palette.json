@@ -1,0 +1,10 @@
+{
+  "palette": {
+    "label": "调色板",
+    "open": "打开调色板",
+    "noToolAvailable": "没有可用的工具",
+    "import": {
+      "label": "导入"
+    }
+  }
+}

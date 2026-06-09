@@ -23,6 +23,8 @@ import org.eclipse.emf.edit.provider.ComposedAdapterFactory.Descriptor;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.syson.sysml.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility class used to provide a label for a structural feature in the variable manager.
@@ -32,6 +34,8 @@ import org.eclipse.syson.sysml.Element;
 public class EStructuralFeatureLabelProvider implements BiFunction<Element, EStructuralFeature, String> {
 
     private final List<Descriptor> composedAdapterFactoryDescriptors;
+
+    private final Logger logger = LoggerFactory.getLogger(EStructuralFeatureLabelProvider.class);
 
     public EStructuralFeatureLabelProvider(List<Descriptor> composedAdapterFactoryDescriptors) {
         this.composedAdapterFactoryDescriptors = Objects.requireNonNull(composedAdapterFactoryDescriptors);
@@ -48,7 +52,13 @@ public class EStructuralFeatureLabelProvider implements BiFunction<Element, EStr
         if (adapter instanceof IItemPropertySource itemPropertySource) {
             IItemPropertyDescriptor descriptor = itemPropertySource.getPropertyDescriptor(element, eStructuralFeature);
             if (descriptor != null) {
+                String key = "_UI_" + eStructuralFeature.getEContainingClass().getName() + "_" + eStructuralFeature.getName() + "_feature";
                 displayName = descriptor.getDisplayName(eStructuralFeature);
+                logger.info("Label: key={}, english={}, chinese={}, adapter={}",
+                    key,
+                    eStructuralFeature.getName(),
+                    displayName,
+                    adapter.getClass().getSimpleName());
             }
         }
         composedAdapterFactory.dispose();

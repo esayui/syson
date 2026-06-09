@@ -1,0 +1,33 @@
+{
+  "deckToolbar": {
+    "exitFullscreen": "退出全屏模式",
+    "toggleFullscreen": "切换全屏模式",
+    "fitToScreen": "适应屏幕",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "resetZoom": "重置缩放",
+    "share": "分享"
+  },
+  "deck": {
+    "Add another lane": "+ 添加泳道",
+    "Click to add card": "点击添加卡片",
+    "Delete lane": "删除泳道",
+    "Lane actions": "泳道操作",
+    "button": {
+      "Add lane": "添加泳道",
+      "Add card": "添加卡片",
+      "Cancel": "取消"
+    },
+    "placeholder": {
+      "title": "标题",
+      "description": "描述",
+      "label": "标签"
+    }
+  },
+  "deckRepresentation": {
+    "noDeck": "该 Deck 已不存在"
+  },
+  "laneContextMenu": {
+    "deleteLane": "删除泳道"
+  }
+}

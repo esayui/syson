@@ -81,11 +81,11 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
     private static final String CUSTOM_EXPRESSION_WIDGET_KEY = "syson:expression-value-widget";
 
-    private static final String CORE_PROPERTIES = "Core Properties";
+    private static final String CORE_PROPERTIES = "核心属性";
 
-    private static final String ADVANCED_PROPERTIES = "Advanced Properties";
+    private static final String ADVANCED_PROPERTIES = "高级属性";
 
-    private static final String REFERENCE_SUBSETTING_PROPERTIES = "Reference Subsetting Properties";
+    private static final String REFERENCE_SUBSETTING_PROPERTIES = "引用子集属性";
 
     private static final String REDEFINITION_PROPERTIES = "Redefinition Properties";
 
@@ -178,7 +178,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
         pageCore.setName("SysON-DetailsView-Core");
         pageCore.setDomainType(domainType);
         pageCore.setPreconditionExpression("");
-        pageCore.setLabelExpression("Core");
+        pageCore.setLabelExpression("核心");
         pageCore.getGroups().add(this.createCorePropertiesGroup());
         pageCore.getGroups().add(this.createVisibilityPropertyGroup());
         pageCore.getGroups().add(this.createExtraReferenceSubsettingPropertiesGroup());
@@ -197,7 +197,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
         pageAdvanced.setName("SysON-DetailsView-Advanced");
         pageAdvanced.setDomainType(domainType);
         pageAdvanced.setPreconditionExpression("");
-        pageAdvanced.setLabelExpression("Advanced");
+        pageAdvanced.setLabelExpression("高级");
         pageAdvanced.getGroups().add(this.createAdvancedPropertiesGroup());
 
         form.getPages().add(pageCore);
@@ -243,7 +243,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         TextAreaDescription expressionWidget = FormFactory.eINSTANCE.createTextAreaDescription();
         expressionWidget.setName("ValueExpression");
-        expressionWidget.setLabelExpression("Value");
+        expressionWidget.setLabelExpression("值");
         expressionWidget.setValueExpression(ServiceMethod.of0(DetailsViewService::getValueExpressionTextualRepresentation).aqlSelf());
         expressionWidget.setIsEnabledExpression(AQLConstants.AQL_FALSE);
 
@@ -256,7 +256,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
         GroupDescription group = FormFactory.eINSTANCE.createGroupDescription();
         group.setDisplayMode(GroupDisplayMode.LIST);
         group.setName(CORE_PROPERTIES);
-        group.setLabelExpression("aql:self.eClass().getStyledLabel() + ' Properties'");
+        group.setLabelExpression("aql:self.eClass().getStyledLabel() + ' 属性'");
         group.setSemanticCandidatesExpression(AQLConstants.AQL_SELF);
 
         group.getChildren().add(this.createCoreWidgets());
@@ -270,7 +270,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
         GroupDescription group = FormFactory.eINSTANCE.createGroupDescription();
         group.setDisplayMode(GroupDisplayMode.LIST);
         group.setName(ADVANCED_PROPERTIES);
-        group.setLabelExpression("aql:self.eClass().getStyledLabel() + ' Properties'");
+        group.setLabelExpression("aql:self.eClass().getStyledLabel() + ' 属性'");
         group.setSemanticCandidatesExpression(AQLConstants.AQL_SELF);
 
         group.getChildren().add(this.createAdvancedWidgets());
@@ -288,7 +288,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription refWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         refWidget.setName("ExtraReferenceWidget");
-        refWidget.setLabelExpression("Redefines");
+        refWidget.setLabelExpression("重定义");
         refWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getRedefinition_RedefinedFeature().getName());
         refWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         refWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -312,7 +312,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription refWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         refWidget.setName("ExtraReferenceWidget");
-        refWidget.setLabelExpression("References");
+        refWidget.setLabelExpression("引用");
         refWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getReferenceSubsetting_ReferencedFeature().getName());
         refWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         refWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -335,7 +335,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         RadioDescription radio = FormFactory.eINSTANCE.createRadioDescription();
         radio.setName("ExtraRadioKindWidget");
-        radio.setLabelExpression("Kind");
+        radio.setLabelExpression("类型");
         radio.setCandidatesExpression(ServiceMethod.of1(DetailsViewService.class, DetailsViewService::getEnumCandidates, Element.class, String.class)
                 .aqlSelf(AQLUtils.aqlString(SysmlPackage.eINSTANCE.getStateSubactionMembership_Kind().getName())));
         radio.setCandidateLabelExpression("aql:candidate.name");
@@ -362,7 +362,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription refWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         refWidget.setName("ExtraReferenceWidget");
-        refWidget.setLabelExpression("Specializes");
+        refWidget.setLabelExpression("特化");
         refWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getSubclassification_Superclassifier().getName());
         refWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         refWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -386,7 +386,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription refWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         refWidget.setName("ExtraReferenceWidget");
-        refWidget.setLabelExpression("Subsets");
+        refWidget.setLabelExpression("子集");
         refWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getSubsetting_SubsettedFeature().getName());
         refWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         refWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -414,7 +414,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription refWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         refWidget.setName("ExtraReferenceWidget");
-        refWidget.setLabelExpression("Typed by");
+        refWidget.setLabelExpression("类型引用");
         refWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getFeature_Type().getName());
         refWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         refWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -436,7 +436,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         RadioDescription radio = FormFactory.eINSTANCE.createRadioDescription();
         radio.setName("ExtraRadioKindWidget");
-        radio.setLabelExpression("Kind");
+        radio.setLabelExpression("类型");
         radio.setCandidatesExpression("aql:self.getEnumCandidates('" + SysmlPackage.eINSTANCE.getRequirementConstraintMembership_Kind().getName() + CLOSING_QUOTE_CLOSING_PARENTHESIS);
         radio.setCandidateLabelExpression("aql:candidate.name");
         radio.setValueExpression("aql:self.getEnumValue('" + SysmlPackage.eINSTANCE.getRequirementConstraintMembership_Kind().getName() + CLOSING_QUOTE_CLOSING_PARENTHESIS);
@@ -459,7 +459,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         RadioDescription radio = FormFactory.eINSTANCE.createRadioDescription();
         radio.setName("ExtraRadioVisibilityWidget");
-        radio.setLabelExpression("Visibility");
+        radio.setLabelExpression("可见性");
         radio.setCandidatesExpression(ServiceMethod.of0(DetailsViewService::getVisibilityEnumLiterals).aqlSelf());
         radio.setCandidateLabelExpression("aql:candidate.name");
         radio.setValueExpression(ServiceMethod.of0(DetailsViewService::getVisibilityValue).aqlSelf());
@@ -482,7 +482,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription payloadRefWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         payloadRefWidget.setName("ExtraPayloadWidget");
-        payloadRefWidget.setLabelExpression("Payload");
+        payloadRefWidget.setLabelExpression("载荷");
         payloadRefWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getFeatureTyping_Type().getName());
         payloadRefWidget.setReferenceOwnerExpression(ServiceMethod.of0(DetailsViewService::getAcceptActionUsagePayloadFeatureTyping).aqlSelf());
         payloadRefWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -492,7 +492,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription receiverRefWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         receiverRefWidget.setName("ExtraReceiverWidget");
-        receiverRefWidget.setLabelExpression("Receiver");
+        receiverRefWidget.setLabelExpression("接收方");
         receiverRefWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getMembership_MemberElement().getName());
         receiverRefWidget.setReferenceOwnerExpression(ServiceMethod.of0(DetailsViewService::getAcceptActionUsageReceiverMembership).aqlSelf());
         receiverRefWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -515,7 +515,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
 
         ReferenceWidgetDescription sourceRefWidget = ReferenceFactory.eINSTANCE.createReferenceWidgetDescription();
         sourceRefWidget.setName("ExtraSourceWidget");
-        sourceRefWidget.setLabelExpression("Source");
+        sourceRefWidget.setLabelExpression("源");
         sourceRefWidget.setReferenceNameExpression(SysmlPackage.eINSTANCE.getTransitionUsage_Source().getName());
         sourceRefWidget.setReferenceOwnerExpression(AQLConstants.AQL_SELF);
         sourceRefWidget.setIsEnabledExpression(AQL_NOT_SELF_IS_READ_ONLY);
@@ -689,9 +689,9 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
     private FormElementDescription createDocumentationWidget() {
         TextAreaDescription textarea = FormFactory.eINSTANCE.createTextAreaDescription();
         textarea.setName("DocumentationWidget");
-        textarea.setLabelExpression("Documentation");
+        textarea.setLabelExpression("文档");
         textarea.setValueExpression(ServiceMethod.of0(DetailsViewService::getDocumentation).aqlSelf());
-        textarea.setHelpExpression("Use 'shift + enter' to add new lines");
+        textarea.setHelpExpression("使用 Shift+Enter 添加新行");
         textarea.setIsEnabledExpression("aql:not(self.isReadOnly())");
         ChangeContext setNewValueOperation = ViewFactory.eINSTANCE.createChangeContext();
         setNewValueOperation.setExpression(ServiceMethod.of1(DetailsViewService::setNewDocumentationValue).aqlSelf(ViewFormDescriptionConverter.NEW_VALUE));
@@ -706,7 +706,7 @@ public class SysMLv2PropertiesConfigurer implements IPropertiesDescriptionRegist
     private FormElementDescription createCommentWidget() {
         TextAreaDescription textarea = FormFactory.eINSTANCE.createTextAreaDescription();
         textarea.setName("CommentWidget");
-        textarea.setLabelExpression("Comment");
+        textarea.setLabelExpression("注释");
         textarea.setValueExpression(ServiceMethod.of0(DetailsViewService::getCommentBody).aqlSelf());
         textarea.setHelpExpression("Use 'shift + enter' to add new lines");
         textarea.setIsEnabledExpression("aql:not(self.isReadOnly())");

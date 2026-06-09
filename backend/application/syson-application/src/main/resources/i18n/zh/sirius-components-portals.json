@@ -1,0 +1,14 @@
+{
+  "portal": {
+    "label": "门户",
+    "representationDoesNotExist": "该表示不存在",
+    "loading": "加载中..."
+  },
+  "portalConfigurationDialog": {
+    "title": "门户配置",
+    "view": "视图",
+    "selectView": "选择一个视图",
+    "cancel": "取消",
+    "save": "保存"
+  }
+}

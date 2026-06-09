@@ -1,0 +1,403 @@
+{
+  "createProjectArea": {
+    "createNewProject": "创建新项目"
+  },
+  "deleteImageModal": {
+    "content": "此操作将删除该图片，可能会破坏使用它的项目。此操作不可撤销。",
+    "submit": "删除",
+    "title": "删除图片"
+  },
+  "deleteProjectModal": {
+    "content": "此操作将删除项目中的所有内容。所有数据和所有表示都将丢失。此操作不可撤销。",
+    "submit": "删除",
+    "title": "删除项目 \"{{name}}\""
+  },
+  "diagramFilter": {
+    "filter": "过滤元素"
+  },
+  "downloadDocumentTreeItemContextMenuContribution": {
+    "download": "下载"
+  },
+  "duplicateObjectTreeItemContextMenuContribution": {
+    "duplicate": "复制对象"
+  },
+  "fileUpload": {
+    "clickToSelectFile": "点击此处选择文件"
+  },
+  "imageRow": {
+    "copyId": "复制 ID 到剪贴板"
+  },
+  "imageTable": {
+    "id": "ID",
+    "label": "标签",
+    "delete": "删除"
+  },
+  "listProjectsArea": {
+    "existingProjects": "已有项目"
+  },
+  "newDocumentArea": {
+    "createModel": "创建新模型",
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    },
+    "noAccessToCreateModel": "您需要编辑权限才能创建模型",
+    "selectModelToCreate": "选择要创建的模型"
+  },
+  "newDocumentModal": {
+    "modelType": {
+      "label": "模型类型"
+    },
+    "name": {
+      "helperText": "名称不能为空",
+      "label": "名称",
+      "placeholder": "输入模型名称"
+    },
+    "submit": "创建",
+    "title": "创建新模型"
+  },
+  "newDocumentModalContribution": {
+    "newModel": "新建模型"
+  },
+  "newObjectModal": {
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    },
+    "submit": "创建",
+    "title": "创建新对象",
+    "type": {
+      "label": "对象类型"
+    }
+  },
+  "newObjectTreeItemContextMenuContribution": {
+    "newObject": "新建对象"
+  },
+  "newProjectView": {
+    "description": "输入名称，并可选择使用模板和引用现有库来初始化您的项目",
+    "descriptionNameOnly": "输入名称",
+    "descriptionNameAndTemplate": "输入名称，并可选择使用模板来初始化您的项目",
+    "descriptionNameAndLibraries": "输入名称，并可选择引用现有库",
+    "submit": "创建项目",
+    "title": "创建新项目",
+    "projectDetails": "项目详情",
+    "projectDetailsDescription": "使用名称、模板和库来配置您的新项目",
+    "projectDetailsDescriptionNameOnly": "使用名称配置您的新项目",
+    "projectDetailsDescriptionNameAndTemplate": "使用名称和模板来配置您的新项目",
+    "projectDetailsDescriptionNameAndLibraries": "使用名称和库来配置您的新项目",
+    "name": "项目名称",
+    "nameTextfieldPlaceholder": "输入项目名称",
+    "nameTextfieldHelperText": "{{charCount}}/1024 个字符（最少 3 个）",
+    "projectTemplate": "项目模板",
+    "templatePlaceholder": "选择模板",
+    "templateHelperText": "选择一个模板以获得预定义的项目结构和初始内容",
+    "libraries": "库",
+    "librariesDescription": "搜索并选择将在您的项目中作为参考可用的库",
+    "optional": "可选",
+    "cancel": "取消"
+  },
+  "newRepresentationArea": {
+    "createRepresentation": "创建新表示",
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    },
+    "noAccessToCreateRepresentation": "您需要编辑权限才能创建表示",
+    "noRepresentations": "当前选择没有可用的表示",
+    "selectRepresentationToCreate": "选择要创建的表示"
+  },
+  "newRepresentationModal": {
+    "name": {
+      "helperText": "名称不能为空",
+      "label": "名称",
+      "placeholder": "输入表示名称"
+    },
+    "submit": "创建",
+    "title": "创建新表示",
+    "type": {
+      "label": "表示类型"
+    }
+  },
+  "newRepresentationTreeItemContextMenuContribution": {
+    "newRepresentation": "新建表示"
+  },
+  "newRootObjectModal": {
+    "domain": {
+      "label": "领域"
+    },
+    "submit": "创建",
+    "suggestedType": {
+      "label": "仅显示建议的根类型"
+    },
+    "title": "创建新根对象",
+    "type": {
+      "label": "对象类型"
+    }
+  },
+  "newRootObjectTreeItemContextMenuContribution": {
+    "newObject": "新建对象"
+  },
+  "projectActionButton": {
+    "more": "更多"
+  },
+  "projectImagesSettings": {
+    "empty": "没有可用的项目图片，请先上传一张",
+    "title": "项目图片",
+    "upload": "上传"
+  },
+  "projectTemplatesModal": {
+    "messages": {
+      "loading": "加载中..."
+    },
+    "selectProjectTemplate": "选择项目模板"
+  },
+  "renameImageModal": {
+    "name": {
+      "helperText": "名称必须至少包含 3 个字符",
+      "label": "名称",
+      "placeholder": "输入新的图片名称"
+    },
+    "submit": "重命名",
+    "title": "重命名图片"
+  },
+  "renameProjectModal": {
+    "name": {
+      "helperText": "名称为必填项，且必须少于 1024 个字符",
+      "label": "名称",
+      "placeholder": "输入新的项目名称"
+    },
+    "submit": "重命名",
+    "title": "重命名项目"
+  },
+  "representationsArea": {
+    "openRepresentation": "打开已有表示",
+    "selectRepresentationToOpen": "选择要打开的表示"
+  },
+  "uploadDocumentModal": {
+    "cancel": "关闭",
+    "title": "上传新模型"
+  },
+  "uploadDocumentModalContribution": {
+    "uploadModel": "上传模型"
+  },
+  "uploadImageModal": {
+    "label": {
+      "label": "标签",
+      "placeholder": "图片标签"
+    },
+    "submit": "上传",
+    "title": "上传新图片"
+  },
+  "uploadProjectView": {
+    "description": "从已有项目开始",
+    "submit": "上传",
+    "title": "上传项目"
+  },
+  "useCreateDocument": {
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    }
+  },
+  "useCreateProjectFromTemplate": {
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    }
+  },
+  "useDeleteProject": {
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    }
+  },
+  "useRenameProject": {
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    }
+  },
+  "navigationBarMenu": {
+    "libraries": "库",
+    "projects": "项目",
+    "help": "帮助"
+  },
+  "uploadProjectCard": {
+    "title": "+ 上传项目",
+    "description": "从已有项目开始"
+  },
+  "newProjectCard": {
+    "title": "+ 空白项目",
+    "description": "创建一个新的空白项目"
+  },
+  "showAllProjectTemplatesCard": {
+    "title": "显示所有模板",
+    "description": "显示所有项目模板"
+  },
+  "duplicateProjectMenuItem": {
+    "duplicate": "复制"
+  },
+  "downloadProjectMenuItem": {
+    "download": "下载"
+  },
+  "deleteProjectMenuItem": {
+    "delete": "删除"
+  },
+  "renameProjectMenuItem": {
+    "rename": "重命名"
+  },
+  "shareProjectMenuItem": {
+    "share": "分享"
+  },
+  "projectSettingsMenuItem": {
+    "settings": "设置"
+  },
+  "shareProjectModal": {
+    "title": "分享项目",
+    "copiedIntoClipboard": "（已复制到剪贴板）"
+  },
+  "projectsTable": {
+    "actions": "操作"
+  },
+  "useProjectsTableColumns": {
+    "name": "名称"
+  },
+  "cursorBasedPagination": {
+    "rowsPerPage": "每页行数："
+  },
+  "librariesImportTable": {
+    "name": "名称",
+    "version": "版本",
+    "createdOn": "创建日期",
+    "namespace": "命名空间",
+    "description": "描述"
+  },
+  "updateLibraryTable": {
+    "name": "名称",
+    "version": "版本",
+    "createdOn": "创建日期",
+    "namespace": "命名空间",
+    "description": "描述"
+  },
+  "libraryBrowserView": {
+    "libraries": "库"
+  },
+  "librariesTable": {
+    "name": "名称",
+    "version": "版本",
+    "createdOn": "创建日期",
+    "namespace": "命名空间",
+    "description": "描述"
+  },
+  "detailsView": {
+    "noObjectSelected": "未选择对象"
+  },
+  "synchronizationButton": {
+    "tooltipPinned": "已固定。点击以跟随全局选择。",
+    "tooltipUnpinned": "未固定。点击以将视图固定到当前选择。"
+  },
+  "searchQueryInput": {
+    "searchInAttributes": "在属性中搜索",
+    "searchInLibraries": "在库中搜索",
+    "search": "搜索",
+    "clearAll": "清除全部",
+    "matchCase": "区分大小写",
+    "matchWholeWord": "全词匹配",
+    "useRegularExpression": "使用正则表达式",
+    "clearText": "清除文本",
+    "launchSearchPlaceholder": "按 Ctrl+Enter 启动搜索"
+  },
+  "searchResults": {
+    "searchInProgress": "搜索进行中...",
+    "noSearchLaunchedYet": "尚未启动搜索。",
+    "resultsFor_one": "{{count}} 个关于 '{{query}}' 的结果",
+    "resultsFor_other": "{{count}} 个关于 '{{query}}' 的结果"
+  },
+  "matchRow": {
+    "iconOverlayAlt": "对象图标"
+  },
+  "ageIndicator": {
+    "lessThanAMinute": "不到一分钟",
+    "minutes": "{{minutes}}分钟",
+    "hours": "{{hours}}小时",
+    "days": "{{days}}天",
+    "performedAgo": "{{age}} 前执行"
+  },
+  "expressionArea": {
+    "expression": "表达式",
+    "executeExpression": "执行表达式",
+    "executeExpressionTooltip": "点击此按钮或在下方文本框获得焦点时按 {{key}} + Enter 来执行表达式",
+    "texfieldPlaceholder": "输入表达式以开始"
+  },
+  "objectExpressionResultViewer": {
+    "oneObjectReturned": "返回了一个对象",
+    "iconOverlayAlt": "对象图标"
+  },
+  "objectRow": {
+    "iconOverlayAlt": "对象图标"
+  },
+  "objectsExpressionResultViewer": {
+    "objectsReturned_one": "返回了包含 {{count}} 个对象的集合",
+    "objectsReturned_other": "返回了包含 {{count}} 个对象的集合"
+  },
+  "booleanExpressionResultViewer": {
+    "oneBooleanReturned": "返回了一个布尔值"
+  },
+  "stringsExpressionResultViewer": {
+    "stringsReturned_one": "返回了包含 {{count}} 个字符串的集合",
+    "stringsReturned_other": "返回了包含 {{count}} 个字符串的集合"
+  },
+  "stringExpressionResultViewer": {
+    "stringReturned": "返回了一个字符串"
+  },
+  "intExpressionResultViewer": {
+    "intReturned": "返回了一个整数"
+  },
+  "voidExpressionResultViewer": {
+    "voidReturned": "此表达式的评估未返回任何值"
+  },
+  "resultArea": {
+    "unsupportedResult": "不支持该表达式的结果",
+    "evaluationResult": "评估结果"
+  },
+  "exportResultButton": {
+    "exportAsCsv": "导出为 CSV"
+  },
+  "relatedViewsView": {
+    "noObjectSelected": "未选择对象"
+  },
+  "expandAllTreeItemContextMenuContribution": {
+    "expandAll": "展开全部"
+  },
+  "showInSection": {
+    "showInTarget": "在 {{target}} 中显示",
+    "showIn": "在...中显示",
+    "noAvailableTargets": "没有可用的目标"
+  },
+  "messageProvider": {
+    "unexpectedError": "发生意外错误，请联系服务器管理员获取更多信息",
+    "notFound": "您正在查找的内容未找到"
+  },
+  "errorView": {
+    "title": "错误 {{code}}",
+    "backToHomepage": "返回首页"
+  },
+  "navigationBarIcon": {
+    "backToHomepage": "返回首页"
+  },
+  "relatedElementsView": {
+    "noObjectSelected": "未选择对象"
+  },
+  "siriusWebFooter": {
+    "poweredBy": "技术支持"
+  },
+  "siriusWebManageVisibilityNodeAction": {
+    "manageVisibility": "管理可见性"
+  },
+  "projectGeneralSettingsView": {
+    "clientSettings": "此项目的客户端设置",
+    "enableConfirmationDialogs": "启用确认对话框",
+    "enableConfirmationDialogsDescription": "在删除项目或执行关键操作之前显示确认提示。此设置存储在您的浏览器中。",
+    "enableConfirmationDialogsTooltip": "启用后，在删除项目或执行其他不可撤销的关键操作之前，您将看到确认提示。",
+    "pageTitle": "设置",
+    "personalBadge": "个人",
+    "sectionDescription": "您的个人偏好——这些设置存储在您的浏览器中",
+    "title": "通用设置"
+  },
+  "viewsExplorerView": {
+    "noRepresentation": "没有可用的表示"
+  }
+}
