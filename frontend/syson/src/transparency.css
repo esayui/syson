@@ -1,0 +1,40 @@
+/*******************************************************************************
+ * Transparency overrides for specific MUI components.
+ *******************************************************************************/
+
+/* Toolbar: 80% opacity - all possible selectors */
+[class*="MuiToolbar-root"] {
+  background-color: rgba(2, 6, 23, 0.8) !important;
+  backdrop-filter: none !important;
+}
+[class*="MuiToolbar-root"] > *,
+[class*="MuiToolbar-root"] * {
+  background-color: transparent !important;
+}
+
+/* Paper */
+.MuiPaper-elevation2:not([class*="MuiMenu"]):not([class*="MuiPopover"]) {
+  background-color: rgba(17, 24, 39, 0.8) !important;
+}
+.MuiPaper-elevation2:not([class*="MuiMenu"]) * {
+  background-color: transparent !important;
+}
+
+/* Paper elevation2: 80% opacity */
+.MuiPaper-elevation2 {
+  background-color: rgba(17, 24, 39, 0.8) !important;
+}
+.MuiPaper-elevation2 * {
+  background-color: transparent !important;
+}
+
+/* Text primary button: neutral dark bg */
+.MuiButton-textPrimary {
+  background-color: rgba(17, 24, 39, 0.8) !important;
+}
+.MuiButton-textPrimary:hover {
+  background-color: rgba(17, 24, 39, 0.9) !important;
+}
+.MuiButton-textPrimary * {
+  background-color: transparent !important;
+}

@@ -38,11 +38,11 @@ export const SysONFooter = ({}: FooterProps) => {
     <footer className={classes.footer}>
       <Tooltip title={commitHash}>
         <Typography variant="caption">
-          &copy; {new Date().getFullYear()} Obeo. SysON v{appVersion}. Powered by&nbsp;
+          &copy; 2026 ModelingTool v2026.1.0. Powered by&nbsp;
         </Typography>
       </Tooltip>
       <Link variant="caption" href="https://www.eclipse.dev/sirius" rel="noopener noreferrer" target="_blank">
-        Sirius Web
+        RenGu
       </Link>
     </footer>
   );

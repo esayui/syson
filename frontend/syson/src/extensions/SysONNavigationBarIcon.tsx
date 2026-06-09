@@ -36,7 +36,7 @@ export const useNavigationBarIconStyles = makeStyles()((theme: Theme) => ({
 export const SysONNavigationBarIcon = ({}: NavigationBarIconProps) => {
   const { classes } = useNavigationBarIconStyles();
   return (
-    <Tooltip title="Back to the homepage">
+    <Tooltip title="返回首页">
       <Link component={RouterLink} to="/" className={classes.link} color="inherit">
         <IconButton className={classes.onDarkBackground} color="inherit">
           <SysONIcon />

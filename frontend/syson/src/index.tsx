@@ -26,6 +26,7 @@ import {
 } from '@eclipse-syson/syson-components';
 import { createRoot } from 'react-dom/client';
 
+import { HomepageBackground } from './background/HomepageBackground';
 import { httpOrigin, wsOrigin } from './core/URL';
 import { SysONFooter } from './extensions/SysONFooter';
 import { SysONNavigationBarIcon } from './extensions/SysONNavigationBarIcon';
@@ -34,6 +35,7 @@ import { sysonTheme } from './theme/sysonTheme';
 import './fonts.css';
 import './ReactFlow.css';
 import './reset.css';
+import './transparency.css';
 import './variables.css';
 
 if (process.env.NODE_ENV !== 'production') {
@@ -59,12 +61,17 @@ sysONExtensionRegistry.addComponent(footerExtensionPoint, {
 const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
-  <SiriusWebApplication
-    httpOrigin={httpOrigin}
-    wsOrigin={wsOrigin}
-    theme={sysonTheme}
-    extensionRegistryMergeStrategy={new SysONExtensionRegistryMergeStrategy()}
-    extensionRegistry={sysONExtensionRegistry}>
-    <DiagramRepresentationConfiguration nodeTypeRegistry={sysONNodeTypeRegistry} />
-  </SiriusWebApplication>
+  <>
+    <HomepageBackground />
+    <div style={{ position: 'relative', zIndex: 1 }}>
+      <SiriusWebApplication
+        httpOrigin={httpOrigin}
+        wsOrigin={wsOrigin}
+        theme={sysonTheme}
+        extensionRegistryMergeStrategy={new SysONExtensionRegistryMergeStrategy()}
+        extensionRegistry={sysONExtensionRegistry}>
+        <DiagramRepresentationConfiguration nodeTypeRegistry={sysONNodeTypeRegistry} />
+      </SiriusWebApplication>
+    </div>
+  </>
 );
