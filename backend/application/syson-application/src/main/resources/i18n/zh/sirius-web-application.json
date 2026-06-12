@@ -8,7 +8,7 @@
     "title": "删除图片"
   },
   "deleteProjectModal": {
-    "content": "此操作将删除项目中的所有内容。所有数据和所有表示都将丢失。此操作不可撤销。",
+    "content": "此操作将删除项目中的所有内容。所有数据和所有视图都将丢失。此操作不可撤销。",
     "submit": "删除",
     "title": "删除项目 \"{{name}}\""
   },
@@ -95,28 +95,28 @@
     "cancel": "取消"
   },
   "newRepresentationArea": {
-    "createRepresentation": "创建新表示",
+    "createRepresentation": "创建新视图",
     "errors": {
       "unexpected": "发生意外错误，请刷新页面"
     },
-    "noAccessToCreateRepresentation": "您需要编辑权限才能创建表示",
-    "noRepresentations": "当前选择没有可用的表示",
-    "selectRepresentationToCreate": "选择要创建的表示"
+    "noAccessToCreateRepresentation": "您需要编辑权限才能创建视图",
+    "noRepresentations": "当前选择没有可用的视图",
+    "selectRepresentationToCreate": "选择要创建的视图"
   },
   "newRepresentationModal": {
     "name": {
       "helperText": "名称不能为空",
       "label": "名称",
-      "placeholder": "输入表示名称"
+      "placeholder": "输入视图名称"
     },
     "submit": "创建",
-    "title": "创建新表示",
+    "title": "创建新视图",
     "type": {
       "label": "表示类型"
     }
   },
   "newRepresentationTreeItemContextMenuContribution": {
-    "newRepresentation": "新建表示"
+    "newRepresentation": "新建视图"
   },
   "newRootObjectModal": {
     "domain": {
@@ -167,8 +167,8 @@
     "title": "重命名项目"
   },
   "representationsArea": {
-    "openRepresentation": "打开已有表示",
-    "selectRepresentationToOpen": "选择要打开的表示"
+    "openRepresentation": "打开已有视图",
+    "selectRepresentationToOpen": "选择要打开的视图"
   },
   "uploadDocumentModal": {
     "cancel": "关闭",
@@ -398,6 +398,6 @@
     "title": "通用设置"
   },
   "viewsExplorerView": {
-    "noRepresentation": "没有可用的表示"
+    "noRepresentation": "没有可用的视图"
   }
 }

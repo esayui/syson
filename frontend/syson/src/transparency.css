@@ -2,14 +2,48 @@
  * Transparency overrides for specific MUI components.
  *******************************************************************************/
 
-/* Toolbar: 80% opacity - all possible selectors */
-[class*="MuiToolbar-root"] {
-  background-color: rgba(2, 6, 23, 0.8) !important;
-  backdrop-filter: none !important;
-}
-[class*="MuiToolbar-root"] > *,
-[class*="MuiToolbar-root"] * {
+/* Toolbar - homepage: transparent; project: dark bg */
+body.on-homepage [class*="MuiToolbar-root"] {
   background-color: transparent !important;
+}
+body.on-homepage [class*="MuiToolbar-root"] * {
+  background-color: transparent !important;
+}
+/* Toolbar in project views */
+body:not(.on-homepage) [class*="MuiToolbar-root"] {
+  background-color: rgb(22, 34, 66) !important;
+}
+
+/* Card actions */
+[class*="MuiCardActions-root"] {
+  background-color: rgb(22, 34, 66) !important;
+}
+[class*="MuiCardActions-root"] * {
+  background-color: transparent !important;
+}
+
+/* Project workspace background */
+[class*="viewSelector"],
+[class*="-container"][data-testid],
+.react-flow__background {
+  background-color: rgb(25, 40, 79) !important;
+}
+
+/* View content and card content - dark purple */
+[class*="viewContent"],
+.MuiCardContent-root,
+[class$="-view"][data-testid] {
+  background-color: rgb(22, 34, 66) !important;
+}
+[class*="viewContent"] *,
+.MuiCardContent-root * {
+  background-color: transparent !important;
+}
+
+/* Paper elevation1 & tabs */
+.MuiPaper-elevation1,
+[class*="MuiTabs-root"] {
+  background-color: rgb(22, 34, 66) !important;
 }
 
 /* Paper */

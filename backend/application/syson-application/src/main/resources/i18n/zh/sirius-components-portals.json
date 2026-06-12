@@ -1,7 +1,7 @@
 {
   "portal": {
     "label": "门户",
-    "representationDoesNotExist": "该表示不存在",
+    "representationDoesNotExist": "该视图不存在",
     "loading": "加载中..."
   },
   "portalConfigurationDialog": {

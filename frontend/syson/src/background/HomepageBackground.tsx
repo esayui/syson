@@ -11,8 +11,13 @@ export const HomepageBackground = () => {
     const timer = setInterval(() => {
       const inProject = location.pathname.includes('/projects/');
       setShow(!inProject);
+      document.body.classList.toggle('on-homepage', !inProject);
     }, 500);
-    return () => clearInterval(timer);
+    document.body.classList.add('on-homepage');
+    return () => {
+      clearInterval(timer);
+      document.body.classList.remove('on-homepage');
+    };
   }, []);
 
   if (!show) return null;
