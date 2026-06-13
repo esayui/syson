@@ -1072,5 +1072,11 @@ public class UtilService {
         return isUnsynchronized;
     }
 
+    /**
+     * Checks if an element has the DoDAF marker alias, indicating it belongs to a DoDAF template.
+     */
+    public boolean isDodafNode(Element element) {
+        return element.getAliasIds().contains("dodaf:node");
+    }
 
 }

@@ -64,6 +64,11 @@ public interface SysMLCustomnodesFactory extends EFactory {
      * @generated
      */
     SysMLViewFrameNodeStyleDescription createSysMLViewFrameNodeStyleDescription();
+    DodafOperationalNodeStyleDescription createDodafOperationalNodeStyleDescription();
+    DodafSystemNodeStyleDescription createDodafSystemNodeStyleDescription();
+    DodafCapabilityStyleDescription createDodafCapabilityStyleDescription();
+    DodafOrganizationStyleDescription createDodafOrganizationStyleDescription();
+    DodafInformationExchangeStyleDescription createDodafInformationExchangeStyleDescription();
 
     /**
      * Returns the package supported by this factory. <!-- begin-user-doc --> <!-- end-user-doc -->

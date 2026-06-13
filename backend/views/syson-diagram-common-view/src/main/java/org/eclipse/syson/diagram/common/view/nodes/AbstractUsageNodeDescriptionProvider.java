@@ -33,8 +33,11 @@ import org.eclipse.sirius.components.view.diagram.LabelTextAlign;
 import org.eclipse.sirius.components.view.diagram.ListLayoutStrategyDescription;
 import org.eclipse.sirius.components.view.diagram.NodeDescription;
 import org.eclipse.sirius.components.view.diagram.NodePalette;
+import org.eclipse.sirius.components.view.diagram.ConditionalNodeStyle;
 import org.eclipse.sirius.components.view.diagram.NodeStyleDescription;
 import org.eclipse.sirius.components.view.diagram.NodeTool;
+import org.eclipse.syson.sysmlcustomnodes.SysMLCustomnodesFactory;
+import org.eclipse.syson.util.ServiceMethod;
 import org.eclipse.sirius.components.view.diagram.NodeToolSection;
 import org.eclipse.sirius.components.view.diagram.OutsideLabelDescription;
 import org.eclipse.sirius.components.view.diagram.SynchronizationPolicy;
@@ -177,6 +180,10 @@ public abstract class AbstractUsageNodeDescriptionProvider extends AbstractNodeD
                 .semanticCandidatesExpression(this.getSemanticCandidatesExpression(domainType))
                 .preconditionExpression(this.createPreconditionExpression())
                 .style(this.createUsageNodeStyle())
+                .conditionalStyles(this.diagramBuilderHelper.newConditionalNodeStyle()
+                        .condition(ServiceMethod.of0(UtilService::isDodafNode).aqlSelf())
+                        .style(SysMLCustomnodesFactory.eINSTANCE.createDodafOperationalNodeStyleDescription())
+                        .build())
                 .userResizable(UserResizableDirection.BOTH)
                 .synchronizationPolicy(SynchronizationPolicy.SYNCHRONIZED);
         if (this.precondition != null) {

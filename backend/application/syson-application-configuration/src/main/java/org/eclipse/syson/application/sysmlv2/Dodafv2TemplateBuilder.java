@@ -112,9 +112,9 @@ public class Dodafv2TemplateBuilder {
     private org.eclipse.syson.sysml.Element add(org.eclipse.syson.sysml.Namespace p,org.eclipse.syson.sysml.Element c){var m=SysmlFactory.eINSTANCE.createOwningMembership();p.getOwnedRelationship().add(m);m.getOwnedRelatedElement().add(c);return c;}
     private org.eclipse.syson.sysml.Package pkg(org.eclipse.syson.sysml.Package parent,String n){var p=SysmlFactory.eINSTANCE.createPackage();p.setDeclaredName(n);p.setElementId(uuid(p));if(parent!=null)add(parent,p);return p;}
     private org.eclipse.syson.sysml.ViewUsage vu(org.eclipse.syson.sysml.Namespace p,String n){var v=SysmlFactory.eINSTANCE.createViewUsage();v.setDeclaredName(n);v.setElementId(uuid(v));add(p,v);return v;}
-    private org.eclipse.syson.sysml.PartDefinition pd(String n){var e=SysmlFactory.eINSTANCE.createPartDefinition();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
-    private org.eclipse.syson.sysml.PartUsage pu(String n){var e=SysmlFactory.eINSTANCE.createPartUsage();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
-    private org.eclipse.syson.sysml.ActionUsage ac(String n){var e=SysmlFactory.eINSTANCE.createActionUsage();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
+    private org.eclipse.syson.sysml.PartDefinition pd(String n){var e=SysmlFactory.eINSTANCE.createPartDefinition();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
+    private org.eclipse.syson.sysml.PartUsage pu(String n){var e=SysmlFactory.eINSTANCE.createPartUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
+    private org.eclipse.syson.sysml.ActionUsage ac(String n){var e=SysmlFactory.eINSTANCE.createActionUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
 private org.eclipse.syson.sysml.DecisionNode dn(){var e=SysmlFactory.eINSTANCE.createDecisionNode();e.setElementId(uuid(e));return e;}
 private org.eclipse.syson.sysml.ForkNode fk(){var e=SysmlFactory.eINSTANCE.createForkNode();e.setElementId(uuid(e));return e;}
 private org.eclipse.syson.sysml.JoinNode jn(){var e=SysmlFactory.eINSTANCE.createJoinNode();e.setElementId(uuid(e));return e;}

@@ -72,6 +72,11 @@ public class SysMLCustomnodesFactoryImpl extends EFactoryImpl implements SysMLCu
                 return this.createSysMLImportedPackageNodeStyleDescription();
             case SysMLCustomnodesPackage.SYS_ML_VIEW_FRAME_NODE_STYLE_DESCRIPTION:
                 return this.createSysMLViewFrameNodeStyleDescription();
+            case 4: return this.createDodafOperationalNodeStyleDescription();
+            case 5: return this.createDodafSystemNodeStyleDescription();
+            case 6: return this.createDodafCapabilityStyleDescription();
+            case 7: return this.createDodafOrganizationStyleDescription();
+            case 8: return this.createDodafInformationExchangeStyleDescription();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -120,6 +125,11 @@ public class SysMLCustomnodesFactoryImpl extends EFactoryImpl implements SysMLCu
         SysMLViewFrameNodeStyleDescriptionImpl sysMLViewFrameNodeStyleDescription = new SysMLViewFrameNodeStyleDescriptionImpl();
         return sysMLViewFrameNodeStyleDescription;
     }
+    @Override public DodafOperationalNodeStyleDescription createDodafOperationalNodeStyleDescription() { return new DodafOperationalNodeStyleDescriptionImpl(); }
+    @Override public DodafSystemNodeStyleDescription createDodafSystemNodeStyleDescription() { return new DodafSystemNodeStyleDescriptionImpl(); }
+    @Override public DodafCapabilityStyleDescription createDodafCapabilityStyleDescription() { return new DodafCapabilityStyleDescriptionImpl(); }
+    @Override public DodafOrganizationStyleDescription createDodafOrganizationStyleDescription() { return new DodafOrganizationStyleDescriptionImpl(); }
+    @Override public DodafInformationExchangeStyleDescription createDodafInformationExchangeStyleDescription() { return new DodafInformationExchangeStyleDescriptionImpl(); }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
