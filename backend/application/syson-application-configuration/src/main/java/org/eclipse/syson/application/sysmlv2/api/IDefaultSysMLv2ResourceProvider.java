@@ -30,4 +30,8 @@ public interface IDefaultSysMLv2ResourceProvider {
     Resource getDefaultSysMLv2LibraryResource(UUID resourcePath, String name);
 
     void loadBatmobileResource(Resource resource);
+
+    Resource getDodafv2LibraryResource(UUID resourcePath, String name);
+
+    Resource getDodafv2ProjectResource(UUID resourcePath, String name);
 }

@@ -107,4 +107,16 @@ public class SysONDefaultResourceProvider implements IDefaultSysMLv2ResourceProv
             this.logger.warn(exception.getMessage(), exception);
         }
     }
+
+    @Override
+    public Resource getDodafv2LibraryResource(UUID resourcePath, String name) {
+        var resource = this.getEmptyResource(resourcePath, name);
+        return new Dodafv2TemplateBuilder().buildLibraryResource(resource);
+    }
+
+    @Override
+    public Resource getDodafv2ProjectResource(UUID resourcePath, String name) {
+        var resource = this.getEmptyResource(resourcePath, name);
+        return new Dodafv2TemplateBuilder().buildProjectResource(resource);
+    }
 }

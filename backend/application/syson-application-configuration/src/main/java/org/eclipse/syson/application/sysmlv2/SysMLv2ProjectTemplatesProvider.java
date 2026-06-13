@@ -33,18 +33,28 @@ public class SysMLv2ProjectTemplatesProvider implements IProjectTemplateProvider
 
     public static final String BATMOBILE_TEMPLATE_ID = "batmobile-template";
 
+    public static final String DODAFV2_LIBRARY_TEMPLATE_ID = "dodafv2-library-template";
+
+    public static final String DODAFV2_PROJECT_TEMPLATE_ID = "dodafv2-project-template";
+
     public static final String SYSMLV2_LIBRARY_TEMPLATE_NAME = "SysMLv2-Library";
 
     public static final String SYSMLV2_TEMPLATE_NAME = "SysMLv2";
 
     public static final String BATMOBILE_TEMPLATE_NAME = "Batmobile";
 
+    public static final String DODAFV2_LIBRARY_TEMPLATE_NAME = "DoDAFv2-Library";
+
+    public static final String DODAFV2_PROJECT_TEMPLATE_NAME = "DoDAFv2-Project";
+
     @Override
     public List<ProjectTemplate> getProjectTemplates() {
         var sysmlv2LibraryTemplate = new ProjectTemplate(SYSMLV2_LIBRARY_TEMPLATE_ID, SYSMLV2_LIBRARY_TEMPLATE_NAME, "/images/sysmlv2-logo.png", List.of());
         var sysmlv2Template = new ProjectTemplate(SYSMLV2_TEMPLATE_ID, SYSMLV2_TEMPLATE_NAME, "/images/sysmlv2-logo.png", List.of());
         var batmobileTemplate = new ProjectTemplate(BATMOBILE_TEMPLATE_ID, BATMOBILE_TEMPLATE_NAME, "/images/sysmlv2-logo.png", List.of());
-        return List.of(sysmlv2LibraryTemplate, sysmlv2Template, batmobileTemplate);
+        var dodafv2LibraryTemplate = new ProjectTemplate(DODAFV2_LIBRARY_TEMPLATE_ID, DODAFV2_LIBRARY_TEMPLATE_NAME, "/images/sysmlv2-logo.png", List.of());
+        var dodafv2ProjectTemplate = new ProjectTemplate(DODAFV2_PROJECT_TEMPLATE_ID, DODAFV2_PROJECT_TEMPLATE_NAME, "/images/sysmlv2-logo.png", List.of());
+        return List.of(sysmlv2LibraryTemplate, sysmlv2Template, batmobileTemplate, dodafv2LibraryTemplate, dodafv2ProjectTemplate);
     }
 
 }
