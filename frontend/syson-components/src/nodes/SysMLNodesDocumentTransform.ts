@@ -117,6 +117,18 @@ export const sysMLNodesStyleDocumentTransform = new DocumentTransform((document)
           },
         };
 
+        const dodafOperationalNodeStyleInlineFragment: InlineFragmentNode = {
+          kind: Kind.INLINE_FRAGMENT,
+          selectionSet: {
+            kind: Kind.SELECTION_SET,
+            selections: [borderColorField, borderSizeField, borderStyleField, backgroundField],
+          },
+          typeCondition: {
+            kind: Kind.NAMED_TYPE,
+            name: { kind: Kind.NAME, value: 'DodafOperationalNodeStyle' },
+          },
+        };
+
         const sysMLNoteNodeStyleInlineFragment: InlineFragmentNode = {
           kind: Kind.INLINE_FRAGMENT,
           selectionSet: {
@@ -155,6 +167,7 @@ export const sysMLNodesStyleDocumentTransform = new DocumentTransform((document)
               ...selections,
               sysMLPackageNodeStyleInlineFragment,
               sysMLImportedPackageNodeStyleInlineFragment,
+              dodafOperationalNodeStyleInlineFragment,
               sysMLNoteNodeStyleInlineFragment,
               sysMLViewFrameNodeStyleInlineFragment,
             ],

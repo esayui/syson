@@ -109,4 +109,11 @@ extend type Mutation {
   editSysMLImportedPackageNodeAppearance(input: EditSysMLImportedPackageNodeAppearanceInput!): EditSysMLImportedPackageNodeAppearancePayload!
   editSysMLNoteNodeAppearance(input: EditSysMLNoteNodeAppearanceInput!): EditSysMLNoteNodeAppearancePayload!
   editSysMLViewFrameNodeAppearance(input: EditSysMLViewFrameNodeAppearanceInput!): EditSysMLViewFrameNodeAppearancePayload!
+  editDodafOperationalNodeAppearance(input: EditDodafOperationalNodeAppearanceInput!): EditDodafOperationalNodeAppearancePayload!
 }
+
+extend union INodeStyle = DodafOperationalNodeStyle
+type DodafOperationalNodeStyle { borderColor: String! borderSize: Int! borderStyle: LineStyle! background: String! }
+input DodafOperationalNodeAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
+input EditDodafOperationalNodeAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafOperationalNodeAppearanceInput! }
+union EditDodafOperationalNodeAppearancePayload = ErrorPayload | SuccessPayload

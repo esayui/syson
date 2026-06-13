@@ -27,6 +27,9 @@ import { SysMLPackageNodeLayoutHandler } from '../../nodes/package/SysMLPackageN
 import { SysMLViewFrameNode } from '../../nodes/view_frame/SysMLViewFrameNode';
 import { SysMLViewFrameNodeConverter } from '../../nodes/view_frame/SysMLViewFrameNodeConverter';
 import { SysMLViewFrameNodeLayoutHandler } from '../../nodes/view_frame/SysMLViewFrameNodeLayoutHandler';
+import { DodafOperationalNode } from '../../nodes/dodaf_operational_node/DodafOperationalNode';
+import { DodafOperationalNodeConverter } from '../../nodes/dodaf_operational_node/DodafOperationalNodeConverter';
+import { DodafOperationalNodeLayoutHandler } from '../../nodes/dodaf_operational_node/DodafOperationalNodeLayoutHandler';
 
 /*******************************************************************************
  *
@@ -39,12 +42,14 @@ const sysONNodeTypeRegistry: NodeTypeRegistry = {
     new SysMLNoteNodeLayoutHandler(),
     new SysMLImportedPackageNodeLayoutHandler(),
     new SysMLViewFrameNodeLayoutHandler(),
+    new DodafOperationalNodeLayoutHandler(),
   ],
   nodeConverters: [
     new SysMLPackageNodeConverter(),
     new SysMLNoteNodeConverter(),
     new SysMLImportedPackageNodeConverter(),
     new SysMLViewFrameNodeConverter(),
+    new DodafOperationalNodeConverter(),
   ],
   nodeTypeContributions: [
     <NodeTypeContribution component={SysMLPackageNode as unknown as React.FC<NodeProps>} type={'sysMLPackageNode'} />,
@@ -56,6 +61,10 @@ const sysONNodeTypeRegistry: NodeTypeRegistry = {
     <NodeTypeContribution
       component={SysMLViewFrameNode as unknown as React.FC<NodeProps>}
       type={'sysMLViewFrameNode'}
+    />,
+    <NodeTypeContribution
+      component={DodafOperationalNode as unknown as React.FC<NodeProps>}
+      type={'dodafOperationalNode'}
     />,
   ],
 };
