@@ -110,6 +110,10 @@ extend type Mutation {
   editSysMLNoteNodeAppearance(input: EditSysMLNoteNodeAppearanceInput!): EditSysMLNoteNodeAppearancePayload!
   editSysMLViewFrameNodeAppearance(input: EditSysMLViewFrameNodeAppearanceInput!): EditSysMLViewFrameNodeAppearancePayload!
   editDodafOperationalNodeAppearance(input: EditDodafOperationalNodeAppearanceInput!): EditDodafOperationalNodeAppearancePayload!
+  editDodafSystemNodeAppearance(input: EditDodafSystemNodeAppearanceInput!): EditDodafSystemNodeAppearancePayload!
+  editDodafCapabilityAppearance(input: EditDodafCapabilityAppearanceInput!): EditDodafCapabilityAppearancePayload!
+  editDodafOrganizationAppearance(input: EditDodafOrganizationAppearanceInput!): EditDodafOrganizationAppearancePayload!
+  editDodafInformationExchangeAppearance(input: EditDodafInformationExchangeAppearanceInput!): EditDodafInformationExchangeAppearancePayload!
 }
 
 extend union INodeStyle = DodafOperationalNodeStyle
@@ -117,3 +121,27 @@ type DodafOperationalNodeStyle { borderColor: String! borderSize: Int! borderSty
 input DodafOperationalNodeAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
 input EditDodafOperationalNodeAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafOperationalNodeAppearanceInput! }
 union EditDodafOperationalNodeAppearancePayload = ErrorPayload | SuccessPayload
+
+extend union INodeStyle = DodafSystemNodeStyle
+type DodafSystemNodeStyle { borderColor: String! borderSize: Int! borderStyle: LineStyle! background: String! }
+input DodafSystemNodeAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
+input EditDodafSystemNodeAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafSystemNodeAppearanceInput! }
+union EditDodafSystemNodeAppearancePayload = ErrorPayload | SuccessPayload
+
+extend union INodeStyle = DodafCapabilityStyle
+type DodafCapabilityStyle { borderColor: String! borderSize: Int! borderStyle: LineStyle! background: String! }
+input DodafCapabilityAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
+input EditDodafCapabilityAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafCapabilityAppearanceInput! }
+union EditDodafCapabilityAppearancePayload = ErrorPayload | SuccessPayload
+
+extend union INodeStyle = DodafOrganizationStyle
+type DodafOrganizationStyle { borderColor: String! borderSize: Int! borderStyle: LineStyle! background: String! }
+input DodafOrganizationAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
+input EditDodafOrganizationAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafOrganizationAppearanceInput! }
+union EditDodafOrganizationAppearancePayload = ErrorPayload | SuccessPayload
+
+extend union INodeStyle = DodafInformationExchangeStyle
+type DodafInformationExchangeStyle { borderColor: String! borderSize: Int! borderStyle: LineStyle! background: String! }
+input DodafInformationExchangeAppearanceInput { background: String borderColor: String borderSize: Int borderStyle: LineStyle }
+input EditDodafInformationExchangeAppearanceInput { id: ID! editingContextId: ID! representationId: ID! nodeIds: [ID!]! appearance: DodafInformationExchangeAppearanceInput! }
+union EditDodafInformationExchangeAppearancePayload = ErrorPayload | SuccessPayload

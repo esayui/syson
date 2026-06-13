@@ -129,6 +129,16 @@ export const sysMLNodesStyleDocumentTransform = new DocumentTransform((document)
           },
         };
 
+        const mkFragment = (name: string): InlineFragmentNode => ({
+          kind: Kind.INLINE_FRAGMENT,
+          selectionSet: { kind: Kind.SELECTION_SET, selections: [borderColorField, borderSizeField, borderStyleField, backgroundField] },
+          typeCondition: { kind: Kind.NAMED_TYPE, name: { kind: Kind.NAME, value: name } },
+        });
+        const dodafSystemNodeStyleInlineFragment = mkFragment('DodafSystemNodeStyle');
+        const dodafCapabilityStyleInlineFragment = mkFragment('DodafCapabilityStyle');
+        const dodafOrganizationStyleInlineFragment = mkFragment('DodafOrganizationStyle');
+        const dodafInformationExchangeStyleInlineFragment = mkFragment('DodafInformationExchangeStyle');
+
         const sysMLNoteNodeStyleInlineFragment: InlineFragmentNode = {
           kind: Kind.INLINE_FRAGMENT,
           selectionSet: {
@@ -168,6 +178,10 @@ export const sysMLNodesStyleDocumentTransform = new DocumentTransform((document)
               sysMLPackageNodeStyleInlineFragment,
               sysMLImportedPackageNodeStyleInlineFragment,
               dodafOperationalNodeStyleInlineFragment,
+              dodafSystemNodeStyleInlineFragment,
+              dodafCapabilityStyleInlineFragment,
+              dodafOrganizationStyleInlineFragment,
+              dodafInformationExchangeStyleInlineFragment,
               sysMLNoteNodeStyleInlineFragment,
               sysMLViewFrameNodeStyleInlineFragment,
             ],
