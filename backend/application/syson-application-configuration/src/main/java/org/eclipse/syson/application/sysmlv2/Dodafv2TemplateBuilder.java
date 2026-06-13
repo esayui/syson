@@ -74,7 +74,8 @@ public class Dodafv2TemplateBuilder {
         var detNode = this.addChild(ov2, this.createPartUsage("探测节点"));
         var atkNode = this.addChild(ov2, this.createPartUsage("攻击节点"));
 
-        // Flow: 探测 -> 指挥
+        // OV-2 flows
+        this.createDependency(ov2, detNode, cmdNode);
 
         var ov4 = this.createViewUsage(ovPkg, "OV-4_组织结构图");
         var jtCmd = this.addChild(ov4, this.createPartUsage("联合反潜指挥部"));
@@ -90,7 +91,10 @@ public class Dodafv2TemplateBuilder {
         var attack = this.addChild(ov5a, this.createActionUsage("攻击决策"));
         var eval = this.addChild(ov5a, this.createActionUsage("效果评估"));
         var support = this.addChild(ov5a, this.createActionUsage("战场保障"));
-        // Succession flow: 搜索探测 -> 识别跟踪 -> 攻击决策 -> 效果评估
+        // OV-5a succession flows
+        this.createSuccession(ov5a, detect, track);
+        this.createSuccession(ov5a, track, attack);
+        this.createSuccession(ov5a, attack, eval);
 
         // SV
         var svPkg = this.createPackage(rootPkg, "SV_系统视角");
@@ -101,13 +105,23 @@ public class Dodafv2TemplateBuilder {
         var comm = this.addChild(sv1, this.createPartDef("通信系统"));
         var nav = this.addChild(sv1, this.createPartDef("导航系统"));
         var ums = this.addChild(sv1, this.createPartDef("无人系统"));
-        // Dependencies: 声呐 -> 指控, 指控 -> 武器, 通信 -> 指控
+        // SV-1 system interface dependencies
+        this.createDependency(sv1, sonar, c2);
+        this.createDependency(sv1, c2, weapon);
+        this.createDependency(sv1, comm, c2);
+        this.createDependency(sv1, nav, c2);
+        this.createDependency(sv1, ums, c2);
 
         var sv4 = this.createViewUsage(svPkg, "SV-4_系统功能描述");
         var sig = this.addChild(sv4, this.createActionUsage("声学信号处理"));
         var tma = this.addChild(sv4, this.createActionUsage("目标运动分析"));
         var fc = this.addChild(sv4, this.createActionUsage("火控解算"));
         var df = this.addChild(sv4, this.createActionUsage("数据融合"));
+
+        // SV-4 succession flows
+        this.createSuccession(sv4, sig, tma);
+        this.createSuccession(sv4, tma, fc);
+        this.createSuccession(sv4, fc, df);
 
         var sv5a = this.createViewUsage(svPkg, "SV-5a_作战活动-系统功能追溯");
 
@@ -177,5 +191,23 @@ public class Dodafv2TemplateBuilder {
         c.setBody(body);
         c.setElementId(ElementUtil.generateUUID(c).toString());
         this.addChild(parent, c);
+    }
+
+    // --- Relationships ---
+
+    private void createDependency(org.eclipse.syson.sysml.Namespace parent, org.eclipse.syson.sysml.Element client, org.eclipse.syson.sysml.Element supplier) {
+        var dep = SysmlFactory.eINSTANCE.createDependency();
+        dep.setElementId(ElementUtil.generateUUID(dep).toString());
+        dep.getClient().add(client);
+        dep.getSupplier().add(supplier);
+        this.addChild(parent, dep);
+    }
+
+    private void createSuccession(org.eclipse.syson.sysml.Namespace parent, org.eclipse.syson.sysml.Element source, org.eclipse.syson.sysml.Element target) {
+        var succ = SysmlFactory.eINSTANCE.createSuccessionAsUsage();
+        succ.setElementId(ElementUtil.generateUUID(succ).toString());
+        succ.getSource().add(source);
+        succ.getTarget().add(target);
+        this.addChild(parent, succ);
     }
 }
