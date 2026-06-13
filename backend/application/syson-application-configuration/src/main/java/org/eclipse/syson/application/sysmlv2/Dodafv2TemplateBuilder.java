@@ -47,7 +47,26 @@ public class Dodafv2TemplateBuilder {
         {var v=vu(ov,"OV-3_作战资源流矩阵");var a=pu("探测→指挥数据流");add(v,a);var b=pu("指挥→攻击指令流");add(v,b);dep(v,a,b);}
         {var v=vu(ov,"OV-4_组织结构图");var a=pu("联合反潜指挥部");add(v,a);var b=pu("水面作战群");add(v,b);var c=pu("航空反潜大队");add(v,c);var d=pu("水下无人系统分队");add(v,d);dep(v,b,a);dep(v,c,a);dep(v,d,a);}
         {var v=vu(ov,"OV-5a_作战活动分解树");var a=ac("反潜作战");add(v,a);var b=ac("搜索探测");add(v,b);var c=ac("识别跟踪");add(v,c);var d=ac("攻击决策");add(v,d);var e=ac("效果评估");add(v,e);var f=ac("战场保障");add(v,f);dep(v,a,b);dep(v,a,c);dep(v,a,d);dep(v,a,e);dep(v,a,f);dep(v,b,c);dep(v,c,d);dep(v,d,e);}
-        {var v=vu(ov,"OV-5b_作战活动模型");var a=ac("反潜作战指挥");add(v,a);var b=ac("接收声呐数据");add(v,b);var c=ac("目标分析与识别");add(v,c);var d=ac("制定攻击方案");add(v,d);var e=ac("下达攻击指令");add(v,e);var f=ac("评估攻击效果");add(v,f);dep(v,a,b);dep(v,b,c);dep(v,c,d);dep(v,d,e);dep(v,e,f);dep(v,f,a);}
+        {var v=vu(ov,"OV-5b_作战活动模型");
+          var flow=ac("反潜作战指挥流程");add(v,flow);
+          var start=ac("开始");add(flow,start);
+          var sa=ac("接收声呐数据");add(flow,sa);
+          var dec=dn();add(flow,dec);
+          var ta=ac("目标识别确认");add(flow,ta);
+          var na=ac("非目标过滤");add(flow,na);
+          var fork=fk();add(flow,fork);
+          var pa=ac("制定攻击方案");add(flow,pa);
+          var wa=ac("武器准备");add(flow,wa);
+          var join=jn();add(flow,join);
+          var ca=ac("下达攻击指令");add(flow,ca);
+          var ea=ac("评估攻击效果");add(flow,ea);
+          var done=ac("结束");add(flow,done);
+          dep(v,start,sa);dep(v,sa,dec);
+          dep(v,dec,ta);dep(v,dec,na);
+          dep(v,ta,fork);dep(v,na,done);
+          dep(v,fork,pa);dep(v,fork,wa);
+          dep(v,pa,join);dep(v,wa,join);
+          dep(v,join,ca);dep(v,ca,ea);dep(v,ea,done);}
         {var v=vu(ov,"OV-6a_作战规则模型");var a=pu("交战规则");add(v,a);var b=pu("识别规则");add(v,b);var c=pu("武器投放授权");add(v,c);dep(v,b,a);dep(v,b,c);}
         {var v=vu(ov,"OV-6c_事件追踪描述");var a=ac("声呐接触");add(v,a);var b=ac("目标识别");add(v,b);var c=ac("武器投放");add(v,c);var d=ac("战果评估");add(v,d);dep(v,a,b);dep(v,b,c);dep(v,c,d);}
 
@@ -96,6 +115,9 @@ public class Dodafv2TemplateBuilder {
     private org.eclipse.syson.sysml.PartDefinition pd(String n){var e=SysmlFactory.eINSTANCE.createPartDefinition();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
     private org.eclipse.syson.sysml.PartUsage pu(String n){var e=SysmlFactory.eINSTANCE.createPartUsage();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
     private org.eclipse.syson.sysml.ActionUsage ac(String n){var e=SysmlFactory.eINSTANCE.createActionUsage();e.setDeclaredName(n);e.setElementId(uuid(e));return e;}
+private org.eclipse.syson.sysml.DecisionNode dn(){var e=SysmlFactory.eINSTANCE.createDecisionNode();e.setElementId(uuid(e));return e;}
+private org.eclipse.syson.sysml.ForkNode fk(){var e=SysmlFactory.eINSTANCE.createForkNode();e.setElementId(uuid(e));return e;}
+private org.eclipse.syson.sysml.JoinNode jn(){var e=SysmlFactory.eINSTANCE.createJoinNode();e.setElementId(uuid(e));return e;}
     private void md(org.eclipse.syson.sysml.Namespace p,String n){var d=SysmlFactory.eINSTANCE.createMetadataDefinition();d.setDeclaredName(n);d.setElementId(uuid(d));add(p,d);}
     private void cmt(org.eclipse.syson.sysml.Namespace p,String n,String b){var c=SysmlFactory.eINSTANCE.createComment();c.setDeclaredName(n);c.setBody(b);c.setElementId(uuid(c));add(p,c);}
     // Dependency: client depends on supplier
