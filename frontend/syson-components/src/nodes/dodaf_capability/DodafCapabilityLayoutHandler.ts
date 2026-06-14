@@ -31,20 +31,19 @@ const rectangularNodePadding: number = 8;
 
 export class DodafCapabilityLayoutHandler implements INodeLayoutHandler<DodafCapabilityData> {
   public canHandle(node: Node<NodeData, DiagramNodeType>): boolean {
-    return node.type === 'dodafCapability';
+    return node.type === 'dodafCapabilitynode';
   }
 
   public handle(
     _layoutEngine: ILayoutEngine,
     previousDiagram: Diagram | null,
-    node: Node<DodafCapabilityData, 'dodafCapability'>,
+    node: Node<DodafCapabilityData, 'dodafCapabilitynode'>,
     visibleNodes: Node<NodeData, DiagramNodeType>[],
     _directChildren: Node<NodeData, DiagramNodeType>[],
     _newlyAddedNodes: Node<NodeData, DiagramNodeType>[],
     forceDimensions?: ForcedDimensions
   ) {
     const nodeIndex = findNodeIndex(visibleNodes, node.id);
-    const nodeElement = document.getElementById(`${node.id}-rectangularNode-${nodeIndex}`)?.children[0];
     const borderWidth = 2;
 
     this.handleLeafNode(previousDiagram, node, visibleNodes, borderWidth, forceDimensions);
@@ -52,19 +51,19 @@ export class DodafCapabilityLayoutHandler implements INodeLayoutHandler<DodafCap
 
   private handleLeafNode(
     previousDiagram: Diagram | null,
-    node: Node<DodafCapabilityData, 'dodafCapability'>,
+    node: Node<DodafCapabilityData, 'dodafCapabilitynode'>,
     visibleNodes: Node<NodeData, DiagramNodeType>[],
-    _borderWidth: number,
+    borderWidth: number,
     _forceDimensions?: ForcedDimensions
   ) {
     const nodeIndex: number = findNodeIndex(visibleNodes, node.id);
     const labelElement: HTMLElement | null = document.getElementById(`${node.id}-label-${nodeIndex}`);
 
     const labelHeight: number =
-      rectangularNodePadding + (labelElement?.getBoundingClientRect().height ?? 0) + rectangularNodePadding ;
+      rectangularNodePadding + (labelElement?.getBoundingClientRect().height ?? 0) + rectangularNodePadding + 2 * borderWidth;
 
-    const minNodeWidth: number = node.data.resizedByUser ? 75 : node.data.defaultWidth ?? 75) + 2 * borderWidth) ;
-    const minNodeHeight: number = Math.max(labelHeight , node.data.resizedByUser ? 50 : node.data.defaultHeight ?? 50) + 2 * borderWidth) ;
+    const minNodeWidth: number = (node.data.resizedByUser ? 75 : node.data.defaultWidth ?? 75) + 2 * borderWidth;
+    const minNodeHeight: number = Math.max(labelHeight, (node.data.resizedByUser ? 50 : node.data.defaultHeight ?? 50) + 2 * borderWidth);
 
     const previousNode: Node<NodeData, string> | undefined = (previousDiagram?.nodes ?? []).find(
       (prevNode) => prevNode.id === node.id
