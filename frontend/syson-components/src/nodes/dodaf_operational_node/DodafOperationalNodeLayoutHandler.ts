@@ -44,8 +44,7 @@ export class DodafOperationalNodeLayoutHandler implements INodeLayoutHandler<Dod
     forceDimensions?: ForcedDimensions
   ) {
     const nodeIndex = findNodeIndex(visibleNodes, node.id);
-    const nodeElement = document.getElementById(`${node.id}-rectangularNode-${nodeIndex}`)?.children[0];
-    const borderWidth = nodeElement ? parseFloat(window.getComputedStyle(nodeElement).borderWidth) : 0;
+    const borderWidth = 2;
 
     this.handleLeafNode(previousDiagram, node, visibleNodes, borderWidth, forceDimensions);
   }
@@ -54,17 +53,17 @@ export class DodafOperationalNodeLayoutHandler implements INodeLayoutHandler<Dod
     previousDiagram: Diagram | null,
     node: Node<DodafOperationalNodeData, 'dodafOperationalNode'>,
     visibleNodes: Node<NodeData, DiagramNodeType>[],
-    _borderWidth: number,
+    borderWidth: number,
     _forceDimensions?: ForcedDimensions
   ) {
     const nodeIndex: number = findNodeIndex(visibleNodes, node.id);
     const labelElement: HTMLElement | null = document.getElementById(`${node.id}-label-${nodeIndex}`);
 
     const labelHeight: number =
-      rectangularNodePadding + (labelElement?.getBoundingClientRect().height ?? 0) + rectangularNodePadding;
+      rectangularNodePadding + (labelElement?.getBoundingClientRect().height ?? 0) + rectangularNodePadding + 2 * borderWidth;
 
-    const minNodeWidth: number = node.data.resizedByUser ? 75 : node.data.defaultWidth ?? 75;
-    const minNodeHeight: number = Math.max(labelHeight, node.data.resizedByUser ? 50 : node.data.defaultHeight ?? 50);
+    const minNodeWidth: number = (node.data.resizedByUser ? 75 : node.data.defaultWidth ?? 75) + 2 * borderWidth;
+    const minNodeHeight: number = Math.max(labelHeight, (node.data.resizedByUser ? 50 : node.data.defaultHeight ?? 50) + 2 * borderWidth);
 
     const previousNode: Node<NodeData, string> | undefined = (previousDiagram?.nodes ?? []).find(
       (prevNode) => prevNode.id === node.id

@@ -43,6 +43,7 @@ const dodafSystemNodeStyle = (
 ): React.CSSProperties => {
   const importedPackageContainerStyle: React.CSSProperties = {
     display: 'flex',
+    flexDirection: 'column' as const,
     padding: '0px',
     width: '100%',
     height: '100%',
@@ -100,16 +101,18 @@ const importedPackageContainerStyle = (
 ): React.CSSProperties => {
   const importedPackageNodeStyle: React.CSSProperties = {
     display: 'flex',
-    padding: '2px',
+    flexDirection: 'column' as const,
+    padding: '4px 2px 2px 2px',
+    boxSizing: 'border-box' as const,
     width: '100%',
     height: '100%',
     opacity: faded ? '0.4' : '',
     ...style,
     background: getCSSColor(String(style.background), theme),
     borderColor: getCSSColor(String(style.borderColor), theme),
-    borderStyle: 'dashed',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderStyle: 'solid',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   };
 
   if (selected || hovered) {

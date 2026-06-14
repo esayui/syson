@@ -56,6 +56,7 @@ export const DodafInformationExchangePart = ({
   return (
     <ListItem disablePadding sx={(theme) => ({ paddingX: theme.spacing(1), paddingBottom: theme.spacing(1) })}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+    flexDirection: 'column' as const,
         <Typography variant="subtitle2">Style</Typography>
 
         <AppearanceColorPicker

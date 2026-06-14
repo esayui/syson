@@ -100,16 +100,14 @@ const importedPackageContainerStyle = (
 ): React.CSSProperties => {
   const importedPackageNodeStyle: React.CSSProperties = {
     display: 'flex',
-    padding: '2px',
-    width: '100%',
-    height: '100%',
+    padding: '4px',
     opacity: faded ? '0.4' : '',
     ...style,
     background: getCSSColor(String(style.background), theme),
     borderColor: getCSSColor(String(style.borderColor), theme),
-    borderStyle: 'dashed',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderStyle: 'solid',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
   };
 
   if (selected || hovered) {

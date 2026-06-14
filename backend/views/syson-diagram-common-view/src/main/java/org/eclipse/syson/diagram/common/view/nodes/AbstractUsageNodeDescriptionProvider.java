@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.sirius.components.view.builder.IViewDiagramElementFinder;
 import org.eclipse.sirius.components.view.builder.generated.diagram.NodeDescriptionBuilder;
+import org.eclipse.sirius.components.view.ViewFactory;
 import org.eclipse.sirius.components.view.builder.providers.IColorProvider;
 import org.eclipse.sirius.components.view.diagram.DiagramDescription;
 import org.eclipse.sirius.components.view.diagram.EdgeTool;
@@ -182,7 +183,7 @@ public abstract class AbstractUsageNodeDescriptionProvider extends AbstractNodeD
                 .style(this.createUsageNodeStyle())
                 .conditionalStyles(this.diagramBuilderHelper.newConditionalNodeStyle()
                         .condition(ServiceMethod.of0(UtilService::isDodafNode).aqlSelf())
-                        .style(SysMLCustomnodesFactory.eINSTANCE.createDodafOperationalNodeStyleDescription())
+                        .style(this.createDodafNodeStyle())
                         .build())
                 .userResizable(UserResizableDirection.BOTH)
                 .synchronizationPolicy(SynchronizationPolicy.SYNCHRONIZED);
@@ -259,6 +260,19 @@ public abstract class AbstractUsageNodeDescriptionProvider extends AbstractNodeD
                 .background(this.colorProvider.getColor(ViewConstants.DEFAULT_BACKGROUND_COLOR))
                 .childrenLayoutStrategy(layoutStrategy)
                 .build();
+    }
+
+    private NodeStyleDescription createDodafNodeStyle() {
+        var style = SysMLCustomnodesFactory.eINSTANCE.createDodafOperationalNodeStyleDescription();
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#00D4FF");
+        style.setBackground(bg);
+        style.setBorderColor(border);
+        style.setBorderSize(2);
+        style.setBorderRadius(8);
+        return style;
     }
 
     private NodePalette createNodePalette(NodeDescription nodeDescription, IViewDiagramElementFinder cache) {

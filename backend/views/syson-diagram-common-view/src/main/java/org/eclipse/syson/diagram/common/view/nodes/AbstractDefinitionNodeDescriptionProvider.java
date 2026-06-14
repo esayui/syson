@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.sirius.components.collaborative.diagrams.DiagramContext;
 import org.eclipse.sirius.components.core.api.IEditingContext;
 import org.eclipse.sirius.components.view.builder.IViewDiagramElementFinder;
+import org.eclipse.sirius.components.view.ViewFactory;
 import org.eclipse.sirius.components.view.builder.providers.IColorProvider;
 import org.eclipse.sirius.components.view.diagram.DiagramDescription;
 import org.eclipse.sirius.components.view.diagram.DropNodeTool;
@@ -35,8 +36,11 @@ import org.eclipse.sirius.components.view.diagram.LabelTextAlign;
 import org.eclipse.sirius.components.view.diagram.ListLayoutStrategyDescription;
 import org.eclipse.sirius.components.view.diagram.NodeDescription;
 import org.eclipse.sirius.components.view.diagram.NodePalette;
+import org.eclipse.sirius.components.view.diagram.ConditionalNodeStyle;
 import org.eclipse.sirius.components.view.diagram.NodeStyleDescription;
 import org.eclipse.sirius.components.view.diagram.NodeTool;
+import org.eclipse.syson.sysmlcustomnodes.SysMLCustomnodesFactory;
+import org.eclipse.syson.util.ServiceMethod;
 import org.eclipse.sirius.components.view.diagram.NodeToolSection;
 import org.eclipse.sirius.components.view.diagram.SynchronizationPolicy;
 import org.eclipse.sirius.components.view.diagram.ToolSection;
@@ -151,6 +155,10 @@ public abstract class AbstractDefinitionNodeDescriptionProvider extends Abstract
                 .name(this.getDescriptionNameGenerator().getNodeName(this.eClass))
                 .semanticCandidatesExpression(this.getSemanticCandidatesExpression(domainType))
                 .style(this.createDefinitionNodeStyle())
+                .conditionalStyles(this.diagramBuilderHelper.newConditionalNodeStyle()
+                        .condition(ServiceMethod.of0(UtilService::isDodafNode).aqlSelf())
+                        .style(this.createDodafNodeStyle())
+                        .build())
                 .userResizable(UserResizableDirection.BOTH)
                 .synchronizationPolicy(SynchronizationPolicy.SYNCHRONIZED)
                 .build();
@@ -219,6 +227,19 @@ public abstract class AbstractDefinitionNodeDescriptionProvider extends Abstract
                 .background(this.colorProvider.getColor(ViewConstants.DEFAULT_BACKGROUND_COLOR))
                 .childrenLayoutStrategy(layoutStrategy)
                 .build();
+    }
+
+    protected NodeStyleDescription createDodafNodeStyle() {
+        var style = SysMLCustomnodesFactory.eINSTANCE.createDodafOperationalNodeStyleDescription();
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#00D4FF");
+        style.setBackground(bg);
+        style.setBorderColor(border);
+        style.setBorderSize(2);
+        style.setBorderRadius(8);
+        return style;
     }
 
     protected NodePalette createNodePalette(NodeDescription nodeDescription, IViewDiagramElementFinder cache) {
