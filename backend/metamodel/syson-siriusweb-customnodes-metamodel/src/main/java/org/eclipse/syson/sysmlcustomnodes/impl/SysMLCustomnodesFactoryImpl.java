@@ -23,6 +23,11 @@ import org.eclipse.syson.sysmlcustomnodes.SysMLImportedPackageNodeStyleDescripti
 import org.eclipse.syson.sysmlcustomnodes.SysMLNoteNodeStyleDescription;
 import org.eclipse.syson.sysmlcustomnodes.SysMLPackageNodeStyleDescription;
 import org.eclipse.syson.sysmlcustomnodes.SysMLViewFrameNodeStyleDescription;
+import org.eclipse.syson.sysmlcustomnodes.DodafOperationalNodeStyleDescription;
+import org.eclipse.syson.sysmlcustomnodes.DodafSystemNodeStyleDescription;
+import org.eclipse.syson.sysmlcustomnodes.DodafCapabilityStyleDescription;
+import org.eclipse.syson.sysmlcustomnodes.DodafOrganizationStyleDescription;
+import org.eclipse.syson.sysmlcustomnodes.DodafInformationExchangeStyleDescription;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->

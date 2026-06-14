@@ -176,7 +176,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
      */
     @Override
     protected EClass eStaticClass() {
-        return SysMLCustomnodesPackage.Literals.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION;
+        return SysMLCustomnodesPackage.Literals.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION;
     }
 
     /**
@@ -192,7 +192,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
             if (this.borderColor != oldBorderColor) {
                 if (this.eNotificationRequired())
                     this.eNotify(
-                            new ENotificationImpl(this, Notification.RESOLVE, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR, oldBorderColor, this.borderColor));
+                            new ENotificationImpl(this, Notification.RESOLVE, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR, oldBorderColor, this.borderColor));
             }
         }
         return this.borderColor;
@@ -217,7 +217,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         UserColor oldBorderColor = this.borderColor;
         this.borderColor = newBorderColor;
         if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR, oldBorderColor, this.borderColor));
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR, oldBorderColor, this.borderColor));
     }
 
     /**
@@ -240,7 +240,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         int oldBorderRadius = this.borderRadius;
         this.borderRadius = newBorderRadius;
         if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS, oldBorderRadius, this.borderRadius));
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS, oldBorderRadius, this.borderRadius));
     }
 
     /**
@@ -263,7 +263,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         int oldBorderSize = this.borderSize;
         this.borderSize = newBorderSize;
         if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE, oldBorderSize, this.borderSize));
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE, oldBorderSize, this.borderSize));
     }
 
     /**
@@ -287,7 +287,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         this.borderLineStyle = newBorderLineStyle == null ? BORDER_LINE_STYLE_EDEFAULT : newBorderLineStyle;
         if (this.eNotificationRequired())
             this.eNotify(
-                    new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE, oldBorderLineStyle, this.borderLineStyle));
+                    new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE, oldBorderLineStyle, this.borderLineStyle));
     }
 
     /**
@@ -309,7 +309,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         LayoutStrategyDescription oldChildrenLayoutStrategy = this.childrenLayoutStrategy;
         this.childrenLayoutStrategy = newChildrenLayoutStrategy;
         if (this.eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY,
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY,
                     oldChildrenLayoutStrategy, newChildrenLayoutStrategy);
             if (msgs == null)
                 msgs = notification;
@@ -330,15 +330,15 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
             NotificationChain msgs = null;
             if (this.childrenLayoutStrategy != null)
                 msgs = ((InternalEObject) this.childrenLayoutStrategy).eInverseRemove(this,
-                        EOPPOSITE_FEATURE_BASE - SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, null, msgs);
+                        EOPPOSITE_FEATURE_BASE - SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, null, msgs);
             if (newChildrenLayoutStrategy != null)
                 msgs = ((InternalEObject) newChildrenLayoutStrategy).eInverseAdd(this,
-                        EOPPOSITE_FEATURE_BASE - SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, null, msgs);
+                        EOPPOSITE_FEATURE_BASE - SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, null, msgs);
             msgs = this.basicSetChildrenLayoutStrategy(newChildrenLayoutStrategy, msgs);
             if (msgs != null)
                 msgs.dispatch();
         } else if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, newChildrenLayoutStrategy,
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY, newChildrenLayoutStrategy,
                     newChildrenLayoutStrategy));
     }
 
@@ -362,7 +362,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         String oldDescription = this.description;
         this.description = newDescription;
         if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION, oldDescription, this.description));
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION, oldDescription, this.description));
     }
 
     /**
@@ -377,7 +377,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
             this.background = (UserColor) this.eResolveProxy(oldBackground);
             if (this.background != oldBackground) {
                 if (this.eNotificationRequired())
-                    this.eNotify(new ENotificationImpl(this, Notification.RESOLVE, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND, oldBackground, this.background));
+                    this.eNotify(new ENotificationImpl(this, Notification.RESOLVE, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND, oldBackground, this.background));
             }
         }
         return this.background;
@@ -402,7 +402,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
         UserColor oldBackground = this.background;
         this.background = newBackground;
         if (this.eNotificationRequired())
-            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND, oldBackground, this.background));
+            this.eNotify(new ENotificationImpl(this, Notification.SET, SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND, oldBackground, this.background));
     }
 
     /**
@@ -413,7 +413,7 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
                 return this.basicSetChildrenLayoutStrategy(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -427,21 +427,21 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
                 if (resolve)
                     return this.getBorderColor();
                 return this.basicGetBorderColor();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
                 return this.getBorderRadius();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
                 return this.getBorderSize();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
                 return this.getBorderLineStyle();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
                 return this.getChildrenLayoutStrategy();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
                 return this.getDescription();
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
                 if (resolve)
                     return this.getBackground();
                 return this.basicGetBackground();
@@ -457,25 +457,25 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
                 this.setBorderColor((UserColor) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
                 this.setBorderRadius((Integer) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
                 this.setBorderSize((Integer) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
                 this.setBorderLineStyle((LineStyle) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
                 this.setChildrenLayoutStrategy((LayoutStrategyDescription) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
                 this.setDescription((String) newValue);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
                 this.setBackground((UserColor) newValue);
                 return;
         }
@@ -490,25 +490,25 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
                 this.setBorderColor((UserColor) null);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
                 this.setBorderRadius(BORDER_RADIUS_EDEFAULT);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
                 this.setBorderSize(BORDER_SIZE_EDEFAULT);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
                 this.setBorderLineStyle(BORDER_LINE_STYLE_EDEFAULT);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
                 this.setChildrenLayoutStrategy((LayoutStrategyDescription) null);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
                 this.setDescription(DESCRIPTION_EDEFAULT);
                 return;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
                 this.setBackground((UserColor) null);
                 return;
         }
@@ -523,19 +523,19 @@ public class DodafInformationExchangeStyleDescriptionImpl extends MinimalEObject
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_COLOR:
                 return this.borderColor != null;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_RADIUS:
                 return this.borderRadius != BORDER_RADIUS_EDEFAULT;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_SIZE:
                 return this.borderSize != BORDER_SIZE_EDEFAULT;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BORDER_LINE_STYLE:
                 return this.borderLineStyle != BORDER_LINE_STYLE_EDEFAULT;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__CHILDREN_LAYOUT_STRATEGY:
                 return this.childrenLayoutStrategy != null;
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? this.description != null : !DESCRIPTION_EDEFAULT.equals(this.description);
-            case SysMLCustomnodesPackage.SYS_ML_IMPORTED_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
+            case SysMLCustomnodesPackage.SYS_ML_PACKAGE_NODE_STYLE_DESCRIPTION__BACKGROUND:
                 return this.background != null;
         }
         return super.eIsSet(featureID);
