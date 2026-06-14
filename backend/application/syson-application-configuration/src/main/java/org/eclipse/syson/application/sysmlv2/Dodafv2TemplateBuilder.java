@@ -12,6 +12,11 @@ public class Dodafv2TemplateBuilder {
         var ns=SysmlFactory.eINSTANCE.createNamespace();r.getContents().add(ns);
         var lp=SysmlFactory.eINSTANCE.createLibraryPackage();lp.setDeclaredName("DoDAFv2_Library");lp.setElementId(uuid(lp));add(ns,lp);
         for(var n:new String[]{"DoDAF_ViewpointKind","DoDAF_ModelType","DoDAF_OperationalNode","DoDAF_SystemNode","DoDAF_Capability","DoDAF_Organization","DoDAF_InformationFlow"})md(lp,n);
+        // DoDAF-specific ViewDefinitions for specialized diagram types
+        vd(lp,"MatrixView");
+        vd(lp,"GanttView");
+        vd(lp,"SequenceView");
+        vd(lp,"TableView");
         return r;
     }
 
@@ -26,13 +31,13 @@ public class Dodafv2TemplateBuilder {
 
         // CV (7): Capability — sub() for hierarchy, suc() for phases, dep() for mappings
         var cv=pkg(root,"CV_能力视角");
-        {var v=vu(cv,"CV-1_能力构想");var a=pd("反潜作战能力");add(v,a);var b=pu("水下目标探测能力");add(v,b);dep(v,b,a);}
-        {var v=vu(cv,"CV-2_能力分类");var a=pd("探测感知能力");add(v,a);var b=pd("指挥控制能力");add(v,b);var c=pd("打击能力");add(v,c);var d=pd("保障能力");add(v,d);sub(v,a,b);sub(v,b,c);sub(v,c,d);}
-        {var v=vu(cv,"CV-3_能力阶段");var a=pu("初始作战能力");add(v,a);var b=pu("全面作战能力");add(v,b);dep(v,a,b);}
-        {var v=vu(cv,"CV-4_能力依赖");var a=pu("探测→指控依赖");add(v,a);var b=pu("指控→打击依赖");add(v,b);dep(v,a,b);}
-        {var v=vu(cv,"CV-5_能力-组织映射");var a=pu("探测能力→水面作战群");add(v,a);var b=pu("打击能力→航空反潜大队");add(v,b);dep(v,a,b);}
-        {var v=vu(cv,"CV-6_能力-作战活动映射");var a=pu("探测能力→搜索探测");add(v,a);var b=pu("打击能力→武器投放");add(v,b);dep(v,a,b);}
-        {var v=vu(cv,"CV-7_能力-服务映射");var a=pu("探测能力→声学处理服务");add(v,a);var b=pu("指挥能力→态势融合服务");add(v,b);dep(v,a,b);}
+        {var v=vu(cv,"CV-1_能力构想");var a=pd("反潜作战能力","dodaf:capability");add(v,a);var b=pu("水下目标探测能力","dodaf:capability");add(v,b);dep(v,b,a);}
+        {var v=vu(cv,"CV-2_能力分类");var a=pd("探测感知能力","dodaf:capability");add(v,a);var b=pd("指挥控制能力","dodaf:capability");add(v,b);var c=pd("打击能力","dodaf:capability");add(v,c);var d=pd("保障能力","dodaf:capability");add(v,d);sub(v,a,b);sub(v,b,c);sub(v,c,d);}
+        {var v=vu(cv,"CV-3_能力阶段");var a=pu("初始作战能力","dodaf:capability");add(v,a);var b=pu("全面作战能力","dodaf:capability");add(v,b);dep(v,a,b);}
+        {var v=vu(cv,"CV-4_能力依赖");var a=pu("探测→指控依赖","dodaf:capability");add(v,a);var b=pu("指控→打击依赖","dodaf:capability");add(v,b);dep(v,a,b);}
+        {var v=vu(cv,"CV-5_能力-组织映射");var a=pu("探测能力→水面作战群","dodaf:capability");add(v,a);var b=pu("打击能力→航空反潜大队","dodaf:capability");add(v,b);dep(v,a,b);}
+        {var v=vu(cv,"CV-6_能力-作战活动映射");var a=pu("探测能力→搜索探测","dodaf:capability");add(v,a);var b=pu("打击能力→武器投放","dodaf:capability");add(v,b);dep(v,a,b);}
+        {var v=vu(cv,"CV-7_能力-服务映射");var a=pu("探测能力→声学处理服务","dodaf:capability");add(v,a);var b=pu("指挥能力→态势融合服务","dodaf:capability");add(v,b);dep(v,a,b);}
 
         // DIV (3): Data — sub() for data hierarchy, typ() for logical, dep() for physical
         var div=pkg(root,"DIV_数据和信息视角");
@@ -42,32 +47,24 @@ public class Dodafv2TemplateBuilder {
 
         // OV (8): flw() for resource flows, suc() for action/event flows, sub() for org, dep() for others
         var ov=pkg(root,"OV_作战视角");
-        {var v=vu(ov,"OV-1_高层作战概念图");var ship=pu("水面指挥舰");add(v,ship);var uuv=pu("无人潜航器编队");add(v,uuv);var air=pu("反潜巡逻机");add(v,air);var cmd=pu("岸基指挥中心");add(v,cmd);var sen=pu("水下传感器阵列");add(v,sen);var enemy=pu("敌方潜艇目标");add(v,enemy);dep(v,sen,ship);dep(v,ship,uuv);dep(v,ship,air);dep(v,cmd,ship);dep(v,sen,enemy);}
-        {var v=vu(ov,"OV-2_作战资源流描述");var a=pu("指挥节点");add(v,a);var b=pu("探测节点");add(v,b);var c=pu("攻击节点");add(v,c);dep(v,b,a);dep(v,a,c);}
-        {var v=vu(ov,"OV-3_作战资源流矩阵");var a=pu("探测→指挥数据流");add(v,a);var b=pu("指挥→攻击指令流");add(v,b);dep(v,a,b);}
-        {var v=vu(ov,"OV-4_组织结构图");var a=pu("联合反潜指挥部");add(v,a);var b=pu("水面作战群");add(v,b);var c=pu("航空反潜大队");add(v,c);var d=pu("水下无人系统分队");add(v,d);dep(v,b,a);dep(v,c,a);dep(v,d,a);}
+        {var v=vu(ov,"OV-1_高层作战概念图");var ship=pu("水面指挥舰","dodaf:operational");add(v,ship);var uuv=pu("无人潜航器编队","dodaf:operational");add(v,uuv);var air=pu("反潜巡逻机","dodaf:operational");add(v,air);var cmd=pu("岸基指挥中心","dodaf:operational");add(v,cmd);var sen=pu("水下传感器阵列","dodaf:operational");add(v,sen);var enemy=pu("敌方潜艇目标","dodaf:operational");add(v,enemy);dep(v,sen,ship);dep(v,ship,uuv);dep(v,ship,air);dep(v,cmd,ship);dep(v,sen,enemy);}
+        {var v=vu(ov,"OV-2_作战资源流描述");var a=pu("指挥节点","dodaf:operational");add(v,a);var b=pu("探测节点","dodaf:operational");add(v,b);var c=pu("攻击节点","dodaf:operational");add(v,c);dep(v,b,a);dep(v,a,c);}
+        {var v=vu(ov,"OV-3_作战资源流矩阵");var a=pu("探测→指挥数据流","dodaf:exchange");add(v,a);var b=pu("指挥→攻击指令流","dodaf:exchange");add(v,b);dep(v,a,b);}
+        {var v=vu(ov,"OV-4_组织结构图");var a=pu("联合反潜指挥部","dodaf:organization");add(v,a);var b=pu("水面作战群","dodaf:organization");add(v,b);var c=pu("航空反潜大队","dodaf:organization");add(v,c);var d=pu("水下无人系统分队","dodaf:organization");add(v,d);dep(v,b,a);dep(v,c,a);dep(v,d,a);}
         {var v=vu(ov,"OV-5a_作战活动分解树");var a=ac("反潜作战");add(v,a);var b=ac("搜索探测");add(v,b);var c=ac("识别跟踪");add(v,c);var d=ac("攻击决策");add(v,d);var e=ac("效果评估");add(v,e);var f=ac("战场保障");add(v,f);dep(v,a,b);dep(v,a,c);dep(v,a,d);dep(v,a,e);dep(v,a,f);dep(v,b,c);dep(v,c,d);dep(v,d,e);}
         {var v=vu(ov,"OV-5b_作战活动模型");
           var flow=ac("反潜作战指挥流程");add(v,flow);
           var start=ac("开始");add(flow,start);
           var sa=ac("接收声呐数据");add(flow,sa);
-          var dec=dn();add(flow,dec);
           var ta=ac("目标识别确认");add(flow,ta);
-          var na=ac("非目标过滤");add(flow,na);
-          var fork=fk();add(flow,fork);
           var pa=ac("制定攻击方案");add(flow,pa);
           var wa=ac("武器准备");add(flow,wa);
-          var join=jn();add(flow,join);
           var ca=ac("下达攻击指令");add(flow,ca);
           var ea=ac("评估攻击效果");add(flow,ea);
           var done=ac("结束");add(flow,done);
-          dep(v,start,sa);dep(v,sa,dec);
-          dep(v,dec,ta);dep(v,dec,na);
-          dep(v,ta,fork);dep(v,na,done);
-          dep(v,fork,pa);dep(v,fork,wa);
-          dep(v,pa,join);dep(v,wa,join);
-          dep(v,join,ca);dep(v,ca,ea);dep(v,ea,done);}
-        {var v=vu(ov,"OV-6a_作战规则模型");var a=pu("交战规则");add(v,a);var b=pu("识别规则");add(v,b);var c=pu("武器投放授权");add(v,c);dep(v,b,a);dep(v,b,c);}
+          dep(v,start,sa);dep(v,sa,ta);dep(v,ta,pa);
+          dep(v,pa,wa);dep(v,wa,ca);dep(v,ca,ea);dep(v,ea,done);}
+        {var v=vu(ov,"OV-6a_作战规则模型");var a=pu("交战规则","dodaf:operational");add(v,a);var b=pu("识别规则","dodaf:operational");add(v,b);var c=pu("武器投放授权","dodaf:operational");add(v,c);dep(v,b,a);dep(v,b,c);}
         {var v=vu(ov,"OV-6c_事件追踪描述");var a=ac("声呐接触");add(v,a);var b=ac("目标识别");add(v,b);var c=ac("武器投放");add(v,c);var d=ac("战果评估");add(v,d);dep(v,a,b);dep(v,b,c);dep(v,c,d);}
 
         // PV (3): suc() for timeline, dep() for others
@@ -96,14 +93,14 @@ public class Dodafv2TemplateBuilder {
 
         // SV (8): flw() for resource flows, suc() for functions/evolution, dep() for interfaces/matrices
         var sv=pkg(root,"SV_系统视角");
-        {var v=vu(sv,"SV-1_系统接口描述");var c2=pd("舰载指控系统");add(v,c2);var so=pd("声呐系统");add(v,so);var wp=pd("武器系统");add(v,wp);var cm=pd("通信系统");add(v,cm);var nv=pd("导航系统");add(v,nv);var um=pd("无人系统");add(v,um);dep(v,so,c2);dep(v,c2,wp);dep(v,cm,c2);dep(v,nv,c2);dep(v,um,c2);}
-        {var v=vu(sv,"SV-2_系统资源流描述");var a=pu("声呐→指控数据流");add(v,a);var b=pu("指控→武器指令流");add(v,b);var c=pu("通信→指控消息流");add(v,c);dep(v,a,b);dep(v,b,c);}
-        {var v=vu(sv,"SV-3_系统-系统矩阵");var a=pu("声呐↔指控");add(v,a);var b=pu("指控↔武器");add(v,b);var c=pu("通信↔指控");add(v,c);var d=pu("导航↔指控");add(v,d);dep(v,a,b);dep(v,b,c);dep(v,c,d);}
+        {var v=vu(sv,"SV-1_系统接口描述");var c2=pd("舰载指控系统","dodaf:system");add(v,c2);var so=pd("声呐系统","dodaf:system");add(v,so);var wp=pd("武器系统","dodaf:system");add(v,wp);var cm=pd("通信系统","dodaf:system");add(v,cm);var nv=pd("导航系统","dodaf:system");add(v,nv);var um=pd("无人系统","dodaf:system");add(v,um);dep(v,so,c2);dep(v,c2,wp);dep(v,cm,c2);dep(v,nv,c2);dep(v,um,c2);}
+        {var v=vu(sv,"SV-2_系统资源流描述");var a=pu("声呐→指控数据流","dodaf:system");add(v,a);var b=pu("指控→武器指令流","dodaf:system");add(v,b);var c=pu("通信→指控消息流","dodaf:system");add(v,c);dep(v,a,b);dep(v,b,c);}
+        {var v=vu(sv,"SV-3_系统-系统矩阵");var a=pu("声呐↔指控","dodaf:system");add(v,a);var b=pu("指控↔武器","dodaf:system");add(v,b);var c=pu("通信↔指控","dodaf:system");add(v,c);var d=pu("导航↔指控","dodaf:system");add(v,d);dep(v,a,b);dep(v,b,c);dep(v,c,d);}
         {var v=vu(sv,"SV-4_系统功能描述");var a=ac("声学信号处理");add(v,a);var b=ac("目标运动分析");add(v,b);var c=ac("火控解算");add(v,c);var d=ac("数据融合");add(v,d);dep(v,a,b);dep(v,b,c);dep(v,c,d);}
-        {var v=vu(sv,"SV-5a_作战活动-系统功能追溯");var a=pu("搜索探测→声学信号处理");add(v,a);var b=pu("识别跟踪→目标运动分析");add(v,b);var c=pu("攻击决策→火控解算");add(v,c);dep(v,a,b);dep(v,b,c);}
-        {var v=vu(sv,"SV-5b_作战活动-系统追溯");var a=pu("搜索探测→声呐系统");add(v,a);var b=pu("攻击决策→武器系统");add(v,b);var c=pu("战场保障→通信系统");add(v,c);dep(v,a,b);dep(v,b,c);}
-        {var v=vu(sv,"SV-6_系统资源流矩阵");var a=pu("声呐→指控:目标数据");add(v,a);var b=pu("指控→武器:攻击指令");add(v,b);var c=pu("通信→指控:态势更新");add(v,c);dep(v,a,b);dep(v,b,c);}
-        {var v=vu(sv,"SV-8_系统演进描述");var a=pu("当前:独立声呐系统");add(v,a);var b=pu("演进:多基声呐组网");add(v,b);var c=pu("远期:AI驱动自适应声呐");add(v,c);dep(v,a,b);dep(v,b,c);}
+        {var v=vu(sv,"SV-5a_作战活动-系统功能追溯");var a=pu("搜索探测→声学信号处理","dodaf:system");add(v,a);var b=pu("识别跟踪→目标运动分析","dodaf:system");add(v,b);var c=pu("攻击决策→火控解算","dodaf:system");add(v,c);dep(v,a,b);dep(v,b,c);}
+        {var v=vu(sv,"SV-5b_作战活动-系统追溯");var a=pu("搜索探测→声呐系统","dodaf:system");add(v,a);var b=pu("攻击决策→武器系统","dodaf:system");add(v,b);var c=pu("战场保障→通信系统","dodaf:system");add(v,c);dep(v,a,b);dep(v,b,c);}
+        {var v=vu(sv,"SV-6_系统资源流矩阵");var a=pu("声呐→指控:目标数据","dodaf:system");add(v,a);var b=pu("指控→武器:攻击指令","dodaf:system");add(v,b);var c=pu("通信→指控:态势更新","dodaf:system");add(v,c);dep(v,a,b);dep(v,b,c);}
+        {var v=vu(sv,"SV-8_系统演进描述");var a=pu("当前:独立声呐系统","dodaf:system");add(v,a);var b=pu("演进:多基声呐组网","dodaf:system");add(v,b);var c=pu("远期:AI驱动自适应声呐","dodaf:system");add(v,c);dep(v,a,b);dep(v,b,c);}
 
         return r;
     }
@@ -112,13 +109,14 @@ public class Dodafv2TemplateBuilder {
     private org.eclipse.syson.sysml.Element add(org.eclipse.syson.sysml.Namespace p,org.eclipse.syson.sysml.Element c){var m=SysmlFactory.eINSTANCE.createOwningMembership();p.getOwnedRelationship().add(m);m.getOwnedRelatedElement().add(c);return c;}
     private org.eclipse.syson.sysml.Package pkg(org.eclipse.syson.sysml.Package parent,String n){var p=SysmlFactory.eINSTANCE.createPackage();p.setDeclaredName(n);p.setElementId(uuid(p));if(parent!=null)add(parent,p);return p;}
     private org.eclipse.syson.sysml.ViewUsage vu(org.eclipse.syson.sysml.Namespace p,String n){var v=SysmlFactory.eINSTANCE.createViewUsage();v.setDeclaredName(n);v.setElementId(uuid(v));add(p,v);return v;}
-    private org.eclipse.syson.sysml.PartDefinition pd(String n){var e=SysmlFactory.eINSTANCE.createPartDefinition();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
-    private org.eclipse.syson.sysml.PartUsage pu(String n){var e=SysmlFactory.eINSTANCE.createPartUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
-    private org.eclipse.syson.sysml.ActionUsage ac(String n){var e=SysmlFactory.eINSTANCE.createActionUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add("dodaf:node");return e;}
-private org.eclipse.syson.sysml.DecisionNode dn(){var e=SysmlFactory.eINSTANCE.createDecisionNode();e.setElementId(uuid(e));return e;}
-private org.eclipse.syson.sysml.ForkNode fk(){var e=SysmlFactory.eINSTANCE.createForkNode();e.setElementId(uuid(e));return e;}
-private org.eclipse.syson.sysml.JoinNode jn(){var e=SysmlFactory.eINSTANCE.createJoinNode();e.setElementId(uuid(e));return e;}
+    private org.eclipse.syson.sysml.PartDefinition pd(String n){return pd(n,"dodaf:node");}
+    private org.eclipse.syson.sysml.PartDefinition pd(String n,String m){var e=SysmlFactory.eINSTANCE.createPartDefinition();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add(m);return e;}
+    private org.eclipse.syson.sysml.PartUsage pu(String n){return pu(n,"dodaf:node");}
+    private org.eclipse.syson.sysml.PartUsage pu(String n,String m){var e=SysmlFactory.eINSTANCE.createPartUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add(m);return e;}
+    private org.eclipse.syson.sysml.ActionUsage ac(String n){return ac(n,"dodaf:node");}
+    private org.eclipse.syson.sysml.ActionUsage ac(String n,String m){var e=SysmlFactory.eINSTANCE.createActionUsage();e.setDeclaredName(n);e.setElementId(uuid(e));e.getAliasIds().add(m);return e;}
     private void md(org.eclipse.syson.sysml.Namespace p,String n){var d=SysmlFactory.eINSTANCE.createMetadataDefinition();d.setDeclaredName(n);d.setElementId(uuid(d));add(p,d);}
+    private void vd(org.eclipse.syson.sysml.Namespace p,String n){var d=SysmlFactory.eINSTANCE.createViewDefinition();d.setDeclaredName(n);d.setElementId(uuid(d));add(p,d);}
     private void cmt(org.eclipse.syson.sysml.Namespace p,String n,String b){var c=SysmlFactory.eINSTANCE.createComment();c.setDeclaredName(n);c.setBody(b);c.setElementId(uuid(c));add(p,c);}
     // Dependency: client depends on supplier
     private void dep(org.eclipse.syson.sysml.Namespace p,org.eclipse.syson.sysml.Element client,org.eclipse.syson.sysml.Element supplier){var d=SysmlFactory.eINSTANCE.createDependency();d.setElementId(uuid(d));d.getClient().add(client);d.getSupplier().add(supplier);add(p,d);}

@@ -94,11 +94,6 @@ export const baseTheme: Theme = createTheme({
     borderRadius: 8,
   },
   components: {
-    MuiAppBar: {
-      styleOverrides: {
-        colorPrimary: 'secondary',
-      },
-    },
     MuiSnackbarContent: {
       styleOverrides: {
         root: {
@@ -144,6 +139,7 @@ export const baseTheme: Theme = createTheme({
       },
     },
     MuiAppBar: {
+      colorPrimary: 'secondary',
       styleOverrides: {
         root: {
           borderBottom: '1px solid rgba(0, 212, 255, 0.15)',
@@ -291,7 +287,7 @@ export const sysonTheme = createTheme(
           },
         },
       },
-      MuiTreeItem: {
+      ['MuiTreeItem' as any]: {
         styleOverrides: {
           root: {
             '& .MuiTreeItem-content:hover': {

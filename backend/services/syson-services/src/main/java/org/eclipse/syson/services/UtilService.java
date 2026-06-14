@@ -1073,7 +1073,42 @@ public class UtilService {
     }
 
     /**
-     * Checks if an element has the DoDAF marker alias, indicating it belongs to a DoDAF template.
+     * Checks if an element has the DoDAF operational node marker, indicating it belongs to OV views.
+     */
+    public boolean isDodafOperational(Element element) {
+        return element.getAliasIds().contains("dodaf:operational");
+    }
+
+    /**
+     * Checks if an element has the DoDAF system node marker, indicating it belongs to SV views.
+     */
+    public boolean isDodafSystem(Element element) {
+        return element.getAliasIds().contains("dodaf:system");
+    }
+
+    /**
+     * Checks if an element has the DoDAF capability marker, indicating it belongs to CV views.
+     */
+    public boolean isDodafCapability(Element element) {
+        return element.getAliasIds().contains("dodaf:capability");
+    }
+
+    /**
+     * Checks if an element has the DoDAF organization marker, indicating it belongs to OV-4 org views.
+     */
+    public boolean isDodafOrganization(Element element) {
+        return element.getAliasIds().contains("dodaf:organization");
+    }
+
+    /**
+     * Checks if an element has the DoDAF information exchange marker, indicating it belongs to flow/exchange views.
+     */
+    public boolean isDodafExchange(Element element) {
+        return element.getAliasIds().contains("dodaf:exchange");
+    }
+
+    /**
+     * Checks if an element has any DoDAF marker alias, indicating it belongs to a DoDAF template.
      */
     public boolean isDodafNode(Element element) {
         return element.getAliasIds().contains("dodaf:node");

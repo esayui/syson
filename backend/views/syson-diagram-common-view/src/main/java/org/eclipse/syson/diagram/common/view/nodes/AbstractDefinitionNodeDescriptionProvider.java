@@ -155,10 +155,28 @@ public abstract class AbstractDefinitionNodeDescriptionProvider extends Abstract
                 .name(this.getDescriptionNameGenerator().getNodeName(this.eClass))
                 .semanticCandidatesExpression(this.getSemanticCandidatesExpression(domainType))
                 .style(this.createDefinitionNodeStyle())
-                .conditionalStyles(this.diagramBuilderHelper.newConditionalNodeStyle()
-                        .condition(ServiceMethod.of0(UtilService::isDodafNode).aqlSelf())
-                        .style(this.createDodafNodeStyle())
-                        .build())
+                .conditionalStyles(
+                        this.diagramBuilderHelper.newConditionalNodeStyle()
+                                .condition(ServiceMethod.of0(UtilService::isDodafCapability).aqlSelf())
+                                .style(this.createDodafCapabilityStyle())
+                                .build(),
+                        this.diagramBuilderHelper.newConditionalNodeStyle()
+                                .condition(ServiceMethod.of0(UtilService::isDodafOperational).aqlSelf())
+                                .style(this.createDodafOperationalStyle())
+                                .build(),
+                        this.diagramBuilderHelper.newConditionalNodeStyle()
+                                .condition(ServiceMethod.of0(UtilService::isDodafSystem).aqlSelf())
+                                .style(this.createDodafSystemStyle())
+                                .build(),
+                        this.diagramBuilderHelper.newConditionalNodeStyle()
+                                .condition(ServiceMethod.of0(UtilService::isDodafOrganization).aqlSelf())
+                                .style(this.createDodafOrganizationStyle())
+                                .build(),
+                        this.diagramBuilderHelper.newConditionalNodeStyle()
+                                .condition(ServiceMethod.of0(UtilService::isDodafExchange).aqlSelf())
+                                .style(this.createDodafExchangeStyle())
+                                .build()
+                )
                 .userResizable(UserResizableDirection.BOTH)
                 .synchronizationPolicy(SynchronizationPolicy.SYNCHRONIZED)
                 .build();
@@ -229,17 +247,69 @@ public abstract class AbstractDefinitionNodeDescriptionProvider extends Abstract
                 .build();
     }
 
-    protected NodeStyleDescription createDodafNodeStyle() {
-        var style = SysMLCustomnodesFactory.eINSTANCE.createDodafOperationalNodeStyleDescription();
+    protected NodeStyleDescription createDodafCapabilityStyle() {
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#F59E0B");
+        return this.diagramBuilderHelper.newRectangularNodeStyleDescription()
+                .background(bg)
+                .borderColor(border)
+                .borderSize(2)
+                .borderRadius(8)
+                .build();
+    }
+
+    protected NodeStyleDescription createDodafOperationalStyle() {
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#3B82F6");
+        return this.diagramBuilderHelper.newRectangularNodeStyleDescription()
+                .background(bg)
+                .borderColor(border)
+                .borderSize(2)
+                .borderRadius(8)
+                .build();
+    }
+
+    protected NodeStyleDescription createDodafSystemStyle() {
         var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
         bg.setValue("#F1F5F9");
         var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
         border.setValue("#00D4FF");
-        style.setBackground(bg);
-        style.setBorderColor(border);
-        style.setBorderSize(2);
-        style.setBorderRadius(8);
-        return style;
+        return this.diagramBuilderHelper.newRectangularNodeStyleDescription()
+                .background(bg)
+                .borderColor(border)
+                .borderSize(2)
+                .borderRadius(8)
+                .build();
+    }
+
+    protected NodeStyleDescription createDodafOrganizationStyle() {
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#10B981");
+        return this.diagramBuilderHelper.newRectangularNodeStyleDescription()
+                .background(bg)
+                .borderColor(border)
+                .borderSize(2)
+                .borderRadius(8)
+                .build();
+    }
+
+    protected NodeStyleDescription createDodafExchangeStyle() {
+        var bg = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        bg.setValue("#F1F5F9");
+        var border = org.eclipse.sirius.components.view.ViewFactory.eINSTANCE.createFixedColor();
+        border.setValue("#EF4444");
+        return this.diagramBuilderHelper.newRectangularNodeStyleDescription()
+                .background(bg)
+                .borderColor(border)
+                .borderSize(2)
+                .borderRadius(8)
+                .build();
     }
 
     protected NodePalette createNodePalette(NodeDescription nodeDescription, IViewDiagramElementFinder cache) {

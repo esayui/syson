@@ -34,7 +34,7 @@ import React, { memo } from 'react';
 
 import { NodeComponentsMap, DodafInformationExchangeData } from './DodafInformationExchange.types';
 
-const dodafInformationExchangeStyle = (
+const dodafInformationExchangenodeStyle = (
   theme: Theme,
   style: React.CSSProperties,
   selected: boolean,
@@ -43,7 +43,6 @@ const dodafInformationExchangeStyle = (
 ): React.CSSProperties => {
   const importedPackageContainerStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: 'column' as const,
     padding: '0px',
     width: '100%',
     height: '100%',
@@ -101,9 +100,7 @@ const importedPackageContainerStyle = (
 ): React.CSSProperties => {
   const importedPackageNodeStyle: React.CSSProperties = {
     display: 'flex',
-    flexDirection: 'column' as const,
-    padding: '4px 2px 2px 2px',
-    boxSizing: 'border-box' as const,
+    padding: '2px',
     width: '100%',
     height: '100%',
     opacity: faded ? '0.4' : '',
@@ -111,8 +108,8 @@ const importedPackageContainerStyle = (
     background: getCSSColor(String(style.background), theme),
     borderColor: getCSSColor(String(style.borderColor), theme),
     borderStyle: 'solid',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   if (selected || hovered) {
@@ -194,11 +191,11 @@ export const DodafInformationExchange: NodeComponentsMap['dodafInformationExchan
         <Resizer data={data} selected={!!selected} />
         <div
           style={{
-            ...dodafInformationExchangeStyle(theme, data.style, !!selected, data.isHovered, data.faded),
+            ...dodafInformationExchangenodeStyle(theme, data.style, !!selected, data.isHovered, data.faded),
           }}
           onDragOver={onDragOver}
           onDrop={handleOnDrop}
-          data-testid={`DodafOperational - ${data?.insideLabel?.text}`}>
+          data-testid={`SysMLImportedPackage - ${data?.insideLabel?.text}`}>
           <DecoratorContainer decorators={data.decorators}></DecoratorContainer>
           {!!selected ? <ConnectionCreationHandles nodeId={id} /> : null}
           <ConnectionTargetHandle nodeId={id} nodeDescription={data.nodeDescription} isHovered={data.isHovered} />

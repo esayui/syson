@@ -93,6 +93,24 @@ public class MultiLineLabelSwitch extends SysmlSwitch<String> {
         this.labelService = Objects.requireNonNull(labelService);
     }
 
+    /**
+     * Returns the DoDAF stereotype name for the given element if it has a DoDAF marker alias, or null otherwise.
+     */
+    private String getDodafStereotype(Element element) {
+        if (element.getAliasIds().contains("dodaf:capability")) {
+            return "Capability";
+        } else if (element.getAliasIds().contains("dodaf:operational")) {
+            return "Performer";
+        } else if (element.getAliasIds().contains("dodaf:system")) {
+            return "System";
+        } else if (element.getAliasIds().contains("dodaf:organization")) {
+            return "Organization";
+        } else if (element.getAliasIds().contains("dodaf:exchange")) {
+            return "ExchangeElement";
+        }
+        return null;
+    }
+
     @Override
     public String caseElement(Element object) {
         StringBuilder label = new StringBuilder();
@@ -140,11 +158,12 @@ public class MultiLineLabelSwitch extends SysmlSwitch<String> {
     @Override
     public String caseActionUsage(ActionUsage object) {
         StringBuilder label = new StringBuilder();
+        String dodafStereo = this.getDodafStereotype(object);
         label
                 .append(this.getOccurrenceUsagePrefix(object))
                 .append(LabelConstants.OPEN_QUOTE)
                 .append(this.reference(object))
-                .append("action")
+                .append(dodafStereo != null ? dodafStereo : "action")
                 .append(LabelConstants.CLOSE_QUOTE)
                 .append(LabelConstants.CR)
                 .append(this.caseElement(object))
@@ -612,10 +631,11 @@ public class MultiLineLabelSwitch extends SysmlSwitch<String> {
     @Override
     public String casePartDefinition(PartDefinition object) {
         StringBuilder label = new StringBuilder();
+        String dodafStereo = this.getDodafStereotype(object);
         label
                 .append(this.getBasicNamePrefix(object))
                 .append(LabelConstants.OPEN_QUOTE)
-                .append("part def")
+                .append(dodafStereo != null ? dodafStereo : "part def")
                 .append(LabelConstants.CLOSE_QUOTE)
                 .append(LabelConstants.CR)
                 .append(this.caseElement(object))
@@ -626,13 +646,14 @@ public class MultiLineLabelSwitch extends SysmlSwitch<String> {
     @Override
     public String casePartUsage(PartUsage object) {
         StringBuilder label = new StringBuilder();
+        String dodafStereo = this.getDodafStereotype(object);
         if (!(object.getOwningMembership() instanceof ActorMembership)) {
             // The label shouldn't contain abstract, ref, or part if the part represents an actor.
             label
                     .append(this.getOccurrenceUsagePrefix(object))
                     .append(LabelConstants.OPEN_QUOTE)
                     .append(this.reference(object))
-                    .append("part")
+                    .append(dodafStereo != null ? dodafStereo : "part")
                     .append(LabelConstants.CLOSE_QUOTE)
                     .append(LabelConstants.CR);
         }

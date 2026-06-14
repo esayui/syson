@@ -31,19 +31,18 @@ const rectangularNodePadding: number = 8;
 
 export class DodafInformationExchangeLayoutHandler implements INodeLayoutHandler<DodafInformationExchangeData> {
   public canHandle(node: Node<NodeData, DiagramNodeType>): boolean {
-    return node.type === 'dodafInformationExchangenode';
+    return node.type === 'dodafInformationExchange';
   }
 
   public handle(
     _layoutEngine: ILayoutEngine,
     previousDiagram: Diagram | null,
-    node: Node<DodafInformationExchangeData, 'dodafInformationExchangenode'>,
+    node: Node<DodafInformationExchangeData, 'dodafInformationExchange'>,
     visibleNodes: Node<NodeData, DiagramNodeType>[],
     _directChildren: Node<NodeData, DiagramNodeType>[],
     _newlyAddedNodes: Node<NodeData, DiagramNodeType>[],
     forceDimensions?: ForcedDimensions
   ) {
-    const nodeIndex = findNodeIndex(visibleNodes, node.id);
     const borderWidth = 2;
 
     this.handleLeafNode(previousDiagram, node, visibleNodes, borderWidth, forceDimensions);
@@ -51,7 +50,7 @@ export class DodafInformationExchangeLayoutHandler implements INodeLayoutHandler
 
   private handleLeafNode(
     previousDiagram: Diagram | null,
-    node: Node<DodafInformationExchangeData, 'dodafInformationExchangenode'>,
+    node: Node<DodafInformationExchangeData, 'dodafInformationExchange'>,
     visibleNodes: Node<NodeData, DiagramNodeType>[],
     borderWidth: number,
     _forceDimensions?: ForcedDimensions

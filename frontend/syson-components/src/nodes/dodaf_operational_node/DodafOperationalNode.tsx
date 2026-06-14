@@ -34,7 +34,7 @@ import React, { memo } from 'react';
 
 import { NodeComponentsMap, DodafOperationalNodeData } from './DodafOperationalNode.types';
 
-const dodafOperationalNodeStyle = (
+const dodafOperationalNodenodeStyle = (
   theme: Theme,
   style: React.CSSProperties,
   selected: boolean,
@@ -100,14 +100,16 @@ const importedPackageContainerStyle = (
 ): React.CSSProperties => {
   const importedPackageNodeStyle: React.CSSProperties = {
     display: 'flex',
-    padding: '4px',
+    padding: '2px',
+    width: '100%',
+    height: '100%',
     opacity: faded ? '0.4' : '',
     ...style,
     background: getCSSColor(String(style.background), theme),
     borderColor: getCSSColor(String(style.borderColor), theme),
     borderStyle: 'solid',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   if (selected || hovered) {
@@ -189,11 +191,11 @@ export const DodafOperationalNode: NodeComponentsMap['dodafOperationalNode'] = m
         <Resizer data={data} selected={!!selected} />
         <div
           style={{
-            ...dodafOperationalNodeStyle(theme, data.style, !!selected, data.isHovered, data.faded),
+            ...dodafOperationalNodenodeStyle(theme, data.style, !!selected, data.isHovered, data.faded),
           }}
           onDragOver={onDragOver}
           onDrop={handleOnDrop}
-          data-testid={`DodafOperational - ${data?.insideLabel?.text}`}>
+          data-testid={`SysMLImportedPackage - ${data?.insideLabel?.text}`}>
           <DecoratorContainer decorators={data.decorators}></DecoratorContainer>
           {!!selected ? <ConnectionCreationHandles nodeId={id} /> : null}
           <ConnectionTargetHandle nodeId={id} nodeDescription={data.nodeDescription} isHovered={data.isHovered} />

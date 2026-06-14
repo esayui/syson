@@ -50,11 +50,31 @@ public class SysMLv2TemplatesRepresentationInitializer {
 
     private final ModelMutationElementService modelMutationElementService;
 
+    private final org.eclipse.sirius.components.core.api.IRepresentationDescriptionSearchService representationDescriptionSearchService;
+
+    private final org.eclipse.sirius.components.collaborative.tables.services.TableCreationService tableCreationService;
+
+    private final org.eclipse.sirius.components.collaborative.gantt.service.GanttCreationService ganttCreationService;
+
+    private final org.eclipse.sirius.components.collaborative.api.IRepresentationMetadataPersistenceService representationMetadataPersistenceService;
+
+    private final org.eclipse.sirius.components.collaborative.api.IRepresentationPersistenceService representationPersistenceService;
+
     public SysMLv2TemplatesRepresentationInitializer(DiagramMutationDiagramService diagramMutationDiagramService, ModelMutationElementService modelMutationElementService,
-            IEditingContextPersistenceService editingContextPersistenceService) {
+            IEditingContextPersistenceService editingContextPersistenceService,
+            org.eclipse.sirius.components.core.api.IRepresentationDescriptionSearchService representationDescriptionSearchService,
+            org.eclipse.sirius.components.collaborative.tables.services.TableCreationService tableCreationService,
+            org.eclipse.sirius.components.collaborative.gantt.service.GanttCreationService ganttCreationService,
+            org.eclipse.sirius.components.collaborative.api.IRepresentationMetadataPersistenceService representationMetadataPersistenceService,
+            org.eclipse.sirius.components.collaborative.api.IRepresentationPersistenceService representationPersistenceService) {
         this.diagramMutationDiagramService = Objects.requireNonNull(diagramMutationDiagramService);
         this.modelMutationElementService = Objects.requireNonNull(modelMutationElementService);
         this.editingContextPersistenceService = Objects.requireNonNull(editingContextPersistenceService);
+        this.representationDescriptionSearchService = Objects.requireNonNull(representationDescriptionSearchService);
+        this.tableCreationService = Objects.requireNonNull(tableCreationService);
+        this.ganttCreationService = Objects.requireNonNull(ganttCreationService);
+        this.representationMetadataPersistenceService = Objects.requireNonNull(representationMetadataPersistenceService);
+        this.representationPersistenceService = Objects.requireNonNull(representationPersistenceService);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -81,30 +101,169 @@ public class SysMLv2TemplatesRepresentationInitializer {
         if (optRoot.isEmpty()) return;
 
         var rootElement = optRoot.get();
-        // Find key ViewUsage elements by name and create General View diagrams on them
         for (var child : rootElement.getOwnedElement()) {
             if (child instanceof Namespace ns) {
-                this.findAndCreateDiagram(ns, editingContext);
+                this.processDoDAFViews(ns, editingContext);
             }
         }
     }
 
-    private void findAndCreateDiagram(Namespace ns, IEMFEditingContext editingContext) {
+    /**
+     * Maps a DoDAF view name to the appropriate ViewDefinition qualified name.
+     * Based on DoDAF v2.0 specifications and UPDM symbol standards.
+     *
+     * Categories:
+     * - GeneralView: standard node-link diagrams (OV-1, OV-2, CV-1 etc.)
+     * - ActionFlowView: activity/function flow (OV-5b, SV-4, SvcV-4)
+     * - InterconnectionView: system/service interfaces (SV-1, SV-2, SvcV-1, SvcV-2)
+     * - MatrixView: matrix/table (OV-3, SV-3, CV-5~7, DIV-3, PV-3, SvcV-3a/b, SvcV-5~7, SV-5a/b, SV-6)
+     * - GanttView: gantt/timeline (CV-3, PV-2, SV-8)
+     * - SequenceView: sequence/event trace (OV-6c)
+     * - TableView: plain table/list (StdV-1, StdV-2, AV-2)
+     */
+    private String getViewDefinitionForDoDAFView(String viewName) {
+        if (viewName == null) return StandardDiagramsConstants.GV_QN;
+
+        // === Gantt Chart views ===
+        if (viewName.contains("CV-3")) return StandardDiagramsConstants.DODAF_GANTT_QN;      // Capability phasing
+        if (viewName.contains("PV-2")) return StandardDiagramsConstants.DODAF_GANTT_QN;      // Project timeline
+        if (viewName.contains("SV-8")) return StandardDiagramsConstants.DODAF_GANTT_QN;      // System evolution
+
+        // === Sequence/Event Trace views ===
+        if (viewName.contains("OV-6c")) return StandardDiagramsConstants.DODAF_SEQUENCE_QN;   // Event trace
+
+        // === Plain Table views ===
+        if (viewName.contains("StdV-1") || viewName.contains("StdV-2")) return StandardDiagramsConstants.DODAF_TABLE_QN; // Standards
+        if (viewName.contains("AV-2")) return StandardDiagramsConstants.DODAF_TABLE_QN;       // Integrated dictionary
+
+        // === Matrix/Table views ===
+        // OV matrices
+        if (viewName.contains("OV-3")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Resource flow matrix
+        // SV matrices
+        if (viewName.contains("SV-3")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // System-system matrix
+        if (viewName.contains("SV-5a")) return StandardDiagramsConstants.DODAF_MATRIX_QN;     // Activity-function trace
+        if (viewName.contains("SV-5b")) return StandardDiagramsConstants.DODAF_MATRIX_QN;     // Activity-system trace
+        if (viewName.contains("SV-6")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Resource flow matrix
+        // CV matrices
+        if (viewName.contains("CV-5")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Capability-org mapping
+        if (viewName.contains("CV-6")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Capability-activity mapping
+        if (viewName.contains("CV-7")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Capability-service mapping
+        // DIV matrices
+        if (viewName.contains("DIV-3")) return StandardDiagramsConstants.DODAF_MATRIX_QN;     // Physical data model
+        // PV matrices
+        if (viewName.contains("PV-3")) return StandardDiagramsConstants.DODAF_MATRIX_QN;      // Project-capability mapping
+        // SvcV matrices
+        if (viewName.contains("SvcV-3a")) return StandardDiagramsConstants.DODAF_MATRIX_QN;   // Service-system matrix
+        if (viewName.contains("SvcV-3b")) return StandardDiagramsConstants.DODAF_MATRIX_QN;   // Service-service matrix
+        if (viewName.contains("SvcV-5")) return StandardDiagramsConstants.DODAF_MATRIX_QN;    // Service-activity trace
+        if (viewName.contains("SvcV-6")) return StandardDiagramsConstants.DODAF_MATRIX_QN;    // Service resource flow matrix
+        if (viewName.contains("SvcV-7")) return StandardDiagramsConstants.DODAF_MATRIX_QN;    // Service measures
+
+        // === Activity Flow views ===
+        if (viewName.contains("OV-5b")) return StandardDiagramsConstants.AFV_QN;              // Activity model
+        if (viewName.contains("SV-4")) return StandardDiagramsConstants.AFV_QN;               // System function
+        if (viewName.contains("SvcV-4")) return StandardDiagramsConstants.AFV_QN;             // Service function
+
+        // === Interconnection views ===
+        if (viewName.contains("SV-1")) return StandardDiagramsConstants.IV_QN;                // System interface
+        if (viewName.contains("SV-2")) return StandardDiagramsConstants.IV_QN;                // System resource flow
+        if (viewName.contains("SvcV-1")) return StandardDiagramsConstants.IV_QN;              // Service context
+        if (viewName.contains("SvcV-2")) return StandardDiagramsConstants.IV_QN;              // Service resource flow
+
+        // === Default: General View ===
+        return StandardDiagramsConstants.GV_QN;
+    }
+
+    private void processDoDAFViews(Namespace ns, IEMFEditingContext editingContext) {
         for (var child : ns.getOwnedElement()) {
             if (child instanceof ViewUsage vu) {
                 var name = vu.getDeclaredName();
-                if (name != null && (name.contains("OV-1") || name.contains("SV-1"))) {
+                if (name != null) {
                     try {
-                        this.diagramMutationDiagramService.createDiagram(vu, editingContext, SysONRepresentationDescriptionIdentifiers.GENERAL_VIEW_DIAGRAM_DESCRIPTION_ID);
-                        this.logger.info("Created diagram for DoDAF view: {}", name);
+                        // Set the appropriate ViewDefinition type for ALL views
+                        String viewDefQN = this.getViewDefinitionForDoDAFView(name);
+                        this.modelMutationElementService.featureTypeViewUsage(vu, viewDefQN);
+                        // Create the appropriate representation type based on the ViewDefinition
+                        this.createRepresentationForView(vu, name, viewDefQN, editingContext);
                     } catch (Exception e) {
-                        this.logger.warn("Failed to create diagram for {}: {}", name, e.getMessage());
+                        this.logger.warn("Failed to process DoDAF view {}: {}", name, e.getMessage());
                     }
                 }
             }
             if (child instanceof Namespace childNs) {
-                this.findAndCreateDiagram(childNs, editingContext);
+                this.processDoDAFViews(childNs, editingContext);
             }
+        }
+    }
+
+    private void createRepresentationForView(ViewUsage vu, String viewName, String viewDefQN, IEMFEditingContext editingContext) {
+        if (viewDefQN.equals(StandardDiagramsConstants.DODAF_MATRIX_QN)) {
+            this.createTableRepresentation(vu, viewName, "DoDAF Matrix View", editingContext);
+        } else if (viewDefQN.equals(StandardDiagramsConstants.DODAF_GANTT_QN)) {
+            this.createGanttRepresentation(vu, viewName, "DoDAF Gantt View", editingContext);
+        } else if (viewDefQN.equals(StandardDiagramsConstants.DODAF_TABLE_QN)) {
+            this.createTableRepresentation(vu, viewName, "DoDAF Table View", editingContext);
+        } else {
+            // GeneralView / InterconnectionView / ActionFlowView / SequenceView → standard diagram
+            this.diagramMutationDiagramService.createDiagram(vu, editingContext,
+                    SysONRepresentationDescriptionIdentifiers.GENERAL_VIEW_DIAGRAM_DESCRIPTION_ID);
+        }
+    }
+
+    private void createTableRepresentation(ViewUsage vu, String viewName, String descName, IEMFEditingContext editingContext) {
+        try {
+            var desc = this.representationDescriptionSearchService.findAll(editingContext).entrySet().stream()
+                    .filter(e -> e.getValue() instanceof org.eclipse.sirius.components.tables.descriptions.TableDescription)
+                    .filter(e -> descName.equals(((org.eclipse.sirius.components.tables.descriptions.TableDescription) e.getValue()).getId()))
+                    .map(java.util.Map.Entry::getValue)
+                    .map(org.eclipse.sirius.components.tables.descriptions.TableDescription.class::cast)
+                    .findFirst();
+            if (desc.isPresent()) {
+                var tableDesc = desc.get();
+                String id = java.util.UUID.randomUUID().toString();
+                var table = this.tableCreationService.create(id, vu, tableDesc, editingContext);
+                var metadata = org.eclipse.sirius.components.core.RepresentationMetadata.newRepresentationMetadata(table.getId())
+                        .kind("Table")
+                        .label(viewName)
+                        .descriptionId(table.getDescriptionId())
+                        .iconURLs(java.util.List.of())
+                        .build();
+                this.representationMetadataPersistenceService.save(null, editingContext, metadata, table.getTargetObjectId());
+                this.representationPersistenceService.save(null, editingContext, table);
+                this.logger.info("Created {} table for DoDAF view: {}", descName, viewName);
+            } else {
+                this.logger.warn("Table description '{}' not found for view: {}", descName, viewName);
+            }
+        } catch (Exception e) {
+            this.logger.warn("Failed to create table for {}: {}", viewName, e.getMessage());
+        }
+    }
+
+    private void createGanttRepresentation(ViewUsage vu, String viewName, String descName, IEMFEditingContext editingContext) {
+        try {
+            var desc = this.representationDescriptionSearchService.findAll(editingContext).entrySet().stream()
+                    .filter(e -> e.getValue() instanceof org.eclipse.sirius.components.gantt.description.GanttDescription)
+                    .filter(e -> descName.equals(((org.eclipse.sirius.components.gantt.description.GanttDescription) e.getValue()).getId()))
+                    .map(java.util.Map.Entry::getValue)
+                    .map(org.eclipse.sirius.components.gantt.description.GanttDescription.class::cast)
+                    .findFirst();
+            if (desc.isPresent()) {
+                var ganttDesc = desc.get();
+                var gantt = this.ganttCreationService.create(vu, ganttDesc, editingContext);
+                var metadata = org.eclipse.sirius.components.core.RepresentationMetadata.newRepresentationMetadata(gantt.getId())
+                        .kind("Gantt")
+                        .label(viewName)
+                        .descriptionId(gantt.getDescriptionId())
+                        .iconURLs(java.util.List.of())
+                        .build();
+                this.representationMetadataPersistenceService.save(null, editingContext, metadata, gantt.getTargetObjectId());
+                this.representationPersistenceService.save(null, editingContext, gantt);
+                this.logger.info("Created {} gantt for DoDAF view: {}", descName, viewName);
+            } else {
+                this.logger.warn("Gantt description '{}' not found for view: {}", descName, viewName);
+            }
+        } catch (Exception e) {
+            this.logger.warn("Failed to create gantt for {}: {}", viewName, e.getMessage());
         }
     }
 

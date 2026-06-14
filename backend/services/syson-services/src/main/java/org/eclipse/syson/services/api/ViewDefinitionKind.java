@@ -20,7 +20,8 @@ import org.eclipse.syson.util.StandardDiagramsConstants;
  * @author arichard
  */
 public enum ViewDefinitionKind {
-    GENERAL_VIEW, INTERCONNECTION_VIEW, ACTION_FLOW_VIEW, STATE_TRANSITION_VIEW;
+    GENERAL_VIEW, INTERCONNECTION_VIEW, ACTION_FLOW_VIEW, STATE_TRANSITION_VIEW,
+    DODAF_MATRIX_VIEW, DODAF_GANTT_VIEW, DODAF_SEQUENCE_VIEW, DODAF_TABLE_VIEW;
 
     public static ViewDefinitionKind getKind(String viewDefinitionName) {
         ViewDefinitionKind kind = null;
@@ -32,6 +33,14 @@ public enum ViewDefinitionKind {
             kind = ACTION_FLOW_VIEW;
         } else if (StandardDiagramsConstants.STV_QN.equals(viewDefinitionName)) {
             kind = STATE_TRANSITION_VIEW;
+        } else if (StandardDiagramsConstants.DODAF_MATRIX_QN.equals(viewDefinitionName)) {
+            kind = DODAF_MATRIX_VIEW;
+        } else if (StandardDiagramsConstants.DODAF_GANTT_QN.equals(viewDefinitionName)) {
+            kind = DODAF_GANTT_VIEW;
+        } else if (StandardDiagramsConstants.DODAF_SEQUENCE_QN.equals(viewDefinitionName)) {
+            kind = DODAF_SEQUENCE_VIEW;
+        } else if (StandardDiagramsConstants.DODAF_TABLE_QN.equals(viewDefinitionName)) {
+            kind = DODAF_TABLE_VIEW;
         }
         return kind;
     }
@@ -50,5 +59,10 @@ public enum ViewDefinitionKind {
 
     public static boolean isStateTransitionView(ViewDefinitionKind kind) {
         return kind == STATE_TRANSITION_VIEW;
+    }
+
+    public static boolean isDoDAFView(ViewDefinitionKind kind) {
+        return kind == DODAF_MATRIX_VIEW || kind == DODAF_GANTT_VIEW
+                || kind == DODAF_SEQUENCE_VIEW || kind == DODAF_TABLE_VIEW;
     }
 }

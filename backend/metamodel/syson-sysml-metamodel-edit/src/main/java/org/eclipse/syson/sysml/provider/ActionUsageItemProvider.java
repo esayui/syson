@@ -119,7 +119,22 @@ public class ActionUsageItemProvider extends OccurrenceUsageItemProvider {
      */
     @Override
     public Object getImage(Object object) {
+        String dodafIcon = this.getDodafIconPath(object);
+        if (dodafIcon != null) {
+            return this.overlayImage(object, this.getResourceLocator().getImage(dodafIcon));
+        }
         return this.overlayImage(object, this.getResourceLocator().getImage("full/obj16/ActionUsage.svg"));
+    }
+
+    private String getDodafIconPath(Object object) {
+        if (object instanceof org.eclipse.syson.sysml.Element element) {
+            if (element.getAliasIds().contains("dodaf:capability")) return "full/obj16/DodafCapability.svg";
+            if (element.getAliasIds().contains("dodaf:operational")) return "full/obj16/DodafOperationalNode.svg";
+            if (element.getAliasIds().contains("dodaf:system")) return "full/obj16/DodafSystemNode.svg";
+            if (element.getAliasIds().contains("dodaf:organization")) return "full/obj16/DodafOrganization.svg";
+            if (element.getAliasIds().contains("dodaf:exchange")) return "full/obj16/DodafInformationExchange.svg";
+        }
+        return null;
     }
 
     /**

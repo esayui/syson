@@ -70,6 +70,26 @@
 			<groupId>org.eclipse.syson</groupId>
 			<artifactId>syson-siriusweb-customnodes-metamodel-edit</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius</groupId>
+			<artifactId>sirius-components-collaborative-tables</artifactId>
+			<version>${sirius.web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius</groupId>
+			<artifactId>sirius-components-collaborative-gantt</artifactId>
+			<version>${sirius.web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius</groupId>
+			<artifactId>sirius-components-tables</artifactId>
+			<version>${sirius.web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.sirius</groupId>
+			<artifactId>sirius-components-gantt</artifactId>
+			<version>${sirius.web.version}</version>
+		</dependency>
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

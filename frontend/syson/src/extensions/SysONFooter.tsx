@@ -31,7 +31,7 @@ const useFooterStyles = makeStyles()((theme: Theme) => ({
 
 export const SysONFooter = ({}: FooterProps) => {
   const { classes } = useFooterStyles();
-  const appVersion = import.meta.env.VITE_APP_VERSION;
+  const _appVersion = import.meta.env.VITE_APP_VERSION;
   const commitHash = import.meta.env.COMMIT_HASH;
 
   return (

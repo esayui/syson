@@ -43,7 +43,6 @@ export class DodafOperationalNodeLayoutHandler implements INodeLayoutHandler<Dod
     _newlyAddedNodes: Node<NodeData, DiagramNodeType>[],
     forceDimensions?: ForcedDimensions
   ) {
-    const nodeIndex = findNodeIndex(visibleNodes, node.id);
     const borderWidth = 2;
 
     this.handleLeafNode(previousDiagram, node, visibleNodes, borderWidth, forceDimensions);

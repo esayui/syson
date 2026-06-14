@@ -38,6 +38,12 @@ public class StandardDiagramsConstants {
 
     public static final String STV_QN = "StandardViewDefinitions::StateTransitionView";
 
+    // DoDAF-specific ViewDefinition qualified names
+    public static final String DODAF_MATRIX_QN = "DoDAFv2_Library::MatrixView";
+    public static final String DODAF_GANTT_QN = "DoDAFv2_Library::GanttView";
+    public static final String DODAF_SEQUENCE_QN = "DoDAFv2_Library::SequenceView";
+    public static final String DODAF_TABLE_QN = "DoDAFv2_Library::TableView";
+
     public static final Map<String, String> SHORT_NAME_TO_VALUE = new HashMap<>();
 
     static {

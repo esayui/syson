@@ -124,7 +124,7 @@ const zhLocaleConfigurer: ApolloClientOptionsConfigurer = (currentOptions) => {
 
   return {
     ...currentOptions,
-    link: zhLocaleLink.concat(currentOptions.link),
+    link: currentOptions.link ? zhLocaleLink.concat(currentOptions.link) : zhLocaleLink,
   };
 };
 
