@@ -95,11 +95,21 @@ const apolloClientOptionsConfigurer: ApolloClientOptionsConfigurer = (currentOpt
 };
 
 const zhLocaleConfigurer: ApolloClientOptionsConfigurer = (currentOptions) => {
-  // Apollo Link that intercepts the getLocale GraphQL response and forces language to "zh"
+  // Apollo Link that forces Chinese language:
+  // 1. Sets Accept-Language header on all requests so backend returns 'zh'
+  // 2. Falls back: intercepts getLocale response to force 'zh'
   const zhLocaleLink = new ApolloLink((operation, forward) => {
+    // Set Accept-Language header on every request
+    operation.setContext(({ headers = {} }: { headers?: Record<string, string> }) => ({
+      headers: {
+        ...headers,
+        'Accept-Language': 'zh-CN,zh;q=0.9',
+      },
+    }));
     return new Observable((observer) => {
       const subscription = forward(operation).subscribe({
         next: (response: any) => {
+          // Force language to zh in getLocale response as fallback
           if (operation.operationName === 'getLocale' && response?.data?.viewer) {
             observer.next({
               ...response,

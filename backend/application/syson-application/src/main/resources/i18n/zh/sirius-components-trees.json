@@ -1,27 +1,29 @@
 {
-  "treeToolBar": {
-    "delete": "删除",
-    "deleteAll": "全部删除"
+  "deleteMenuItem": {
+    "delete": "删除"
   },
-  "contextMenu": {
-    "delete": "删除",
-    "rename": "重命名",
-    "displayDetail": "显示详情",
-    "copyId": "复制 ID",
-    "copyIdToClipboard": "复制 ID 到剪贴板",
-    "idSuccessfullyCopied": "ID 已成功复制到剪贴板",
-    "download": "下载"
+  "renameMenuItem": {
+    "rename": "重命名"
   },
-  "fileUpload": {
-    "clickToSelectAFile": "点击选择文件"
+  "treeFiltersMenu": {
+    "filters": "筛选"
   },
-  "tree": {
-    "noData": "暂无数据",
-    "selectAnItemToDisplay": "选择一个项目以显示",
-    "deleteSuccessfully": "删除成功",
-    "renameSuccessfully": "重命名成功"
+  "treeItemDirectEditInput": {
+    "enterNewValue": "输入新值",
+    "errors": {
+      "unexpected": "发生意外错误，请刷新页面"
+    }
+  },
+  "revealSelectionButton": {
+    "tooltip": "显示已选元素",
+    "tooltipLoading": "显示已选元素（加载中……）",
+    "tooltipWithMoreLabels": "选择 {{labels}}（还有 {{count}} 项）",
+    "tooltipWithLabels": "选择 {{labels}}"
   },
   "treeItemContextMenu": {
-    "deleteTreeItemDialogTitle": "删除所选元素"
+    "showInTarget": "在 {{target}} 中显示"
+  },
+  "filterButton": {
+    "filter": "筛选"
   }
 }

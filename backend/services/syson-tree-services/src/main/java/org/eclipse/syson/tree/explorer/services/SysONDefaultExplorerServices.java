@@ -299,12 +299,9 @@ public class SysONDefaultExplorerServices implements ISysONDefaultExplorerServic
             // Allow to delete read-only resources imported from textual SysML, users may want to remove an imported
             // library from their project.
             result = !this.readOnlyObjectPredicate.test(resource) || ElementUtil.isImported(resource);
-        } else if (self instanceof RepresentationMetadata representationMetadata) {
-            // If it is a standard diagram or a requirements-table, it has been created on a ViewUsage.
-            // In such cases, we don't want the Delete menu.
-            // Users will delete the ViewUsage to also delete the standard diagram or the requirements-table.
-            return !SysONRepresentationDescriptionIdentifiers.GENERAL_VIEW_DIAGRAM_DESCRIPTION_ID.equals(representationMetadata.getDescriptionId())
-                    && !SysONRepresentationDescriptionIdentifiers.REQUIREMENTS_TABLE_VIEW_DESCRIPTION_ID.equals(representationMetadata.getDescriptionId());
+        } else if (self instanceof RepresentationMetadata) {
+            // Allow deletion of all representation types (diagram/table/gantt) without affecting model elements
+            return true;
         }
         return result;
     }

@@ -12,22 +12,19 @@
  *******************************************************************************/
 package org.eclipse.syson.standard.diagrams.view;
 
-import java.util.ArrayList;
-
 import org.eclipse.sirius.components.view.RepresentationDescription;
 import org.eclipse.sirius.components.view.builder.generated.gantt.GanttBuilders;
 import org.eclipse.sirius.components.view.builder.generated.view.ViewBuilders;
 import org.eclipse.sirius.components.view.builder.providers.IColorProvider;
 import org.eclipse.sirius.components.view.builder.providers.IRepresentationDescriptionProvider;
+import org.eclipse.syson.services.DeleteService;
+import org.eclipse.syson.standard.diagrams.view.services.DoDAFGanttQueryServices;
 import org.eclipse.syson.sysml.SysmlPackage;
+import org.eclipse.syson.util.ServiceMethod;
 import org.eclipse.syson.util.SysMLMetamodelHelper;
 
 /**
  * Gantt description for DoDAF Gantt views (CV-3, PV-2, SV-8).
- * Displays a left table (milestones) with right Gantt chart showing timeline bars.
- * Tasks are linked via dependency relationships.
- *
- * @author dousheng
  */
 public class DoDAFGanttDescriptionProvider implements IRepresentationDescriptionProvider {
 
@@ -43,33 +40,36 @@ public class DoDAFGanttDescriptionProvider implements IRepresentationDescription
         var taskDescription = this.ganttBuilders.newTaskDescription()
                 .name("DoDAFGantt-Task")
                 .domainType(SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getPartUsage()))
-                .semanticCandidatesExpression("aql:self.getExposedElements(PartUsage)")
+                .semanticCandidatesExpression("aql:self.getGanttTasks()")
                 .nameExpression("aql:self.declaredName")
                 .descriptionExpression("aql:self.getDocumentationBody()")
-                .startTimeExpression("aql:self.ownedElementIndexOf->toDate()")
-                .endTimeExpression("aql:self.ownedElementIndexOf->toDate()+7")
+                .startTimeExpression("aql:OrderedSet{1}->at(1)")
+                .endTimeExpression("aql:OrderedSet{10}->at(1)")
                 .computeStartEndDynamicallyExpression("aql:true")
-                .taskDependenciesExpression("aql:self.getDependencyTargets()")
                 .build();
 
+        // Create task tool - creates a new PartUsage with default name (no dialog)
         var createTaskTool = this.ganttBuilders.newCreateTaskTool()
-                .name("Create Task")
+                .name("创建任务")
                 .body(this.viewBuilders.newChangeContext()
-                        .expression("aql:self.createChildPartUsage('New Task')")
+                        .expression(ServiceMethod.of0(DoDAFGanttQueryServices::createDefaultGanttTask).aqlSelf())
                         .build())
                 .build();
 
+        // Edit task tool - SetValue on declaredName
         var editTaskTool = this.ganttBuilders.newEditTaskTool()
-                .name("Edit Task")
-                .body(this.viewBuilders.newChangeContext()
-                        .expression("aql:self.directEdit(newLabel)")
+                .name("编辑任务")
+                .body(this.viewBuilders.newSetValue()
+                        .featureName("declaredName")
+                        .valueExpression("aql:newName")
                         .build())
                 .build();
 
+        // Delete task tool
         var deleteTaskTool = this.ganttBuilders.newDeleteTaskTool()
-                .name("Delete Task")
+                .name("删除任务")
                 .body(this.viewBuilders.newChangeContext()
-                        .expression("aql:self.deleteFromModel()")
+                        .expression(ServiceMethod.of0(DeleteService::deleteFromModel).aqlSelf())
                         .build())
                 .build();
 
@@ -82,24 +82,5 @@ public class DoDAFGanttDescriptionProvider implements IRepresentationDescription
                 .editTool(editTaskTool)
                 .deleteTool(deleteTaskTool)
                 .build();
-    }
-
-    /**
-     * Returns a list of task descriptions. The first one is the main task,
-     * additional ones can be defined for different element types.
-     */
-    private org.eclipse.sirius.components.view.gantt.TaskDescription[] createTaskDescriptions() {
-        var mainTask = this.ganttBuilders.newTaskDescription()
-                .name("DoDAFGantt-MainTask")
-                .domainType(SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getPartUsage()))
-                .semanticCandidatesExpression("aql:self.getExposedElements(PartUsage)")
-                .nameExpression("aql:self.declaredName")
-                .descriptionExpression("aql:self.getDocumentationBody()")
-                .startTimeExpression("aql:Sequence{1}->at(1)")
-                .endTimeExpression("aql:Sequence{10}->at(1)")
-                .computeStartEndDynamicallyExpression("aql:true")
-                .build();
-
-        return new org.eclipse.sirius.components.view.gantt.TaskDescription[] { mainTask };
     }
 }

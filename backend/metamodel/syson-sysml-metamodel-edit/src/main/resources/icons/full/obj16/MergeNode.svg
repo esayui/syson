@@ -1,1 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" width="16" height="16"><defs><linearGradient id="a"><stop offset="0" style="stop-color:#4e4184;stop-opacity:1"/><stop offset="1" style="stop-color:#fff;stop-opacity:1"/></linearGradient><linearGradient xlink:href="#a" id="b" x1="3.369" x2="2.107" y1=".827" y2="-.411" gradientUnits="userSpaceOnUse"/></defs><path fill="none" d="M1.231 1.429h2.277v1.552H1.231z" style="fill:#4b7eb0;fill-opacity:0;stroke:none;stroke-width:.0756102;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:.827451" transform="translate(-2.65 -.992) scale(4.18033)"/><g style="stroke:#64669b;stroke-opacity:1"><path d="M6.984 3.063H5.13" style="fill:none;stroke:#64669b;stroke-width:.277085;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:.415627;stroke-opacity:1" transform="matrix(3.57502 0 0 4.25367 -19.591 -.845)"/><path d="m7.149 3.052-.638-.53m.638.53-.638.53" style="fill:none;stroke:#64669b;stroke-width:.277085;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="matrix(3.57502 0 0 4.25367 -19.591 -.845)"/></g><g style="stroke:#64669b;stroke-opacity:1"><path d="M6.984 3.063H5.13" style="fill:none;stroke:#64669b;stroke-width:.277085;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:none;stroke-dashoffset:.415627;stroke-opacity:1" transform="matrix(3.57502 0 0 4.25367 -19.707 -9.753)"/><path d="m7.149 3.052-.638-.53m.638.53-.638.53" style="fill:none;stroke:#64669b;stroke-width:.277085;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="matrix(3.57502 0 0 4.25367 -19.707 -9.753)"/></g><path d="M1.871-.635v1.71h1.71v-1.71z" style="fill:url(#b);fill-opacity:1;stroke:#64669b;stroke-width:.150014;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:.300095;stroke-opacity:1" transform="matrix(2.971 2.94081 -2.88317 3.02696 3.151 -.992)"/></svg>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_119_2961)">
+<path d="M5.37711 12.1841H-1.25098" stroke="white" stroke-width="1.08052" stroke-miterlimit="3.9" stroke-linecap="round"/>
+<path d="M3.68652 9.88281L5.96739 12.1373L3.68652 14.3917" stroke="white" stroke-width="1.08052" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5.2609 3.276H-1.36719" stroke="white" stroke-width="1.08052" stroke-miterlimit="3.9" stroke-linecap="round"/>
+<path d="M3.57031 0.974731L5.85118 3.22918L3.57031 5.48362" stroke="white" stroke-width="1.08052" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M10.541 2.58813L5.61079 7.76424L10.6912 12.793L15.6214 7.61692L10.541 2.58813Z" fill="url(#paint0_linear_119_2961)" stroke="white" stroke-width="0.583318" stroke-linecap="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_119_2961" x1="10.7764" y1="11.4189" x2="10.5936" y2="3.96027" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_119_2961">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

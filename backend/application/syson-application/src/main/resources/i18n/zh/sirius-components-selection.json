@@ -1,10 +1,7 @@
 {
-  "selectionDialog": {
-    "ok": "确定",
-    "cancel": "取消",
-    "chooseSelection": "选择一个元素",
-    "selectChildrenFirst": "请先取消选择子元素再取消选择此元素",
-    "noObjectSelected": "未选择对象",
-    "noSelectionAvailable": "没有可用的选择"
+  "selectionDialogActions": {
+    "defaultStatusMessage": "请选择上方选项",
+    "defaultConfirmLabel": "选择一个选项",
+    "cancel": "取消"
   }
 }

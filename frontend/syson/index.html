@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <link href="/favicon.png" rel="icon" />
@@ -9,6 +9,165 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      // Force Chinese language - intercept ALL i18n API calls
+      (function() {
+        var _fetch = window.fetch;
+        window.fetch = function(url) {
+          if (typeof url === 'string' && url.indexOf('/api/locales/en/') >= 0) {
+            arguments[0] = url.replace('/api/locales/en/', '/api/locales/zh/');
+          }
+          return _fetch.apply(this, arguments);
+        };
+        var _open = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function(m, url) {
+          if (typeof url === 'string' && url.indexOf('/api/locales/en/') >= 0) {
+            arguments[1] = url.replace('/api/locales/en/', '/api/locales/zh/');
+          }
+          return _open.apply(this, arguments);
+        };
+      })();
+      // Override date formatting to Chinese
+      var _origToLocaleDate = Date.prototype.toLocaleDateString;
+      var _origToLocaleString = Date.prototype.toLocaleString;
+      Date.prototype.toLocaleDateString = function() { return _origToLocaleDate.call(this, 'zh-CN', arguments[0]); };
+      Date.prototype.toLocaleString = function() { return _origToLocaleString.call(this, 'zh-CN', arguments[0]); };
+      // Override Intl.DateTimeFormat to default to zh-CN
+      var _origDTF = Intl.DateTimeFormat;
+      Intl.DateTimeFormat = function(locales, options) {
+        if (!locales || locales === 'en' || locales === 'en-US') { locales = 'zh-CN'; }
+        return new _origDTF(locales, options);
+      };
+      Intl.DateTimeFormat.prototype = _origDTF.prototype;
+      localStorage.setItem('i18nextLng', 'zh');
+      document.documentElement.lang = 'zh-CN';
+      // Gantt DOM-level Chinese translation observer - covers ALL text nodes
+      var allZh = {
+        // Gantt
+        'Name': '名称', 'Start Date': '开始日期', 'End Date': '结束日期', 'Progress': '进度',
+        'Day': '天', 'Week': '周', 'Month': '月', 'Year': '年',
+        'Hour': '小时', 'Quarter Day': '四分之一天', 'Half Day': '半天', 'Two Days': '两天',
+        'Zoom in': '放大', 'Zoom out': '缩小', 'Fit to screen': '适应屏幕',
+        'Zoom level': '缩放级别', 'Display task list columns': '显示列', 'Display columns': '显示列',
+        'Share': '分享', 'Jan': '1月', 'Feb': '2月', 'Mar': '3月', 'Apr': '4月',
+        'May': '五月', 'Jun': '六月', 'Jul': '七月', 'Aug': '八月',
+        'Sep': '九月', 'Oct': '十月', 'Nov': '十一月', 'Dec': '十二月',
+        'Mon': '周一', 'Tue': '周二', 'Wed': '周三', 'Thu': '周四', 'Fri': '周五', 'Sat': '周六', 'Sun': '周日',
+        'Mo': '一', 'Tu': '二', 'We': '三', 'Th': '四', 'Fr': '五', 'Sa': '六', 'Su': '日',
+        // Table - comprehensive
+        'Rows per page:': '每页行数：', 'Rows per page': '每页行数',
+        'of': '/', 'No records to display': '无记录', 'No results found': '无结果',
+        'Export': '导出', 'Filters': '筛选', 'Search': '搜索',
+        'Column Actions': '列操作', 'Row Actions': '行操作', 'Row actions': '行操作',
+        'Show all': '显示全部', 'Show all columns': '显示所有列',
+        'Hide all': '隐藏全部', 'Clear filter': '清除筛选', 'Clear search': '清除搜索',
+        'Clear sort': '清除排序', 'Toggle full screen': '全屏',
+        'Export page data as CSV': '导出CSV', 'Export data as CSV': '导出CSV', 'Tools': '工具',
+        'Reset Row Heights': '重置行高', 'No entries found': '无条目',
+        'Starts With': '开头是', 'Ends With': '结尾是', 'Contains': '包含',
+        'Not Contains': '不包含', 'Equals': '等于', 'Not Equals': '不等于',
+        'Empty': '为空', 'Not Empty': '不为空', 'Less Than': '小于',
+        'Greater Than': '大于', 'Less Than Or Equal To': '小于等于',
+        'Greater Than Or Equal To': '大于等于', 'Between': '之间',
+        'Between Inclusive': '之间(含)', 'Fuzzy': '模糊',
+        'Filter by': '按列筛选', 'Group by': '按列分组', 'Sort by': '按列排序',
+        'Toggle density': '行密度', 'Toggle select all': '全选', 'Row Numbers': '行号',
+        'No records to display.': '无记录。', 'Loading...': '加载中...',
+        'The table does not exist anymore': '该表格已不存在',
+        'Column visibility': '列可见性', 'Show/Hide columns': '显示/隐藏列',
+        'Show/Hide filters': '显示/隐藏筛选', 'Show/Hide search': '显示/隐藏搜索',
+        'Pin to left': '固定到左侧', 'Pin to right': '固定到右侧',
+        'Unpin': '取消固定', 'Unpin all': '取消全部固定',
+        'Reset column size': '重置列宽', 'Reset order': '重置排序',
+        'Ascending': '升序', 'Descending': '降序', 'Unsorted': '无排序',
+        'Expand': '展开', 'Expand all': '展开全部',
+        'Collapse': '折叠', 'Collapse all': '折叠全部',
+        'Go to first page': '首页', 'Go to last page': '末页',
+        'Go to next page': '下一页', 'Go to previous page': '上一页',
+        'Grab': '拖动', 'Move': '移动', 'Copy': '复制', 'Edit': '编辑', 'Delete': '删除',
+        'Row Numbers': '行号', 'Hide column': '隐藏列', 'Show column': '显示列',
+        'Cancel': '取消', 'Save': '保存', 'Select': '选择', 'Actions': '操作',
+        'Filter Mode': '筛选模式', 'Filter by column': '按列筛选',
+        'Clear': '清除', 'Pin': '固定', 'Drop to group by': '拖放到分组',
+        'Click to copy': '点击复制', 'Copied to clipboard': '已复制到剪贴板',
+        'Toggle visibility': '切换可见性', 'Ungroup by column': '取消分组',
+      };
+      // One-time patch for table representation text
+      var tablePatchDone = false;
+      function patchTableText() {
+        var root = document.querySelector('[data-testid="table-representation"]');
+        if (!root) { tablePatchDone = false; return; }
+        if (tablePatchDone) return;
+        root.querySelectorAll('*').forEach(function(el) {
+          for (var i = 0; i < el.childNodes.length; i++) {
+            var n = el.childNodes[i];
+            if (n.nodeType === 3 && n.textContent.trim()) {
+              var t = n.textContent.trim();
+              if (allZh[t]) n.textContent = n.textContent.replace(t, allZh[t]);
+            }
+          }
+          if (el.textContent && allZh[el.textContent.trim()]) el.textContent = allZh[el.textContent.trim()];
+        });
+        tablePatchDone = true;
+      }
+      setInterval(patchTableText, 2000);
+      };
+      function translateAllText(root) {
+        if (!root || !root.querySelectorAll) return;
+        root.querySelectorAll('*').forEach(function(el) {
+          for (var i = 0; i < el.childNodes.length; i++) {
+            var node = el.childNodes[i];
+            if (node.nodeType === 3) {
+              var t = node.textContent.trim();
+              if (t && allZh[t]) { node.textContent = allZh[t]; }
+            }
+          }
+          // Also translate title/tooltip attributes
+          if (el.title && allZh[el.title]) { el.title = allZh[el.title]; }
+        });
+      }
+      // MutationObserver for new nodes
+      new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+          m.addedNodes.forEach(function(node) {
+            if (node.nodeType === 1) translateAllText(node);
+          });
+        });
+      }).observe(document.body, { childList: true, subtree: true });
+      // Periodic scan for dynamic content (SVG, canvas text, etc.)
+      setInterval(function() { translateAllText(document); }, 2000);
+      // Inject custom Gantt toolbar (add button + search box)
+      var ganttToolbarInjected = false;
+      setInterval(function() {
+        if (ganttToolbarInjected) return;
+        var ganttRoot = document.querySelector('[class*="ganttContainer"]');
+        if (!ganttRoot) return;
+        ganttToolbarInjected = true;
+        // Create custom toolbar
+        var tb = document.createElement('div');
+        tb.style.cssText = 'display:flex;align-items:center;gap:10px;padding:6px 12px;background:#F1F5F9;border-bottom:1px solid #CBD5E1';
+        tb.innerHTML = '<button id="dodaf-gantt-add" style="background:#10B981;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:13px">+ 新建任务</button>' +
+          '<input id="dodaf-gantt-search" placeholder="搜索任务..." style="flex:1;padding:5px 10px;border:1px solid #CBD5E1;border-radius:4px;font-size:13px;max-width:200px;color:#000;background:#fff">';
+        ganttRoot.insertBefore(tb, ganttRoot.firstChild);
+        // Add button click: trigger Gantt's built-in add task
+        document.getElementById('dodaf-gantt-add').addEventListener('click', function() {
+          var addBtn = ganttRoot.querySelector('button[aria-label*="add" i], button[title*="add" i], [class*="addTask" i], [class*="AddTask" i]');
+          if (addBtn) { addBtn.click(); }
+          else {
+            // Fallback: try context menu on first row
+            var firstRow = ganttRoot.querySelector('tr[class*="row" i], [class*="tableRow" i], [class*="TableRow" i]');
+            if (firstRow) { firstRow.dispatchEvent(new MouseEvent('contextmenu', {bubbles:true})); }
+          }
+        });
+        // Search filter
+        document.getElementById('dodaf-gantt-search').addEventListener('input', function(e) {
+          var q = e.target.value.toLowerCase();
+          ganttRoot.querySelectorAll('tr').forEach(function(tr) {
+            tr.style.display = q ? (tr.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none') : '';
+          });
+        });
+      }, 1000);
+    </script>
     <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="16" height="16"><text xml:space="preserve" x=".165" y="10.479" style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:11.38px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:1.06082px;word-spacing:0;fill:#4e4184;fill-opacity:1;stroke:none;stroke-width:1.06035" transform="scale(.94212 1.06144)"><tspan x=".165" y="10.479" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:11.38px;font-family:Arial;-inkscape-font-specification:Arial;fill:#3f386c;fill-opacity:1;stroke-width:1.06035">[?]</tspan></text><path d="M1.95 2.984Z" style="fill:none;stroke:#3f386c;stroke-width:.269999;stroke-linecap:round" transform="translate(-1.227 .188) scale(3.93244)"/></svg>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_119_3078)">
+<path d="M0.966543 11.3386V0.897666H3.73375V2.12568H2.45017V10.1106H3.73375V11.3386H0.966543ZM8.11794 6.94329H6.701C6.69729 6.73955 6.69544 6.61545 6.69544 6.571C6.69544 6.11165 6.77138 5.7338 6.92326 5.43744C7.07514 5.14109 7.37891 4.80769 7.83455 4.43725C8.2902 4.0668 8.56247 3.82416 8.65138 3.70933C8.78844 3.52781 8.85697 3.32777 8.85697 3.10921C8.85697 2.80545 8.73473 2.54614 8.49023 2.33128C8.24945 2.11272 7.92346 2.00344 7.51227 2.00344C7.11589 2.00344 6.78435 2.11642 6.51763 2.34239C6.25091 2.56836 6.06754 2.91287 5.96752 3.37593L4.53391 3.19812C4.57466 2.53502 4.85619 1.97195 5.37852 1.5089C5.90454 1.04584 6.59357 0.814316 7.44559 0.814316C8.34206 0.814316 9.05516 1.04955 9.58489 1.52001C10.1146 1.98677 10.3795 2.53132 10.3795 3.15366C10.3795 3.49817 10.2813 3.82416 10.085 4.13163C9.89236 4.4391 9.47746 4.8577 8.8403 5.38743C8.51061 5.66156 8.30501 5.88197 8.22352 6.04867C8.14572 6.21537 8.11053 6.51358 8.11794 6.94329ZM6.701 9.0437V7.48229H8.26241V9.0437H6.701ZM13.8802 0.897666V11.3386H11.113V10.1106H12.3966V2.11457H11.113V0.897666H13.8802Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_119_3078">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

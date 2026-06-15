@@ -1,1 +1,21 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><defs><linearGradient xlink:href="#a" id="b" x1="7.451" x2="7.427" y1="1.098" y2="3.18" gradientTransform="matrix(1.6318 0 0 2.73884 -3.993 2.047)" gradientUnits="userSpaceOnUse"/><linearGradient id="a"><stop offset="0" style="stop-color:#a1a4c4;stop-opacity:1"/><stop offset="0" style="stop-color:#9799cc;stop-opacity:1"/><stop offset=".092" style="stop-color:#9799cc;stop-opacity:1"/><stop offset=".225" style="stop-color:#afb2d4;stop-opacity:1"/><stop offset=".331" style="stop-color:#a0a2df;stop-opacity:1"/><stop offset=".842" style="stop-color:#989ce8;stop-opacity:1"/><stop offset="1" style="stop-color:#8083c6;stop-opacity:1"/></linearGradient></defs><path d="M5.533.957.804 5.523" style="fill:none;stroke:#4e4184;stroke-width:.396875;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:3.9;stroke-dasharray:1.19062,1.19062;stroke-dashoffset:.595312;stroke-opacity:1" transform="translate(-1.014 -.708) scale(2.76038)"/><path d="m5.695.786.032 1.037M5.695.786 4.66.818" style="fill:none;stroke:#4e4184;stroke-width:.396875;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(-1.014 -.708) scale(2.76038)"/><g transform="translate(6.939 7.312) scale(.67731)"><rect width="6.271" height="6.229" x="4.864" y="4.886" rx="0" ry=".788" style="fill:url(#b);fill-opacity:1;stroke:#64669b;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:.300095;stroke-opacity:1"/><text xml:space="preserve" x="7.163" y="9.038" style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:4.53506px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:.42275px;word-spacing:0;fill:#4e4184;fill-opacity:1;stroke:none;stroke-width:.422561" transform="scale(.94212 1.06144)"><tspan x="7.163" y="9.038" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:4.53506px;font-family:Arial;-inkscape-font-specification:Arial;fill:#3f386c;fill-opacity:1;stroke-width:.422561">~</tspan></text></g></svg>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_119_2651)">
+<path d="M14.2589 1.93372L1.20508 14.5376" stroke="white" stroke-width="1.09553" stroke-miterlimit="3.9" stroke-linecap="round" stroke-dasharray="3.29 3.29"/>
+<path d="M14.7949 4.32418L14.7066 1.46167L11.8496 1.55" stroke="white" stroke-width="1.09553" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M13.9471 10.6213H10.7671C10.4724 10.6213 10.2334 10.8603 10.2334 11.1551V14.3066C10.2334 14.6013 10.4724 14.8403 10.7671 14.8403H13.9471C14.2419 14.8403 14.4808 14.6013 14.4808 14.3066V11.1551C14.4808 10.8603 14.2419 10.6213 13.9471 10.6213Z" fill="url(#paint0_linear_119_2651)" stroke="white" stroke-width="0.67731" stroke-linecap="round"/>
+<path d="M11.6581 13.4001V12.8265C11.8456 12.6228 12.0641 12.5209 12.3136 12.5209C12.4066 12.5209 12.4922 12.5305 12.5705 12.5497C12.6487 12.5674 12.7889 12.6176 12.9912 12.7003C13.1949 12.7815 13.3329 12.8221 13.4053 12.8221C13.4879 12.8221 13.5832 12.797 13.6909 12.7468C13.8002 12.6951 13.9065 12.6139 14.0098 12.5032V13.1011C13.9419 13.172 13.8467 13.2384 13.7242 13.3004C13.6031 13.3624 13.4776 13.3934 13.3477 13.3934C13.2739 13.3934 13.2016 13.3846 13.1307 13.3668C13.0613 13.3491 12.9506 13.307 12.7985 13.2406C12.5712 13.1417 12.3926 13.0923 12.2627 13.0923C12.056 13.0923 11.8545 13.1949 11.6581 13.4001Z" fill="#3F386C"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_119_2651" x1="12.4696" y1="10.7353" x2="12.3949" y2="14.5966" gradientUnits="userSpaceOnUse">
+<stop stop-color="#9799CC"/>
+<stop offset="0.092" stop-color="#9799CC"/>
+<stop offset="0.225" stop-color="#AFB2D4"/>
+<stop offset="0.331" stop-color="#A0A2DF"/>
+<stop offset="0.842" stop-color="#989CE8"/>
+<stop offset="1" stop-color="#8083C6"/>
+</linearGradient>
+<clipPath id="clip0_119_2651">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

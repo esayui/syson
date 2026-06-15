@@ -13,6 +13,7 @@
 package org.eclipse.syson.standard.diagrams.view;
 
 import org.eclipse.sirius.components.view.RepresentationDescription;
+import org.eclipse.sirius.components.view.ViewFactory;
 import org.eclipse.sirius.components.view.builder.generated.diagram.DiagramBuilders;
 import org.eclipse.sirius.components.view.builder.providers.IColorProvider;
 import org.eclipse.sirius.components.view.builder.providers.IRepresentationDescriptionProvider;
@@ -47,6 +48,8 @@ public class DoDAFSequenceViewDiagramDescriptionProvider implements IViewDescrip
         return new IRepresentationDescriptionProvider() {
             @Override
             public RepresentationDescription create(IColorProvider colorProvider) {
+                var bg = ViewFactory.eINSTANCE.createFixedColor();
+                bg.setValue("#FAFBFC");
                 return new DiagramBuilders().newDiagramDescription()
                         .arrangeLayoutDirection(ArrangeLayoutDirection.DOWN)
                         .domainType(SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getNamespace()))
@@ -55,6 +58,7 @@ public class DoDAFSequenceViewDiagramDescriptionProvider implements IViewDescrip
                         .preconditionExpression(ServiceMethod.of0(DoDAFSequenceViewCreateService::canCreateDiagram).aqlSelf())
                         .name(DESCRIPTION_NAME)
                         .style(new DiagramBuilders().newDiagramStyleDescription()
+                                .background(bg)
                                 .build())
                         .titleExpression("aql:'Sequence '+ Sequence{self.existingViewUsagesCountForRepresentationCreation(), 1}->sum()")
                         .toolbar(new DiagramBuilders().newDiagramToolbar().build())

@@ -84,15 +84,22 @@ public class SysMLv2TemplatesRepresentationInitializer {
             var editingContext = templateInitialization.editingContext();
             var resource = templateInitialization.resource();
 
-            var optViewUsage = this.getOrCreateViewUsage(resource);
+            // Check if this is a DoDAF template (has 有人无人协同反潜系统 as root)
+            var rootElement = this.getRootElement(resource);
+            boolean isDoDAF = rootElement.isPresent() && rootElement.get() instanceof Package
+                    && "有人无人协同反潜系统".equals(((Package) rootElement.get()).getName());
 
-            if (optViewUsage.isPresent()) {
-                this.diagramMutationDiagramService.createDiagram(optViewUsage.get(), editingContext, SysONRepresentationDescriptionIdentifiers.GENERAL_VIEW_DIAGRAM_DESCRIPTION_ID);
-                this.editingContextPersistenceService.persist(semanticDataUpdatedEvent, editingContext);
+            if (!isDoDAF) {
+                // Standard SysMLv2 templates: create a single "view1" ViewUsage with GeneralView diagram
+                var optViewUsage = this.getOrCreateViewUsage(resource);
+                if (optViewUsage.isPresent()) {
+                    this.diagramMutationDiagramService.createDiagram(optViewUsage.get(), editingContext, SysONRepresentationDescriptionIdentifiers.GENERAL_VIEW_DIAGRAM_DESCRIPTION_ID);
+                    this.editingContextPersistenceService.persist(semanticDataUpdatedEvent, editingContext);
+                }
+            } else {
+                // DoDAF templates: process ViewUsage elements with proper ViewDefinitions
+                this.createDodafv2Diagrams(resource, editingContext, semanticDataUpdatedEvent);
             }
-
-            // For DoDAF templates, create diagrams on key ViewUsage elements
-            this.createDodafv2Diagrams(resource, editingContext, semanticDataUpdatedEvent);
         }
     }
 
@@ -183,8 +190,8 @@ public class SysMLv2TemplatesRepresentationInitializer {
                         // Set the appropriate ViewDefinition type for ALL views
                         String viewDefQN = this.getViewDefinitionForDoDAFView(name);
                         this.modelMutationElementService.featureTypeViewUsage(vu, viewDefQN);
-                        // Create the appropriate representation type based on the ViewDefinition
-                        this.createRepresentationForView(vu, name, viewDefQN, editingContext);
+                        // Representations are created by user via "New Representation" menu
+                        // This avoids duplicate explorer nodes under each ViewUsage
                     } catch (Exception e) {
                         this.logger.warn("Failed to process DoDAF view {}: {}", name, e.getMessage());
                     }
@@ -212,11 +219,10 @@ public class SysMLv2TemplatesRepresentationInitializer {
 
     private void createTableRepresentation(ViewUsage vu, String viewName, String descName, IEMFEditingContext editingContext) {
         try {
-            var desc = this.representationDescriptionSearchService.findAll(editingContext).entrySet().stream()
-                    .filter(e -> e.getValue() instanceof org.eclipse.sirius.components.tables.descriptions.TableDescription)
-                    .filter(e -> descName.equals(((org.eclipse.sirius.components.tables.descriptions.TableDescription) e.getValue()).getId()))
-                    .map(java.util.Map.Entry::getValue)
+            var desc = this.representationDescriptionSearchService.findAll(editingContext).values().stream()
+                    .filter(org.eclipse.sirius.components.tables.descriptions.TableDescription.class::isInstance)
                     .map(org.eclipse.sirius.components.tables.descriptions.TableDescription.class::cast)
+                    .filter(d -> descName.equals(d.getLabel()))
                     .findFirst();
             if (desc.isPresent()) {
                 var tableDesc = desc.get();
@@ -224,7 +230,7 @@ public class SysMLv2TemplatesRepresentationInitializer {
                 var table = this.tableCreationService.create(id, vu, tableDesc, editingContext);
                 var metadata = org.eclipse.sirius.components.core.RepresentationMetadata.newRepresentationMetadata(table.getId())
                         .kind("Table")
-                        .label(viewName)
+                        .label(viewName + " [表格]")
                         .descriptionId(table.getDescriptionId())
                         .iconURLs(java.util.List.of())
                         .build();
@@ -241,18 +247,17 @@ public class SysMLv2TemplatesRepresentationInitializer {
 
     private void createGanttRepresentation(ViewUsage vu, String viewName, String descName, IEMFEditingContext editingContext) {
         try {
-            var desc = this.representationDescriptionSearchService.findAll(editingContext).entrySet().stream()
-                    .filter(e -> e.getValue() instanceof org.eclipse.sirius.components.gantt.description.GanttDescription)
-                    .filter(e -> descName.equals(((org.eclipse.sirius.components.gantt.description.GanttDescription) e.getValue()).getId()))
-                    .map(java.util.Map.Entry::getValue)
+            var desc = this.representationDescriptionSearchService.findAll(editingContext).values().stream()
+                    .filter(org.eclipse.sirius.components.gantt.description.GanttDescription.class::isInstance)
                     .map(org.eclipse.sirius.components.gantt.description.GanttDescription.class::cast)
+                    .filter(d -> descName.equals(d.getLabel()))
                     .findFirst();
             if (desc.isPresent()) {
                 var ganttDesc = desc.get();
                 var gantt = this.ganttCreationService.create(vu, ganttDesc, editingContext);
                 var metadata = org.eclipse.sirius.components.core.RepresentationMetadata.newRepresentationMetadata(gantt.getId())
                         .kind("Gantt")
-                        .label(viewName)
+                        .label(viewName + " [甘特图]")
                         .descriptionId(gantt.getDescriptionId())
                         .iconURLs(java.util.List.of())
                         .build();

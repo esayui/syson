@@ -19,6 +19,7 @@ import org.eclipse.sirius.components.view.emf.IJavaServiceProvider;
 import org.eclipse.syson.services.DeleteService;
 import org.eclipse.syson.services.UtilService;
 import org.eclipse.syson.standard.diagrams.view.services.DoDAFMatrixMutationServices;
+import org.eclipse.syson.standard.diagrams.view.services.DoDAFMatrixQueryServices;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -37,7 +38,8 @@ public class DoDAFMatrixViewJavaServiceProvider implements IJavaServiceProvider 
             return List.of(
                     DeleteService.class,
                     UtilService.class,
-                    DoDAFMatrixMutationServices.class);
+                    DoDAFMatrixMutationServices.class,
+                    DoDAFMatrixQueryServices.class);
         }
         return List.of();
     }

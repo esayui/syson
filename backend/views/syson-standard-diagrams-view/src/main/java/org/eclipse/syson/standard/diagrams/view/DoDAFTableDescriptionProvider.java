@@ -45,7 +45,7 @@ public class DoDAFTableDescriptionProvider implements IRepresentationDescription
 
         var rowDescription = this.tableBuilders.newRowDescription()
                 .name("DoDAFTable-Row")
-                .semanticCandidatesExpression("aql:self.getExposedElements()->toPaginatedData(cursor,direction,size)")
+                .semanticCandidatesExpression("aql:self.getTableElements()->toPaginatedData(cursor,direction,size)")
                 .depthLevelExpression("0")
                 .headerLabelExpression("条目")
                 .initialHeightExpression("-1")

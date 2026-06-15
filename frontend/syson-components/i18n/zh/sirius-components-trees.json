@@ -1,0 +1,27 @@
+{
+  "treeToolBar": {
+    "delete": "删除",
+    "deleteAll": "全部删除"
+  },
+  "contextMenu": {
+    "delete": "删除",
+    "rename": "重命名",
+    "displayDetail": "显示详情",
+    "copyId": "复制 ID",
+    "copyIdToClipboard": "复制 ID 到剪贴板",
+    "idSuccessfullyCopied": "ID 已成功复制到剪贴板",
+    "download": "下载"
+  },
+  "fileUpload": {
+    "clickToSelectAFile": "点击选择文件"
+  },
+  "tree": {
+    "noData": "暂无数据",
+    "selectAnItemToDisplay": "选择一个项目以显示",
+    "deleteSuccessfully": "删除成功",
+    "renameSuccessfully": "重命名成功"
+  },
+  "treeItemContextMenu": {
+    "deleteTreeItemDialogTitle": "删除所选元素"
+  }
+}

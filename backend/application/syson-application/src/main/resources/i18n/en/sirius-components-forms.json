@@ -1,0 +1,138 @@
+{
+  "editCheckboxWidgetModal": {
+    "title": "编辑复选框组件",
+    "submit": "保存"
+  },
+  "editDateTimeWidgetModal": {
+    "title": "编辑日期时间组件",
+    "submit": "保存"
+  },
+  "editFileUploadWidgetModal": {
+    "title": "编辑文件上传组件",
+    "submit": "保存"
+  },
+  "editFlexboxContainerWidgetModal": {
+    "title": "编辑弹性容器组件",
+    "submit": "保存",
+    "cancel": "取消",
+    "name": {
+      "label": "名称"
+    },
+    "flexDirection": {
+      "label": "方向",
+      "helperText": "Flex 方向不能为空"
+    },
+    "flexWrap": {
+      "label": "换行",
+      "helperText": "Flex 换行不能为空",
+      "nowrap": "不换行",
+      "wrap": "换行",
+      "wrapReverse": "反向换行"
+    },
+    "flexGrow": {
+      "label": "Flex 增长",
+      "helperText": "Flex 增长不能为空",
+      "noneLabel": "无"
+    },
+    "borderStyle": {
+      "label": "边框样式",
+      "helperText": "边框样式不能为空",
+      "solid": "实线",
+      "dashed": "虚线",
+      "dotted": "点线",
+      "double": "双线",
+      "hidden": "隐藏",
+      "inset": "内嵌",
+      "outset": "外凸",
+      "groove": "凹槽",
+      "ridge": "凸脊",
+      "noneLabel": "无"
+    }
+  },
+  "editImageWidgetModal": {
+    "title": "编辑图片组件",
+    "submit": "保存"
+  },
+  "editLabelWidgetModal": {
+    "title": "编辑标签组件",
+    "submit": "保存"
+  },
+  "editLinkWidgetModal": {
+    "title": "编辑链接组件",
+    "submit": "保存"
+  },
+  "editListWidgetModal": {
+    "title": "编辑列表组件",
+    "submit": "保存"
+  },
+  "editMultiSelectWidgetModal": {
+    "title": "编辑多选组件",
+    "submit": "保存"
+  },
+  "editPieChartWidgetModal": {
+    "title": "编辑饼图组件",
+    "submit": "保存"
+  },
+  "editRadioWidgetModal": {
+    "title": "编辑单选按钮组件",
+    "submit": "保存"
+  },
+  "editRichTextWidgetModal": {
+    "title": "编辑富文本组件",
+    "submit": "保存"
+  },
+  "editSelectWidgetModal": {
+    "title": "编辑下拉选择组件",
+    "submit": "保存"
+  },
+  "editTextfieldWidgetModal": {
+    "title": "编辑文本框组件",
+    "submit": "保存"
+  },
+  "editTextAreaWidgetModal": {
+    "title": "编辑文本域组件",
+    "submit": "保存"
+  },
+  "editButtonWidgetModal": {
+    "title": "编辑按钮组件",
+    "submit": "保存"
+  },
+  "editSplitButtonWidgetModal": {
+    "title": "编辑分割按钮组件",
+    "submit": "保存"
+  },
+  "editBarChartWidgetModal": {
+    "title": "编辑柱状图组件",
+    "submit": "保存"
+  },
+  "form": {
+    "edit": "编辑",
+    "delete": "删除",
+    "create": "创建",
+    "browse": "浏览",
+    "clear": "清除",
+    "noneLabel": "无",
+    "addValue": "添加值",
+    "removeValue": "移除值",
+    "selectValue": "选择值",
+    "selectChildren": "选择子项",
+    "noValue": "无值",
+    "referencedValues_one": "{{count}} 个引用值",
+    "referencedValues_other": "{{count}} 个引用值",
+    "mandatory": "必填",
+    "optional": "可选",
+    "isContainer": "是容器",
+    "manyValued": "多值",
+    "style": "样式",
+    "gridLayout": "网格布局",
+    "singleClickToEdit": "单击以编辑",
+    "doubleClickToEdit": "双击以编辑",
+    "noResultFound": "未找到结果",
+    "noWidgetFound": "未找到组件",
+    "noGroupFound": "未找到分组",
+    "noToolFound": "未找到工具",
+    "noFormFound": "未找到表单",
+    "noFormDescriptionFound": "未找到表单描述",
+    "noRepresentationFound": "未找到视图"
+  }
+}

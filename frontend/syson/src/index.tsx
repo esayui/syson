@@ -37,6 +37,7 @@ import './ReactFlow.css';
 import './reset.css';
 import './transparency.css';
 import './variables.css';
+import './dodaf-views.css';
 
 if (process.env.NODE_ENV !== 'production') {
   loadDevMessages();

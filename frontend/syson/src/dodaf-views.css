@@ -1,0 +1,251 @@
+/*******************************************************************************
+ * DoDAF View light theme overrides for table and gantt representations
+ *******************************************************************************/
+
+/* Gantt container - light background, black text for all children */
+[class*="ganttContainer"] {
+  background-color: #FAFBFC !important;
+  color: #000000 !important;
+}
+
+[class*="ganttContainer"] * {
+  color: #000000 !important;
+}
+
+/* Gantt left table panel - expand to show all 4 columns */
+[class*="ganttContainer"] [class*="split"] [class*="pane"]:first-child,
+[class*="ganttContainer"] [class*="SplitPane"] [class*="Pane"]:first-child,
+[class*="ganttContainer"] [class*="pane1"],
+[class*="ganttContainer"] [class*="Pane1"] {
+  width: 380px !important;
+  min-width: 380px !important;
+  flex: 0 0 380px !important;
+}
+
+/* Gantt task list table */
+[class*="ganttContainer"] table {
+  min-width: 380px !important;
+  table-layout: fixed !important;
+}
+
+[class*="ganttContainer"] .MuiTableCell-root {
+  white-space: nowrap !important;
+  padding: 6px 8px !important;
+  font-size: 13px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Column widths */
+[class*="ganttContainer"] .MuiTableCell-root:nth-child(1) { width: 40% !important; }
+[class*="ganttContainer"] .MuiTableCell-root:nth-child(2) { width: 20% !important; }
+[class*="ganttContainer"] .MuiTableCell-root:nth-child(3) { width: 20% !important; }
+[class*="ganttContainer"] .MuiTableCell-root:nth-child(4) { width: 20% !important; }
+
+/* Gantt table header */
+[class*="ganttContainer"] .MuiTableCell-head {
+  background-color: #F1F5F9 !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #CBD5E1 !important;
+}
+
+/* Gantt rows alternating */
+[class*="ganttContainer"] .MuiTableRow-root:nth-of-type(odd) {
+  background-color: #FFFFFF !important;
+}
+[class*="ganttContainer"] .MuiTableRow-root:nth-of-type(even) {
+  background-color: #F1F5F9 !important;
+}
+[class*="ganttContainer"] .MuiTableRow-root:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* Gantt chart bar area */
+[class*="ganttContainer"] .MuiPaper-root {
+  background-color: #FAFBFC !important;
+}
+
+/* Gantt input fields */
+[class*="ganttContainer"] input {
+  color: #000000 !important;
+}
+
+/* Gantt left table panel */
+[class*="ganttContainer"] .MuiTableCell-root {
+  color: #1F2937 !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* Gantt table header */
+[class*="ganttContainer"] .MuiTableCell-head {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #CBD5E1 !important;
+}
+
+/* Gantt table rows - alternating light colors */
+[class*="ganttContainer"] .MuiTableRow-root:nth-of-type(odd) {
+  background-color: #FFFFFF !important;
+}
+
+[class*="ganttContainer"] .MuiTableRow-root:nth-of-type(even) {
+  background-color: #F1F5F9 !important;
+}
+
+[class*="ganttContainer"] .MuiTableRow-root:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* Gantt chart bar area */
+[class*="ganttContainer"] .MuiPaper-root {
+  background-color: #FAFBFC !important;
+}
+
+/* Gantt task bars */
+[class*="ganttContainer"] [class*="taskBar"],
+[class*="ganttContainer"] [class*="TaskBar"] {
+  opacity: 0.9;
+}
+
+/* Gantt input fields */
+[class*="ganttContainer"] .MuiInputBase-root {
+  color: #1F2937 !important;
+  background-color: #FFFFFF !important;
+}
+
+[class*="ganttContainer"] .MuiOutlinedInput-notchedOutline {
+  border-color: #CBD5E1 !important;
+}
+
+/* Gantt typography */
+[class*="ganttContainer"] .MuiTypography-root {
+  color: #1F2937 !important;
+}
+
+/* Gantt split pane divider */
+[class*="ganttContainer"] [class*="splitPane"],
+[class*="ganttContainer"] [class*="divider"] {
+  background-color: #CBD5E1 !important;
+}
+
+/* Gantt scrollbar */
+[class*="ganttContainer"] ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+[class*="ganttContainer"] ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+/* Gantt time axis header */
+[class*="ganttContainer"] [class*="timeAxis"],
+[class*="ganttContainer"] [class*="TimeAxis"],
+[class*="ganttContainer"] [class*="header"] {
+  background-color: #F1F5F9 !important;
+  color: #1F2937 !important;
+}
+
+/* Grid lines in Gantt chart area */
+[class*="ganttContainer"] [class*="gridLine"],
+[class*="ganttContainer"] [class*="GridLine"] {
+  stroke: #E2E8F0 !important;
+}
+
+/* Today line in Gantt */
+[class*="ganttContainer"] [class*="todayLine"],
+[class*="ganttContainer"] [class*="TodayLine"] {
+  stroke: #EF4444 !important;
+}
+
+/* === DoDAF Table (MatrixView / TableView) dark theme === */
+/* Unified background: rgb(25, 40, 79), white text, no borders */
+
+/* === Table representation only (not explorer tree) === */
+/* Target cells within the main representation view area */
+html body [class*="MuiTableCell-root"] {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  padding: 8px 12px !important;
+  vertical-align: top !important;
+}
+
+html body [class*="MuiTableRow-root"] {
+  height: auto !important;
+}
+
+/* Hide row header column - only in table representation views */
+[data-testid="table-representation"] thead th:first-child,
+[data-testid="table-representation"] tbody td:first-child,
+[data-testid="table-representation"] tbody th:first-child {
+  display: none !important;
+}
+
+/* Table representation - unified dark background for ALL nested elements */
+/* Table representation - dark background for structural elements only */
+[data-testid="table-representation"],
+[data-testid="table-representation"] .MuiTable-root,
+[data-testid="table-representation"] .MuiTableContainer-root,
+[data-testid="table-representation"] .MuiTableRow-root,
+[data-testid="table-representation"] .MuiTableCell-root,
+[data-testid="table-representation"] .MuiToolbar-root,
+[data-testid="table-representation"] .MuiTablePagination-root,
+[data-testid="table-representation"] .MuiPaper-root,
+[data-testid="table-representation"] .MuiInputBase-root,
+[data-testid="table-representation"] .MuiInput-root,
+[data-testid="table-representation"] .MuiOutlinedInput-root,
+[data-testid="table-representation"] input[type="text"],
+[data-testid="table-representation"] textarea {
+  background-color: rgb(25, 40, 79) !important;
+  color: #FFFFFF !important;
+}
+
+[data-testid="table-representation"] [class*="MuiTableCell-head"] {
+  background-color: rgb(25, 40, 79) !important;
+  color: #FFFFFF !important;
+  font-weight: 600 !important;
+}
+
+/* Sticky header cells */
+[data-testid="table-representation"] [class*="MuiTableCell-stickyHeader"] {
+  background-color: rgb(25, 40, 79) !important;
+  color: #FFFFFF !important;
+}
+
+/* All MuiBox containers inside table */
+[data-testid="table-representation"] [class*="MuiBox-root"] {
+  background-color: rgb(25, 40, 79) !important;
+  color: #FFFFFF !important;
+}
+
+[data-testid="table-representation"] td::before,
+[data-testid="table-representation"] th::before {
+  background-color: rgb(25, 40, 79) !important;
+}
+
+[data-testid="table-representation"] .MuiButton-root {
+  color: #FFFFFF !important;
+}
+
+[data-testid="table-representation"] .MuiSelect-select,
+[data-testid="table-representation"] .MuiNativeSelect-select {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+[data-testid="table-representation"] .MuiTypography-root {
+  color: #FFFFFF !important;
+}
+
+[data-testid="table-representation"] .MuiSvgIcon-root {
+  color: #94A3B8 !important;
+}
+
+[data-testid="table-representation"] .MuiTableCell-root {
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  border-bottom: none !important;
+}

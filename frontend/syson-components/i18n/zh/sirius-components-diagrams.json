@@ -1,0 +1,362 @@
+{
+  "diagram": {
+    "arrangeAll": "排列全部",
+    "delete": "删除",
+    "distributeGapHorizontally": "水平分布间距",
+    "distributeGapVertically": "垂直分布间距",
+    "distributeLeft": "左分布",
+    "distributeRight": "右分布",
+    "distributeTop": "顶分布",
+    "distributeBottom": "底分布",
+    "distributeVertically": "垂直分布",
+    "distributeHorizontally": "水平分布",
+    "distributeWidth": "分布宽度",
+    "distributeHeight": "分布高度",
+    "rectangularSelection": "矩形选择",
+    "edit": "编辑",
+    "editAppearance": "编辑外观",
+    "editSize": "编辑尺寸",
+    "editPosition": "编辑位置",
+    "editText": "编辑文本",
+    "fontBold": "粗体",
+    "fontItalic": "斜体",
+    "fontUnderline": "下划线",
+    "fontStrikeThrough": "删除线",
+    "fontFamily": "字体",
+    "fontSize": "字号",
+    "fontColor": "字体颜色",
+    "fontBackgroundColor": "背景颜色",
+    "fontReset": "重置",
+    "resize": "调整大小",
+    "straighten": "拉直",
+    "graphicalDnd": "图形拖放",
+    "pinUnpin": "固定/取消固定",
+    "pin": "固定",
+    "unpin": "取消固定",
+    "dragAndDrop": "拖放",
+    "fade": "淡出",
+    "hide": "隐藏",
+    "show": "显示",
+    "revealHiddenElements": "显示隐藏元素",
+    "revealFadedElements": "显示淡出元素",
+    "hideFadedElements": "隐藏淡出元素",
+    "collapse": "折叠",
+    "expand": "展开",
+    "selectAllConnectedEdges": "选择所有连接的边",
+    "semanticDnd": "语义拖放",
+    "semanticDragAndDrop": "语义拖放",
+    "selectAll": "全选",
+    "deselectAll": "取消全选",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "zoomToFit": "适应窗口",
+    "zoomToSelection": "适应选择",
+    "zoomLevel": "缩放级别",
+    "zoomReset": "重置缩放",
+    "share": "分享",
+    "toggleFullscreen": "切换全屏",
+    "exitFullscreen": "退出全屏",
+    "copyToClipboardLegend": "复制到剪贴板（图例）",
+    "diagramLegend": "图例",
+    "noElementToDisplay": "没有可显示的元素",
+    "noDiagram": "该图表已不存在",
+    "unsupportedRepresentation": "不支持的表示类型",
+    "selectedElement": "已选择元素",
+    "noSelection": "未选择任何元素",
+    "editLabel": "编辑标签"
+  },
+  "diagramPalette": {
+    "label": "调色板",
+    "noTool": "没有可用的工具",
+    "emptyList": "没有可用的元素",
+    "searchPlaceholder": "搜索..."
+  },
+  "dropTool": {
+    "noCompatible": "没有兼容的工具",
+    "label": "拖放工具"
+  },
+  "nodePalette": {
+    "label": "节点调色板",
+    "searchPlaceholder": "搜索...",
+    "noTool": "没有可用的工具"
+  },
+  "edgePalette": {
+    "label": "边调色板",
+    "searchPlaceholder": "搜索...",
+    "noTool": "没有可用的工具"
+  },
+  "groupPalette": {
+    "label": "分组调色板"
+  },
+  "layer": {
+    "label": "图层",
+    "front": "置于顶层",
+    "back": "置于底层",
+    "forward": "上移一层",
+    "backward": "下移一层"
+  },
+  "layoutArea": {
+    "label": "布局区域"
+  },
+  "changeVisibility": {
+    "title": "管理可见性",
+    "apply": "应用",
+    "cancel": "取消",
+    "hiddenLabel": "隐藏",
+    "fadedLabel": "淡出",
+    "visibleLabel": "可见",
+    "noElement": "没有可管理的元素"
+  },
+  "appearanceDialog": {
+    "title": "编辑外观",
+    "apply": "应用",
+    "cancel": "取消",
+    "bold": "粗体",
+    "italic": "斜体",
+    "underline": "下划线",
+    "strikeThrough": "删除线",
+    "fontFamily": "字体",
+    "fontSize": "字号",
+    "color": "颜色",
+    "backgroundColor": "背景颜色",
+    "borderColor": "边框颜色",
+    "borderStyle": "边框样式",
+    "borderSize": "边框大小",
+    "noneLabel": "无",
+    "solid": "实线",
+    "dashed": "虚线",
+    "dotted": "点线",
+    "double": "双线",
+    "s": "小",
+    "m": "中",
+    "l": "大",
+    "xl": "特大"
+  },
+  "editSizeDialog": {
+    "title": "编辑尺寸",
+    "apply": "应用",
+    "cancel": "取消",
+    "width": "宽度",
+    "height": "高度",
+    "ratio": "保持比例",
+    "minWidth": "最小宽度",
+    "minHeight": "最小高度",
+    "maxWidth": "最大宽度",
+    "maxHeight": "最大高度"
+  },
+  "editPositionDialog": {
+    "title": "编辑位置",
+    "apply": "应用",
+    "cancel": "取消",
+    "x": "X",
+    "y": "Y"
+  },
+  "editTextDialog": {
+    "title": "编辑文本",
+    "apply": "应用",
+    "cancel": "取消",
+    "text": "文本"
+  },
+  "labelEdition": {
+    "directEditLabel": "编辑标签"
+  },
+  "layout": {
+    "justifyLeft": "左对齐",
+    "justifyRight": "右对齐",
+    "justifyTop": "顶对齐",
+    "justifyBottom": "底对齐"
+  },
+  "layoutActions": {
+    "label": "布局"
+  },
+  "borderNode": {
+    "noBorderNode": "没有可用的边框节点"
+  },
+  "childNode": {
+    "noChildNode": "没有可用的子节点"
+  },
+  "edge": {
+    "noEdgeTool": "没有可用的边工具",
+    "reconnectEdge": "重连边",
+    "reconnectSource": "重连源",
+    "reconnectTarget": "重连目标",
+    "reconnectSuccess": "边重连成功",
+    "editLabel": "编辑边标签",
+    "deleteEdge": "删除边",
+    "editRoutingPoints": "编辑路由点",
+    "addRoutingPoint": "添加路由点",
+    "deleteRoutingPoint": "删除路由点",
+    "routingPoints": "路由点",
+    "noRoutingPoints": "没有路由点",
+    "resetRoutingPoints": "重置路由点"
+  },
+  "toolSection": {
+    "label": "工具部分"
+  },
+  "shareRepresentationModal": {
+    "copiedIntoClipboard": "已复制到剪贴板",
+    "title": "分享",
+    "link": "分享链接"
+  },
+  "useShareRepresentation": {
+    "success": "已获取分享链接",
+    "error": "获取分享链接时发生错误"
+  },
+  "useDelete": {
+    "error": "删除元素时发生错误"
+  },
+  "useHide": {
+    "error": "隐藏元素时发生错误"
+  },
+  "useFade": {
+    "error": "淡出元素时发生错误"
+  },
+  "usePin": {
+    "error": "固定元素时发生错误"
+  },
+  "useInvokeSingleClickOnDiagramElement": {
+    "error": "在图表元素上调用单击时发生错误"
+  },
+  "useInvokeSingleClickOnTwoDiagramElements": {
+    "label": "在图表上调用单击时发生错误"
+  },
+  "useReconnectEdge": {
+    "error": "重连边时发生错误"
+  },
+  "useEditDiagramElementAppearance": {
+    "error": "编辑外观时发生错误"
+  },
+  "useExportToImage": {
+    "export": "导出为图片",
+    "error": "导出为图片时发生错误"
+  },
+  "arrangeAllButton": {
+    "arrangeMenu": "排列元素",
+    "exitFullScreen": "退出全屏模式",
+    "exitSnapToGrid": "退出网格对齐模式",
+    "fitToScreen": "适应屏幕",
+    "hideHelperLines": "隐藏辅助线",
+    "hideMiniMap": "隐藏小地图",
+    "revealFaded": "显示淡出元素",
+    "revealHidden": "显示隐藏元素",
+    "shareDiagram": "分享图表",
+    "showHelperLines": "显示辅助线",
+    "showMiniMap": "显示小地图",
+    "toggleFullScreen": "切换全屏模式",
+    "toggleSnapToGrid": "切换网格对齐模式",
+    "unpinAll": "取消固定全部元素",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "arrangeInColumn": "按列排列",
+    "arrangeInGrid": "按网格排列",
+    "arrangeInRow": "按行排列",
+    "arrangeAllLayered": "流式布局",
+    "arrangeAllRectPacking": "紧凑布局"
+  },
+  "exportImageButton": {
+    "exportDiagram": "将图表导出为图片"
+  },
+  "revealSelectionInDiagramButton": {
+    "tooltip": "显示选中的元素",
+    "tooltipLoading": "显示选中的元素（正在加载详情...）",
+    "tooltipWithLabels": "选择 {{labels}}",
+    "tooltipWithMoreLabels": "选择 {{labels}}（还有 {{count}} 个）"
+  },
+  "pinUnPinTool": {
+    "unpinElement": "取消固定元素"
+  },
+  "diagramToolbar": {
+    "exitFullScreen": "退出全屏模式",
+    "toggleFullScreen": "切换全屏模式",
+    "fitToScreen": "适应屏幕",
+    "hideMiniMap": "隐藏小地图",
+    "showMiniMap": "显示小地图",
+    "zoomIn": "放大",
+    "zoomOut": "缩小",
+    "shareDiagram": "分享图表",
+    "exportDiagram": "将图表导出为图片",
+    "toggleSnapToGrid": "切换网格对齐模式",
+    "exitSnapToGrid": "退出网格对齐模式",
+    "hideHelperLines": "隐藏辅助线",
+    "showHelperLines": "显示辅助线",
+    "arrangeMenu": "排列元素",
+    "arrangeInColumn": "按列排列",
+    "arrangeInGrid": "按网格排列",
+    "arrangeInRow": "按行排列",
+    "arrangeAllLayered": "流式布局",
+    "arrangeAllRectPacking": "紧凑布局",
+    "revealFaded": "显示淡出元素",
+    "revealHidden": "显示隐藏元素",
+    "unpinAll": "取消固定全部元素",
+    "revealSelection": "显示选中的元素",
+    "filterNodes": "过滤元素"
+  },
+  "palette": {
+    "filterNodes": "过滤节点"
+  },
+  "pinUnPinTool": {
+    "unpinElement": "取消固定元素"
+  },
+  "fadeElementTool": {
+    "fadeElement": "淡出元素"
+  },
+  "diagramDirectEditInput": {
+    "label": "编辑标签"
+  },
+  "manageVisibilityModalHeader": {
+    "title": "管理可见性"
+  },
+  "manageVisibilityModalMenuCheckBox": {
+    "hiddenLabel": "隐藏",
+    "fadedLabel": "淡出",
+    "visibleLabel": "可见"
+  },
+  "manageVisibilityModalSearchField": {
+    "searchPlaceholder": "搜索..."
+  },
+  "labelAppearancePart": {
+    "bold": "粗体",
+    "italic": "斜体",
+    "underline": "下划线",
+    "strikeThrough": "删除线",
+    "fontFamily": "字体",
+    "fontSize": "字号",
+    "color": "颜色",
+    "backgroundColor": "背景颜色",
+    "reset": "重置"
+  },
+  "edgeAppearancePart": {
+    "borderColor": "边框颜色",
+    "borderStyle": "边框样式",
+    "borderSize": "边框大小",
+    "noneLabel": "无",
+    "solid": "实线",
+    "dashed": "虚线",
+    "dotted": "点线",
+    "double": "双线",
+    "s": "小",
+    "m": "中",
+    "l": "大",
+    "xl": "特大"
+  },
+  "rectangularNodePart": {
+    "width": "宽度",
+    "height": "高度",
+    "ratio": "保持比例"
+  },
+  "adjustSizeTool": {
+    "adjustSize": "调整大小"
+  },
+  "resetEditedEdgePathTool": {
+    "resetEditedEdgePath": "重置编辑的边路径"
+  },
+  "resetLabelPositionTool": {
+    "resetLabelPosition": "重置标签位置"
+  },
+  "resetManuallyLaidOutHandlesTool": {
+    "resetManuallyLaidOutHandles": "重置手动布局手柄"
+  },
+  "resetMovedByUserTool": {
+    "resetMovedByUser": "重置用户移动"
+  }
+}

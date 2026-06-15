@@ -1,17 +1,17 @@
 {
   "filterBar": {
-    "typeToFilter": "输入以过滤"
+    "typeToFilter": "输入以筛选"
   },
   "shareRepresentationModal": {
     "copied": "（已复制到剪贴板）",
     "link": "分享链接"
   },
   "omniboxButton": {
-    "runCommands": "运行命令..."
+    "runCommands": "执行命令..."
   },
   "omnibox": {
-    "searchElement": "按回车搜索元素...",
-    "searchCommand": "按回车搜索命令..."
+    "searchElement": "按 Enter 搜索元素...",
+    "searchCommand": "按 Enter 搜索命令..."
   },
   "omniboxCommandList": {
     "fetchingResult": "正在获取结果...",
@@ -22,15 +22,15 @@
   },
   "reportViewer": {
     "theToolWillHaveEffects": "{{label}} 工具将对您的模型产生以下影响：",
-    "elementsAdded": "已添加元素：{{nbElementCreated}}",
-    "elementsDeleted": "已删除元素：{{nbElementDeleted}}",
-    "elementsModified": "已修改元素：{{nbElementModified}}",
+    "elementsAdded": "新增元素：{{nbElementCreated}}",
+    "elementsDeleted": "删除元素：{{nbElementDeleted}}",
+    "elementsModified": "修改元素：{{nbElementModified}}",
     "areYouSureYouWantToProceed": "确定要继续吗？"
   },
   "useDeletionConfirmationDialog": {
-    "title": "确定要删除吗？",
+    "title": "确定吗？",
     "willDelete": "此操作将删除选中的元素。",
-    "willNotBeAbleToRevert": "此操作无法撤销。",
+    "willNotBeAbleToRevert": "此操作不可撤销。",
     "buttonLabel": "删除"
   }
 }

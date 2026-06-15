@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16"><defs><linearGradient id="a"><stop offset="0" style="stop-color:#e8e9f0;stop-opacity:1"/><stop offset="1" style="stop-color:#fdfeff;stop-opacity:1"/></linearGradient><linearGradient xlink:href="#a" id="b" x1="-47.667" x2="-163.76" y1="112.973" y2="34.596" gradientTransform="matrix(.13517 0 0 .10684 22.52 .28)" gradientUnits="userSpaceOnUse"/></defs><path d="M-.076 3.648h16.152v8.704H-.076Z" style="fill:url(#b);fill-opacity:1;stroke:none;stroke-width:.823838;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/><path d="M.173 3.01h15.654v.4H.173Zm0 9.58h15.654v.4H.173Z" style="fill:#4e4184;fill-opacity:1;stroke:#4e4184;stroke-width:.717953;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"/><text xml:space="preserve" x=".636" y="9.838" style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:7.31677px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:.116667px;word-spacing:0;fill:#4e4184;fill-opacity:1;stroke:none;stroke-width:.914595"><tspan x=".636" y="9.838" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:7.31677px;font-family:Arial;-inkscape-font-specification:Arial;fill:#3f386c;fill-opacity:1;stroke-width:.914595">x | y</tspan></text></svg>
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_119_3059)">
+<path d="M0.172852 3.01001H15.8269V3.41001H0.172852V3.01001ZM0.172852 12.59H15.8269V12.99H0.172852V12.59Z" fill="white" stroke="white" stroke-width="0.717953"/>
+<path d="M0.678614 9.52124L2.04694 7.56701L0.735776 5.72709H1.96119L2.63285 6.77031L3.34023 5.72709H4.5192L3.23305 7.52413L4.6371 9.52124H3.40454L2.63285 8.34584L1.85401 9.52124H0.678614ZM7.37374 11.061V4.19443H8.17044V11.061H7.37374ZM10.8821 5.72709H11.9503L12.8577 8.42087L13.7438 5.72709H14.7834L13.4437 9.37833L13.2043 10.0393C13.1162 10.2608 13.0316 10.4299 12.9506 10.5466C12.872 10.6633 12.7803 10.7574 12.6755 10.8288C12.5731 10.9027 12.4457 10.9598 12.2933 11.0003C12.1432 11.0408 11.9729 11.061 11.7824 11.061C11.5895 11.061 11.4001 11.0408 11.2143 11.0003L11.125 10.2143C11.2822 10.2453 11.4239 10.2608 11.5502 10.2608C11.7836 10.2608 11.9563 10.1917 12.0682 10.0536C12.1801 9.9178 12.2659 9.74393 12.3254 9.53196L10.8821 5.72709Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_119_3059">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>

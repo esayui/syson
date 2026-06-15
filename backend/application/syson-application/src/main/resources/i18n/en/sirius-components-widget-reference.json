@@ -1,0 +1,50 @@
+{
+  "editReferenceWidgetModal": {
+    "title": "编辑引用组件",
+    "submit": "保存",
+    "cancel": "取消",
+    "name": {
+      "label": "名称",
+      "placeholder": "输入名称",
+      "helperText": "名称不能为空"
+    },
+    "reference": {
+      "label": "引用",
+      "helperText": "引用不能为空",
+      "noValue": "无值",
+      "create": "创建",
+      "edit": "编辑",
+      "delete": "删除",
+      "browse": "浏览",
+      "clear": "清除"
+    },
+    "container": {
+      "label": "容器"
+    },
+    "isContainer": {
+      "label": "是容器"
+    },
+    "addValue": {
+      "label": "添加值"
+    },
+    "removeValue": {
+      "label": "移除值"
+    },
+    "selectChildren": {
+      "label": "选择子项"
+    },
+    "manyValued": {
+      "label": "多值"
+    },
+    "style": {
+      "label": "样式"
+    },
+    "mandatory": {
+      "label": "必填"
+    },
+    "gridLayout": {
+      "label": "网格布局"
+    },
+    "noneLabel": "无"
+  }
+}

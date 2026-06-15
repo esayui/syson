@@ -1,0 +1,135 @@
+{
+  "editCellModal": {
+    "title": "编辑单元格",
+    "cancel": "取消",
+    "save": "保存",
+    "empty": "暂无数据",
+    "noResultFound": "未找到结果",
+    "noValue": "无值",
+    "noneLabel": "无",
+    "addValue": "添加值",
+    "removeValue": "移除值",
+    "selectValue": "选择值",
+    "selectChildren": "选择子项",
+    "browse": "浏览",
+    "clear": "清除",
+    "create": "创建",
+    "delete": "删除",
+    "edit": "编辑",
+    "mandatory": "必填",
+    "isContainer": "是容器",
+    "manyValued": "多值",
+    "style": "样式",
+    "gridLayout": "网格布局",
+    "reference": "引用"
+  },
+  "editTableWidgetModal": {
+    "title": "编辑表格组件",
+    "submit": "保存",
+    "cancel": "取消",
+    "name": "名称",
+    "placeholder": {
+      "name": "输入名称"
+    },
+    "helperText": {
+      "name": "名称不能为空"
+    },
+    "useStripedRowsStyle": {
+      "label": "使用条纹行样式"
+    }
+  },
+  "table": {
+    "create": "创建",
+    "delete": "删除",
+    "edit": "编辑",
+    "browse": "浏览",
+    "clear": "清除",
+    "noResultFound": "未找到结果",
+    "noValue": "无值",
+    "addValue": "添加值",
+    "removeValue": "移除值",
+    "noneLabel": "无",
+    "referencedValues_one": "{{count}} 个引用值",
+    "referencedValues_other": "{{count}} 个引用值",
+    "mandatory": "必填",
+    "isContainer": "是容器",
+    "manyValued": "多值",
+    "style": "样式",
+    "gridLayout": "网格布局",
+    "selectValue": "选择值",
+    "selectChildren": "选择子项",
+    "singleClickToEdit": "单击以编辑",
+    "doubleClickToEdit": "双击以编辑",
+    "noTableFound": "未找到表格",
+    "noTableDescriptionFound": "未找到表格描述",
+    "noRepresentationFound": "未找到视图",
+    "noWidgetFound": "未找到组件",
+    "noGroupFound": "未找到分组",
+    "pagination": {
+      "rowsPerPage": "每页行数：",
+      "of": "/"
+    },
+    "filters": {
+      "newFilter": "新建过滤器",
+      "removeFilter": "移除过滤器",
+      "addFilter": "添加过滤器",
+      "filterStrategy": {
+        "label": "过滤策略",
+        "and": "与",
+        "or": "或"
+      },
+      "column": {
+        "label": "列"
+      },
+      "operator": {
+        "label": "运算符",
+        "startsWith": "开头是",
+        "endsWith": "结尾是",
+        "contains": "包含",
+        "notContains": "不包含",
+        "equals": "等于",
+        "notEquals": "不等于",
+        "isEmpty": "为空",
+        "isNotEmpty": "不为空",
+        "before": "之前",
+        "after": "之后",
+        "between": "之间"
+      },
+      "value": {
+        "label": "值"
+      }
+    },
+    "columnVisibility": {
+      "label": "列可见性",
+      "showAll": "显示全部",
+      "hideAll": "隐藏全部"
+    },
+    "sort": {
+      "ascending": "升序排序",
+      "descending": "降序排序",
+      "unsort": "取消排序",
+      "noSort": "无排序"
+    },
+    "export": {
+      "exportAsCsv": "导出为 CSV"
+    },
+    "globalSearch": {
+      "label": "全局搜索"
+    },
+    "resizeColumn": {
+      "label": "调整列宽"
+    },
+    "editCell": {
+      "label": "编辑单元格"
+    }
+  },
+  "tableRepresentation": {
+    "noTable": "该表格已不存在"
+  },
+  "tableToolbar": {
+    "exitFullscreen": "退出全屏模式",
+    "toggleFullscreen": "切换全屏模式",
+    "fitToScreen": "适应屏幕",
+    "share": "分享"
+  }
+}

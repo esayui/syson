@@ -1,7 +1,7 @@
 {
   "selectionDialogActions": {
-    "defaultStatusMessage": "Select an option above",
-    "defaultConfirmLabel": "Select an option",
-    "cancel": "Cancel"
+    "defaultStatusMessage": "请选择上方选项",
+    "defaultConfirmLabel": "选择一个选项",
+    "cancel": "取消"
   }
 }

@@ -25,6 +25,7 @@ import org.eclipse.sirius.components.view.table.ColumnDescription;
 import org.eclipse.sirius.components.view.table.RowContextMenuEntry;
 import org.eclipse.syson.services.DeleteService;
 import org.eclipse.syson.standard.diagrams.view.services.DoDAFMatrixMutationServices;
+import org.eclipse.syson.standard.diagrams.view.services.DoDAFMatrixQueryServices;
 import org.eclipse.syson.sysml.SysmlPackage;
 import org.eclipse.syson.util.AQLConstants;
 import org.eclipse.syson.util.ServiceMethod;
@@ -48,12 +49,11 @@ public class DoDAFMatrixTableDescriptionProvider implements IRepresentationDescr
 
         var rowDescription = this.tableBuilders.newRowDescription()
                 .name("DoDAFMatrix-Row")
-                .semanticCandidatesExpression("aql:self.ownedElement->toPaginatedData(cursor,direction,size)")
+                .semanticCandidatesExpression("aql:self.getMatrixElements()->toPaginatedData(cursor,direction,size)")
                 .depthLevelExpression("0")
-                .headerLabelExpression("矩阵元素")
+                .headerLabelExpression("")
                 .initialHeightExpression("-1")
                 .isResizableExpression(AQLConstants.AQL_FALSE)
-                .contextMenuEntries(this.createContextMenuEntries().toArray(RowContextMenuEntry[]::new))
                 .build();
 
         return this.tableBuilders.newTableDescription()
@@ -129,7 +129,7 @@ public class DoDAFMatrixTableDescriptionProvider implements IRepresentationDescr
                 .name("DoDAFMatrix-Cell-Description")
                 .preconditionExpression("aql:columnTargetObject == 'Description'")
                 .valueExpression(ServiceMethod.of0(DoDAFMatrixMutationServices::getDocumentationBody).aqlSelf())
-                .cellWidgetDescription(this.tableBuilders.newCellTextfieldWidgetDescription()
+                .cellWidgetDescription(this.tableBuilders.newCellTextareaWidgetDescription()
                         .body(this.viewBuilders.newChangeContext()
                                 .expression(ServiceMethod.of1(DoDAFMatrixMutationServices::editDocumentation).aqlSelf("newValue"))
                                 .build())
@@ -141,6 +141,15 @@ public class DoDAFMatrixTableDescriptionProvider implements IRepresentationDescr
 
     private List<RowContextMenuEntry> createContextMenuEntries() {
         List<RowContextMenuEntry> entries = new ArrayList<>();
+
+        entries.add(this.tableBuilders.newRowContextMenuEntry()
+                .name("DoDAFMatrix-CreateRow")
+                .labelExpression("新建矩阵元素")
+                .iconURLExpression("/images/graphicalAdd.svg")
+                .body(this.viewBuilders.newChangeContext()
+                        .expression(ServiceMethod.of1(DoDAFMatrixQueryServices::createMatrixElement).aqlSelf("newName"))
+                        .build())
+                .build());
 
         entries.add(this.tableBuilders.newRowContextMenuEntry()
                 .name("DoDAFMatrix-DeleteRow")

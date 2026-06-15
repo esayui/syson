@@ -48,7 +48,7 @@ public class SDVDescriptionProvider implements IViewDescriptionProvider {
     public Optional<ColorPalette> buildColorPalette() {
         ColorPalette colorPalette = new ColorPaletteBuilder().colors(new ViewBuilders().newFixedColor()
                         .name(AddYourFirstElement.COLOR_NAME)
-                        .value("url(" + AddYourFirstElement.BASE64 + ") no-repeat center center / contain")
+                        .value("url(" + AddYourFirstElement.getBase64() + ") no-repeat center center / contain")
                         .build())
                 .build();
         return Optional.of(colorPalette);

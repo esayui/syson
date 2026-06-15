@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 4.762 4.233"><path d="M6.191.182 2.155 4.16" style="fill:none;stroke:#4e4184;stroke-width:.39698468;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" transform="translate(.134 .136) scale(.66643)"/><path d="M.554 4.161h1.601v1.602H.554Z" style="fill:none;fill-opacity:1;stroke:#4e4184;stroke-width:.39698468;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="translate(.134 .136) scale(.66643)"/><text xml:space="preserve" x="2.131" y="3.936" style="font-style:normal;font-weight:400;font-size:1.2011px;line-height:1.25;font-family:sans-serif;letter-spacing:0;word-spacing:0;fill:#4e4184;fill-opacity:1;stroke:none;stroke-width:.200183" transform="scale(.96783 1.03324)"><tspan x="2.131" y="3.936" style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:1.50374px;font-family:Arial;-inkscape-font-specification:&quot;Arial Bold&quot;;fill:#4e4184;fill-opacity:1;stroke-width:.200183">&lt;F&gt;</tspan></text></svg>
+<svg width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_119_2743)">
+<path d="M16.1022 0.972534L5.93555 10.9931" stroke="white" stroke-linecap="round"/>
+<path d="M1.90234 10.9956H5.93524V15.031H1.90234V10.9956Z" stroke="white" stroke-linejoin="bevel"/>
+<path d="M10.8488 14.0357L8.05955 12.8228V12.1512L10.8488 10.9439V11.7349L8.90326 12.4787L10.8488 13.2502V14.0357ZM11.5343 14.4991V10.4305H14.3235V11.1188H12.3558V12.0818H14.0543V12.7701H12.3558V14.4991H11.5343ZM14.8536 14.0384V13.253L16.8018 12.487L14.8536 11.7294V10.9495L17.6455 12.1568V12.8228L14.8536 14.0384Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_119_2743">
+<rect width="18" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
