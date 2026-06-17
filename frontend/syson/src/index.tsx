@@ -37,7 +37,17 @@ import './ReactFlow.css';
 import './reset.css';
 import './transparency.css';
 import './variables.css';
-import './dodaf-views.css';
+
+// crypto.randomUUID() requires HTTPS or localhost; polyfill for IP-based HTTP access
+if (typeof crypto !== 'undefined' && !crypto.randomUUID) {
+  crypto.randomUUID = function () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    }) as `${string}-${string}-${string}-${string}-${string}`;
+  };
+}
 
 if (process.env.NODE_ENV !== 'production') {
   loadDevMessages();
@@ -69,7 +79,7 @@ root.render(
         httpOrigin={httpOrigin}
         wsOrigin={wsOrigin}
         theme={sysonTheme}
-        extensionRegistryMergeStrategy={new SysONExtensionRegistryMergeStrategy()}
+        extensionRegistryMergeStrategy={new SysONExtensionRegistryMergeStrategy() as any}
         extensionRegistry={sysONExtensionRegistry}>
         <DiagramRepresentationConfiguration nodeTypeRegistry={sysONNodeTypeRegistry} />
       </SiriusWebApplication>

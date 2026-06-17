@@ -78,6 +78,7 @@ public class SysONViewsExplorerContentServiceDelegate implements IViewsExplorerC
                 ));
 
         Map<ViewDefinition, List<RepresentationMetadata>> viewDefinitionToMetadataMap = allMetadata.stream()
+                .filter(metadataToViewDefinitionMap::containsKey)
                 .collect(Collectors.groupingBy(metadataToViewDefinitionMap::get));
 
         return viewDefinitionToMetadataMap.entrySet().stream()

@@ -28,7 +28,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { Theme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { makeStyles } from 'tss-react/mui';
 import { EditSysMLExpressionModalProps, EditSysMLExpressionModalState } from './EditSysMLExpressionModal.types';
 import { useCreateExpression } from './useCreateExpression';
@@ -96,6 +96,10 @@ export const EditSysMLExpressionModal = ({
   const validationStatus = computeValidationStatus(state.validationResult);
   const busy = state.operationInProgress !== null;
 
+  // Stable ref to onClose so effect 4 doesn't re-run when the parent creates a new function reference
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   const { textualRepresentation, loading } = useExpressionTextualRepresentation(editingContextId, elementId);
   useEffect(() => {
     if (loading) {
@@ -113,6 +117,12 @@ export const EditSysMLExpressionModal = ({
   const { createExpression, loading: creationInProgress, messages: postCreationMessages } = useCreateExpression();
   const { editExpression, loading: editionInProgress, messages: postEditionMessages } = useEditExpression();
   const { deleteExpression } = useDeleteExpression();
+
+  // Stable refs to prevent unnecessary effect re-runs from unstable message references
+  const postCreationMessagesRef = useRef(postCreationMessages);
+  postCreationMessagesRef.current = postCreationMessages;
+  const postEditionMessagesRef = useRef(postEditionMessages);
+  postEditionMessagesRef.current = postEditionMessages;
 
   const onUpdate = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.preventDefault();
@@ -135,20 +145,20 @@ export const EditSysMLExpressionModal = ({
   // Update validationResult when the operation is finished
   useEffect(() => {
     if (state.operationInProgress === 'creating' && !creationInProgress) {
-      setState((prevState) => ({ ...prevState, operationInProgress: null, validationResult: postCreationMessages }));
+      setState((prevState) => ({ ...prevState, operationInProgress: null, validationResult: postCreationMessagesRef.current }));
     }
-  }, [state.operationInProgress, creationInProgress, postCreationMessages]);
+  }, [state.operationInProgress, creationInProgress]);
   useEffect(() => {
     if (state.operationInProgress === 'editing' && !editionInProgress) {
-      setState((prevState) => ({ ...prevState, operationInProgress: null, validationResult: postEditionMessages }));
+      setState((prevState) => ({ ...prevState, operationInProgress: null, validationResult: postEditionMessagesRef.current }));
     }
-  }, [state.operationInProgress, editionInProgress, postEditionMessages]);
+  }, [state.operationInProgress, editionInProgress]);
 
   useEffect(() => {
     if (!busy && validationStatus === 'valid') {
-      onClose(); // We're done: operation finished successfully
+      onCloseRef.current(); // We're done: operation finished successfully
     }
-  }, [busy, validationStatus, onClose]);
+  }, [busy, validationStatus]);
 
   return (
     <Dialog

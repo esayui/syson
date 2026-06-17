@@ -94,6 +94,14 @@ export const baseTheme: Theme = createTheme({
     borderRadius: 8,
   },
   components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: 'secondary',
+        root: {
+          borderBottom: '1px solid rgba(0, 212, 255, 0.15)',
+        },
+      },
+    },
     MuiSnackbarContent: {
       styleOverrides: {
         root: {
@@ -135,14 +143,6 @@ export const baseTheme: Theme = createTheme({
           '&:hover': {
             borderColor: 'rgba(0, 212, 255, 0.25)',
           },
-        },
-      },
-    },
-    MuiAppBar: {
-      colorPrimary: 'secondary',
-      styleOverrides: {
-        root: {
-          borderBottom: '1px solid rgba(0, 212, 255, 0.15)',
         },
       },
     },
@@ -284,18 +284,6 @@ export const sysonTheme = createTheme(
         styleOverrides: {
           root: {
             borderColor: '#1E293B',
-          },
-        },
-      },
-      ['MuiTreeItem' as any]: {
-        styleOverrides: {
-          root: {
-            '& .MuiTreeItem-content:hover': {
-              backgroundColor: 'rgba(0, 212, 255, 0.06)',
-            },
-            '& .MuiTreeItem-content.Mui-selected': {
-              backgroundColor: 'rgba(0, 212, 255, 0.12)',
-            },
           },
         },
       },
