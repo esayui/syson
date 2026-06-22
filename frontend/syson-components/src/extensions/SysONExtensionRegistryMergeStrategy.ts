@@ -11,7 +11,7 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 
-import { DataExtension, ExtensionRegistryMergeStrategy } from '@eclipse-sirius/sirius-components-core';
+import { DataExtension, workbenchViewContributionExtensionPoint } from '@eclipse-sirius/sirius-components-core';
 import { widgetContributionExtensionPoint } from '@eclipse-sirius/sirius-components-forms';
 import { omniboxCommandOverrideContributionExtensionPoint } from '@eclipse-sirius/sirius-components-omnibox';
 import { treeItemContextMenuEntryOverrideExtensionPoint } from '@eclipse-sirius/sirius-components-trees';
@@ -22,7 +22,6 @@ import {
 
 export class SysONExtensionRegistryMergeStrategy
   extends DefaultExtensionRegistryMergeStrategy
-  implements ExtensionRegistryMergeStrategy
 {
   public override mergeDataExtensions(
     identifier: string,
@@ -40,6 +39,9 @@ export class SysONExtensionRegistryMergeStrategy
     }
     if (identifier === widgetContributionExtensionPoint.identifier) {
       return this.mergeWidgetContributions(existingValues, newValues);
+    }
+    if (identifier === workbenchViewContributionExtensionPoint.identifier) {
+      return this.mergeWorkbenchViewContributions(existingValues, newValues);
     }
     return newValues;
   }
@@ -80,6 +82,16 @@ export class SysONExtensionRegistryMergeStrategy
   ): DataExtension<any> {
     return {
       identifier: `syson_${widgetContributionExtensionPoint.identifier}`,
+      data: [...existingContributions.data, ...newContributions.data],
+    };
+  }
+
+  private mergeWorkbenchViewContributions(
+    existingContributions: DataExtension<any>,
+    newContributions: DataExtension<any>
+  ): DataExtension<any> {
+    return {
+      identifier: `syson_${workbenchViewContributionExtensionPoint.identifier}`,
       data: [...existingContributions.data, ...newContributions.data],
     };
   }
