@@ -25,6 +25,12 @@ import org.eclipse.syson.util.SysMLMetamodelHelper;
 
 /**
  * Gantt description for DoDAF Gantt views (CV-3, PV-2, SV-8).
+ * <p>
+ * Tasks are created manually (no auto-discovered candidates). The task list is a
+ * tree: root tasks are placed directly under the ViewUsage, and any task can have
+ * child sub-tasks. Name, description, start time, end time, and progress are all
+ * manually editable.
+ * </p>
  */
 public class DoDAFGanttDescriptionProvider implements IRepresentationDescriptionProvider {
 
@@ -37,35 +43,64 @@ public class DoDAFGanttDescriptionProvider implements IRepresentationDescription
     public RepresentationDescription create(IColorProvider colorProvider) {
         String domainType = SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getNamespace());
 
+        // ---- Sub-task description (children of a task) ----
+        // semantic candidates come from the parent task's owned elements
+        var subTaskDescription = this.ganttBuilders.newTaskDescription()
+                .name("DoDAFGantt-SubTask")
+                .domainType(SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getPartUsage()))
+                .semanticCandidatesExpression("aql:OrderedSet{}")
+                .nameExpression("aql:self.declaredName")
+                .descriptionExpression("aql:self.getGanttDescription()")
+                .startTimeExpression("aql:self.getGanttStartTime()")
+                .endTimeExpression("aql:self.getGanttEndTime()")
+                .progressExpression("aql:self.getGanttProgress()")
+                .computeStartEndDynamicallyExpression("aql:false")
+                .build();
+
+        // ---- Root task description ----
+        // semanticCandidatesExpression is empty → no auto-discovery, manual creation only
         var taskDescription = this.ganttBuilders.newTaskDescription()
                 .name("DoDAFGantt-Task")
                 .domainType(SysMLMetamodelHelper.buildQualifiedName(SysmlPackage.eINSTANCE.getPartUsage()))
-                .semanticCandidatesExpression("aql:self.getGanttTasks()")
+                .semanticCandidatesExpression("aql:self.getOrCreateDefaultGanttTasks()")
                 .nameExpression("aql:self.declaredName")
-                .descriptionExpression("aql:self.getDocumentationBody()")
-                .startTimeExpression("aql:OrderedSet{1}->at(1)")
-                .endTimeExpression("aql:OrderedSet{10}->at(1)")
-                .computeStartEndDynamicallyExpression("aql:true")
+                .descriptionExpression("aql:self.getGanttDescription()")
+                .startTimeExpression("aql:self.getGanttStartTime()")
+                .endTimeExpression("aql:self.getGanttEndTime()")
+                .progressExpression("aql:self.getGanttProgress()")
+                .computeStartEndDynamicallyExpression("aql:false")
+                .subTaskElementDescriptions(subTaskDescription)
                 .build();
 
-        // Create task tool - creates a new PartUsage with default name (no dialog)
         var createTaskTool = this.ganttBuilders.newCreateTaskTool()
-                .name("创建任务")
+                .name("新建任务")
                 .body(this.viewBuilders.newChangeContext()
                         .expression(ServiceMethod.of0(DoDAFGanttQueryServices::createDefaultGanttTask).aqlSelf())
                         .build())
                 .build();
 
-        // Edit task tool - SetValue on declaredName
         var editTaskTool = this.ganttBuilders.newEditTaskTool()
                 .name("编辑任务")
-                .body(this.viewBuilders.newSetValue()
-                        .featureName("declaredName")
-                        .valueExpression("aql:newName")
-                        .build())
+                .body(
+                        this.viewBuilders.newSetValue()
+                                .featureName("declaredName")
+                                .valueExpression("aql:newName")
+                                .build(),
+                        this.viewBuilders.newChangeContext()
+                                .expression("aql:self.setGanttDescription(newDescription)")
+                                .build(),
+                        this.viewBuilders.newChangeContext()
+                                .expression("aql:self.setGanttStartTime(newStartTime)")
+                                .build(),
+                        this.viewBuilders.newChangeContext()
+                                .expression("aql:self.setGanttEndTime(newEndTime)")
+                                .build(),
+                        this.viewBuilders.newChangeContext()
+                                .expression("aql:self.setGanttProgress(newProgress.toInteger())")
+                                .build()
+                )
                 .build();
 
-        // Delete task tool
         var deleteTaskTool = this.ganttBuilders.newDeleteTaskTool()
                 .name("删除任务")
                 .body(this.viewBuilders.newChangeContext()

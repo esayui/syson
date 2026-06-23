@@ -38,6 +38,14 @@ import './reset.css';
 import './transparency.css';
 import './variables.css';
 import './dodaf-views.css';
+import ReactDOM from 'react-dom/client';
+import React from 'react';
+import DoDAFGanttTimeline from './views/DoDAFGanttTimeline';
+
+(window as any).renderDoDAFGantt = (container: HTMLElement) => {
+  const root = ReactDOM.createRoot(container);
+  root.render(React.createElement(DoDAFGanttTimeline));
+};
 
 if (process.env.NODE_ENV !== 'production') {
   loadDevMessages();

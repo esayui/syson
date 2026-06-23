@@ -2,10 +2,9 @@
  * DoDAF View light theme overrides for table and gantt representations
  *******************************************************************************/
 
-/* Gantt container - light background, black text for all children */
+/* Hide Sirius Web Gantt immediately; custom Gantt will show via JS */
 [class*="ganttContainer"] {
-  background-color: #FAFBFC !important;
-  color: #000000 !important;
+  display: none !important;
 }
 
 [class*="ganttContainer"] * {
