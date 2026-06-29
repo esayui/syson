@@ -146,6 +146,33 @@
       }).observe(document.body, { childList: true, subtree: true });
       // Periodic scan for dynamic content (SVG, canvas text, etc.)
       setInterval(function() { translateAllText(document); }, 2000);
+      // ===== Custom OV-1 Concept View (standalone, no Sirius dependency) =====
+      var ov1Injected = false;
+      function injectOv1View() {
+        if (ov1Injected || !window.renderOv1ConceptView) return;
+        // Find OV-1 representation containers
+        var allDivs = document.querySelectorAll('[data-testid]');
+        for (var i = 0; i < allDivs.length; i++) {
+          var div = allDivs[i];
+          // OV-1 representations use data-testid containing "ov1" or the representation container
+          if (div.getAttribute('data-representation-kind') === 'Diagram' || div.getAttribute('data-testid') === 'table-representation') {
+            // Check if parent has OV-1 label
+            var parent = div.closest('[class*="representation"]') || div.parentElement;
+            if (parent && parent.textContent && parent.textContent.indexOf('OV-1') >= 0) {
+              ov1Injected = true;
+              div.innerHTML = '';
+              div.style.cssText = 'width:100%;height:100%;overflow:hidden';
+              window.renderOv1ConceptView(div);
+              console.log('[OV-1] Custom concept view injected');
+              break;
+            }
+          }
+        }
+      }
+      // Try immediately and on an interval
+      setTimeout(injectOv1View, 500);
+      setInterval(injectOv1View, 3000);
+
       // ===== Custom DoDAF Gantt View =====
       var ganttAppInjected = false;
       var ganttRepId = 'default-gantt';

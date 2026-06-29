@@ -40,11 +40,11 @@ import './variables.css';
 import './dodaf-views.css';
 import ReactDOM from 'react-dom/client';
 import React from 'react';
-import DoDAFGanttTimeline from './views/DoDAFGanttTimeline';
+import { Ov1ConceptView } from './views/Ov1ConceptView';
 
-(window as any).renderDoDAFGantt = (container: HTMLElement) => {
+(window as any).renderOv1ConceptView = (container: HTMLElement) => {
   const root = ReactDOM.createRoot(container);
-  root.render(React.createElement(DoDAFGanttTimeline));
+  root.render(React.createElement(Ov1ConceptView));
 };
 
 if (process.env.NODE_ENV !== 'production') {
