@@ -69,6 +69,14 @@ export default defineConfig(({ mode }) => ({
         target: 'http://localhost:8080',
         changeOrigin: true,
       },
+      '/images': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+      '/icons': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
     },
   },
   //We define the process.env to avoid 'Uncaught ReferenceError: process is not defined'.

@@ -1,51 +1,96 @@
 /*******************************************************************************
  * Copyright (c) 2023, 2024 Obeo.
- * This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
- * which accompanies this distribution, and is available at
- * https://www.eclipse.org/legal/epl-2.0/
- *
- * SPDX-License-Identifier: EPL-2.0
- *
- * Contributors:
- *     Obeo - initial API and implementation
+ * ...
  *******************************************************************************/
 package org.eclipse.syson;
 
 import java.util.Locale;
+import java.util.Map;
 
+import org.eclipse.syson.standard.diagrams.view.services.DoDAFGanttDataService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.function.RouterFunction;
+import org.springframework.web.servlet.function.RouterFunctions;
+import org.springframework.web.servlet.function.ServerResponse;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-/**
- * Main class of the server, used as the entry point which will start the whole server properly initialized with a
- * Spring ApplicationContext (see {@link org.springframework.context.ApplicationContext}).
- * <p>
- * Thanks to the annotation {@link SpringBootApplication}, this class will act as a configuration which allows us to
- * declare beans and configure other features but we will not use this capacity in order to properly separate our code.
- * As such our configurations will be contained in dedicated classes elsewhere.
- * </p>
- * <p>
- * Starting this class will also trigger the scan of the classpath. In order to build our ApplicationContext Spring will
- * only scan the current package and its subpackages by default. Beans outside of those packages will not be discovered
- * automatically unless specified by additional information in our annotations.
- * </p>
- *
- * @author arichard
- */
 @SpringBootApplication
 @ComponentScan(basePackages = { "org.eclipse.syson", "org.eclipse.sirius.web", "org.eclipse.sirius.components" })
 public class SysONApplication {
 
-    /**
-     * The entry point of the server.
-     *
-     * @param args
-     *            The command line arguments
-     */
     public static void main(String[] args) {
         Locale.setDefault(Locale.SIMPLIFIED_CHINESE);
         SpringApplication.run(SysONApplication.class, args);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/gantt/**")
+                        .allowedOrigins("*")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
+            }
+        };
+    }
+
+    @Bean
+    public Filter corsFilter() {
+        return (ServletRequest req, ServletResponse res, FilterChain chain) -> {
+            var request = (HttpServletRequest) req;
+            var response = (HttpServletResponse) res;
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.setHeader("Access-Control-Allow-Headers", "*");
+            if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+                response.setStatus(200);
+            } else {
+                chain.doFilter(req, res);
+            }
+        };
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> ganttRoutes() {
+        return RouterFunctions.route()
+                .GET("/api/gantt/{repId}/tasks", request -> {
+                    var tasks = DoDAFGanttDataService.getTasks(request.pathVariable("repId"));
+                    return ServerResponse.ok().body(tasks);
+                })
+                .POST("/api/gantt/{repId}/tasks", request -> {
+                    var parentId = request.param("parentId").orElse(null);
+                    var task = DoDAFGanttDataService.createTask(request.pathVariable("repId"), parentId);
+                    return ServerResponse.ok().body(task);
+                })
+                .PUT("/api/gantt/{repId}/tasks/{taskId}", request -> {
+                    var body = request.body(Map.class);
+                    var task = new DoDAFGanttDataService.GanttTaskData(
+                            request.pathVariable("taskId"),
+                            (String) body.getOrDefault("parentId", null),
+                            (String) body.getOrDefault("name", ""),
+                            (String) body.getOrDefault("description", ""),
+                            (String) body.getOrDefault("startDate", "2026-01-01"),
+                            (String) body.getOrDefault("endDate", "2026-01-31"),
+                            body.containsKey("progress") ? ((Number) body.get("progress")).intValue() : 0
+                    );
+                    var updated = DoDAFGanttDataService.updateTask(request.pathVariable("repId"), task);
+                    return ServerResponse.ok().body(updated);
+                })
+                .DELETE("/api/gantt/{repId}/tasks/{taskId}", request -> {
+                    DoDAFGanttDataService.deleteTask(request.pathVariable("repId"), request.pathVariable("taskId"));
+                    return ServerResponse.ok().build();
+                })
+                .build();
     }
 }
