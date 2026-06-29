@@ -21,7 +21,7 @@ const DoDAFGanttTimeline: React.FC = () => {
     try { const r = await fetch(API); setTasks(await r.json()); } catch {}
   }, []);
 
-  useEffect(() => { load(); const i = setInterval(load, 3000); return () => clearInterval(i); }, [load]);
+  useEffect(() => { load(); }, [load]);
 
   const ganttTasks = useMemo(() => {
     const hasChildren = new Set(tasks.filter(t => t.parentId).map(t => t.parentId!));
