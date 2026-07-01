@@ -35,18 +35,60 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
   var representationId = (props && props.representationId) || '';
 
   React.useEffect(function() {
-    var targetObjectId = (window as any).__ov1TargetObjectId || '';
-    console.log('[OV-1] mounted', { editingContextId: editingContextId, representationId: representationId, targetObjectId: targetObjectId });
+    var pendingSymbols: any[] = [];
+
+    // Fetch targetObjectId via GraphQL — try multiple field paths
+    if (editingContextId && representationId) {
+      callGraphQL('\n  query getRep($ecId:ID!,$repId:ID!){viewer{editingContext(editingContextId:$ecId){representation(representationId:$repId){id label description{id}}}}}', {
+        ecId: editingContextId,
+        repId: representationId,
+      }).then(function(result: any) {
+        var descId = result && result.data && result.data.viewer && result.data.viewer.editingContext && result.data.viewer.editingContext.representation && result.data.viewer.editingContext.representation.description && result.data.viewer.editingContext.representation.description.id;
+        if (descId) {
+          var m1 = descId.match(/sourceElementId=([^&]+)/);
+          var m2 = descId.match(/sourceId=([^&]+)/);
+          var parentId = (m1 ? m1[1] : '') || (m2 ? m2[1] : '');
+          console.log('[OV-1] desc.id=' + descId + '\n  sourceElementId=' + (m1 ? m1[1] : '') + ' sourceId=' + (m2 ? m2[1] : ''));
+          if (parentId) {
+            (window as any).__ov1TargetObjectId = parentId;
+            console.log('[OV-1] parentId resolved:', parentId, 'pending:', pendingSymbols.length);
+            for (var p = 0; p < pendingSymbols.length; p++) {
+              createPartUsage(pendingSymbols[p], parentId);
+            }
+            pendingSymbols = [];
+            return;
+          }
+        }
+        console.warn('[OV-1] parentId NOT found');
+      }).catch(function(e: any) { console.warn('[OV-1] query failed', e); });
+    }
+
+    function createPartUsage(symbolMsg: any, parentId: string) {
+      var sid = symbolMsg._symbolId || '';
+      console.log('[OV-1] createPartUsage sid=' + sid + ' parent=' + parentId);
+      callGraphQL(CREATE_CHILD, {
+        input: {
+          id: crypto.randomUUID(),
+          editingContextId: editingContextId,
+          objectId: parentId,
+          childCreationDescriptionId: 'SysMLv2EditService-PartUsage',
+        },
+      }).then(function(result: any) {
+        console.log('[OV-1] createChild RESPONSE', JSON.stringify(result).substring(0, 500));
+        var obj = result && result.data && result.data.createChild && result.data.createChild.object;
+        if (obj && obj.id) {
+          if (sid) symbolToPartUsageMap[sid] = obj.id;
+          console.log('[OV-1] PartUsage created', obj.id);
+        } else {
+          console.warn('[OV-1] createChild failed', JSON.stringify(result));
+        }
+      }).catch(function(e: any) { console.warn('[OV-1] createChild error', e); });
+    }
 
     // Hide right panel
     var style = document.createElement('style');
     style.id = HIDE_RIGHT_PANEL_STYLE_ID;
-    style.textContent = [
-      '[data-testid="sidebar-right"]',
-      '[data-testid="site-right"]',
-      '[data-testid="right-resizer"]',
-    ].map(function(sel: any) { return sel + ' { display: none !important; }'; }).join('\n') + '\n' +
-    '[data-panel-id]:has([data-testid="site-right"]) { flex: 0 0 0px !important; max-width: 0 !important; min-width: 0 !important; overflow: hidden !important; }';
+    style.textContent = '[data-testid="sidebar-right"],[data-testid="site-right"],[data-testid="right-resizer"]{display:none!important}[data-panel-id]:has([data-testid="site-right"]){flex:0 0 0px!important;max-width:0!important;min-width:0!important;overflow:hidden!important}';
     document.head.appendChild(style);
 
     // postMessage listener
@@ -55,27 +97,11 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
       var msg = event.data;
       if (!msg || !msg.type) return;
 
-      if (msg.type === 'createSymbol' && msg.symbol) {
+      if (msg.type === 'createSymbol') {
+        if (!msg.symbol) return;
         var tid = (window as any).__ov1TargetObjectId || '';
-        if (!tid) { console.warn('[OV-1] createSymbol: no targetObjectId'); return; }
-        console.log('[OV-1] createSymbol', msg.symbol.name || msg.symbol.label);
-        callGraphQL(CREATE_CHILD, {
-          input: {
-            id: crypto.randomUUID(),
-            editingContextId: editingContextId,
-            objectId: tid,
-            childCreationDescriptionId: 'SysMLv2EditService-PartUsage',
-          },
-        }).then(function(result: any) {
-          var obj = result && result.data && result.data.createChild && result.data.createChild.object;
-          if (obj && obj.id) {
-            var sid = msg.symbol.id || msg.symbol._id || msg.symbol.guid || '';
-            if (sid) symbolToPartUsageMap[sid] = obj.id;
-            console.log('[OV-1] PartUsage created', obj.id);
-          } else {
-            console.warn('[OV-1] createChild failed', JSON.stringify(result));
-          }
-        }).catch(function(e: any) { console.warn('[OV-1] createChild error', e); });
+        if (!tid) { pendingSymbols.push(msg.symbol); console.log('[OV-1] queued', pendingSymbols.length); return; }
+        createPartUsage(msg.symbol, tid);
       }
 
       if (msg.type === 'deleteSymbol') {
@@ -85,13 +111,11 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
           input: { id: crypto.randomUUID(), editingContextId: editingContextId, elementIds: ids },
         }).then(function() {
           if (pid) delete symbolToPartUsageMap[msg.symbolId];
-          console.log('[OV-1] PartUsage deleted', ids);
-        }).catch(function(e: any) { console.warn('[OV-1] deleteSymbol failed', e); });
+        }).catch(function(e: any) {});
       }
     }
 
     window.addEventListener('message', handleMessage);
-
     return function() {
       var el = document.getElementById(HIDE_RIGHT_PANEL_STYLE_ID);
       if (el) el.remove();

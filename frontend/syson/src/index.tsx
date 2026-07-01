@@ -66,7 +66,6 @@ sysONExtensionRegistry.putData(representationFactoryExtensionPoint, {
   data: [
     (representationMetadata: any): any => {
       if (representationMetadata?.label?.includes('OV-1')) {
-        (window as any).__ov1TargetObjectId = representationMetadata.targetObjectId || '';
         return Ov1BlankView;
       }
       return null;
