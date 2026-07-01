@@ -12,6 +12,7 @@
  *******************************************************************************/
 
 import { loadDevMessages, loadErrorMessages } from '@apollo/client/dev';
+import { representationFactoryExtensionPoint } from '@eclipse-sirius/sirius-components-core';
 import {
   DiagramRepresentationConfiguration,
   footerExtensionPoint,
@@ -38,14 +39,7 @@ import './reset.css';
 import './transparency.css';
 import './variables.css';
 import './dodaf-views.css';
-import ReactDOM from 'react-dom/client';
-import React from 'react';
-import { Ov1ConceptView } from './views/Ov1ConceptView';
-
-(window as any).renderOv1ConceptView = (container: HTMLElement) => {
-  const root = ReactDOM.createRoot(container);
-  root.render(React.createElement(Ov1ConceptView));
-};
+import { Ov1BlankView } from './views/Ov1BlankView';
 
 if (process.env.NODE_ENV !== 'production') {
   loadDevMessages();
@@ -65,6 +59,19 @@ sysONExtensionRegistry.putData(navigationBarMenuHelpURLExtensionPoint, {
 sysONExtensionRegistry.addComponent(footerExtensionPoint, {
   identifier: `syson_${footerExtensionPoint.identifier}`,
   Component: SysONFooter,
+});
+
+sysONExtensionRegistry.putData(representationFactoryExtensionPoint, {
+  identifier: `syson_${representationFactoryExtensionPoint.identifier}`,
+  data: [
+    (representationMetadata: any): any => {
+      if (representationMetadata?.label?.includes('OV-1')) {
+        (window as any).__ov1TargetObjectId = representationMetadata.targetObjectId || '';
+        return Ov1BlankView;
+      }
+      return null;
+    },
+  ],
 });
 
 const container = document.getElementById('root');

@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import { Gantt, ViewMode, Task, DateStartColumn, DateEndColumn } from '@ObeoNetwork/gantt-task-react';
+import { Gantt as GanttOriginal, ViewMode, DateStartColumn, DateEndColumn } from '@ObeoNetwork/gantt-task-react';
 import '@ObeoNetwork/gantt-task-react/dist/style.css';
 import { zhCN } from 'date-fns/locale';
+
+const Gantt = GanttOriginal as React.FC<any>;
 
 const API = '/api/gantt/default-gantt/tasks';
 const DARK = '#19284F';
@@ -42,7 +44,7 @@ const DoDAFGanttTimeline: React.FC = () => {
       progress: t.progress,
       project: t.parentId || undefined,
       hideChildren: !expanded.has(t.id),
-      styles: { progressColor: t.progress >= 100 ? '#22c55e' : '#3b82f6', backgroundColor: t.progress >= 100 ? '#22c55e' : '#3b82f6' },
+      styles: { progressColor: t.progress >= 100 ? '#22c55e' : '#3b82f6', backgroundColor: t.progress >= 100 ? '#22c55e' : '#3b82f6' } as any,
       isDisabled: false, dependencies: [],
     }));
   }, [tasks, expanded]);
@@ -94,7 +96,6 @@ const DoDAFGanttTimeline: React.FC = () => {
 
   const seqMap = useMemo(() => {
     const map: Record<string, string> = {};
-    const counters: number[] = [];
     const walk = (parentId: string | null, prefix: string) => {
       const siblings = tasks.filter(t => t.parentId === parentId);
       siblings.forEach((t, i) => {
@@ -221,8 +222,7 @@ const DoDAFGanttTimeline: React.FC = () => {
       {/* Gantt chart */}
       <div style={{ flex: 1, overflow: 'hidden' }}>
         {ganttTasks.length > 0 ? (
-          <Gantt tasks={ganttTasks} viewMode={viewMode}
-            listCellWidth=""
+          <Gantt tasks={ganttTasks as any} viewMode={viewMode}
             columnWidth={viewMode === ViewMode.Year ? 350 : viewMode === ViewMode.Month ? 260 : viewMode === ViewMode.Week ? 200 : 120}
             columns={[
               { id: 'seq', Cell: SeqCell as any, width: 80, title: '序号' },
@@ -231,7 +231,7 @@ const DoDAFGanttTimeline: React.FC = () => {
               { id: 'end', Cell: DateEndColumn as any, width: 100, title: '结束' },
               { id: 'progress', Cell: ProgressCell as any, width: 100, title: '进度' },
             ]}
-            onDateChange={async (task) => {
+            onDateChange={async (task: any) => {
               const t = tasks.find(x => x.id === task.id);
               if (!t) return;
               const newStart = task.start.toISOString().slice(0, 10);
@@ -245,7 +245,7 @@ const DoDAFGanttTimeline: React.FC = () => {
               }
               save({ ...t, startDate: newStart, endDate: newEnd });
             }}
-            onProgressChange={async (task) => {
+            onProgressChange={async (task: any) => {
               const t = tasks.find(x => x.id === task.id);
               if (t) save({ ...t, progress: task.progress });
             }}
@@ -274,9 +274,8 @@ const DoDAFGanttTimeline: React.FC = () => {
             }}
             dateLocale={zhCN}
             fontFamily="system-ui, sans-serif"
-            TooltipContent={({ task }) => {
+            TooltipContent={({ task }: any) => {
               if (!task) return null;
-              const t = tasks.find(x => x.id === task.id);
               return (
                 <div style={{ background: DARK2, padding: '8px 12px', borderRadius: 8, color: '#e0e0e0', fontSize: 12, border: '1px solid ' + BORDER, boxShadow: '0 4px 16px rgba(0,0,0,0.4)' }}>
                   <b style={{ color: '#f1f5f9' }}>{task.name}</b>

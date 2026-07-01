@@ -130,7 +130,7 @@ public class SysMLv2EditService implements IEditServiceDelegate {
             } else {
                 List<EClass> childrenCandidates = new GetChildCreationSwitch().doSwitch(SysmlPackage.eINSTANCE.getNamespace());
                 childrenCandidates.forEach(candidate -> {
-                    List<String> iconURL = this.labelService.getImagePaths(EcoreUtil.create(candidate));
+                    List<String> iconURL = java.util.List.of("/icons/full/obj16/" + candidate.getName() + ".svg");
                     StyledString styledLabel = this.labelService.getStyledLabel(candidate);
                     String label = "";
                     if (styledLabel != null) {
@@ -163,7 +163,7 @@ public class SysMLv2EditService implements IEditServiceDelegate {
                 List<ChildCreationDescription> childCreationDescriptions = new ArrayList<>();
                 List<EClass> childrenCandidates = new GetChildCreationSwitch().doSwitch(eClass);
                 childrenCandidates.forEach(candidate -> {
-                    List<String> iconURL = this.labelService.getImagePaths(EcoreUtil.create(candidate));
+                    List<String> iconURL = java.util.List.of("/icons/full/obj16/" + candidate.getName() + ".svg");
                     StyledString styledLabel = this.labelService.getStyledLabel(candidate);
                     String label = "";
                     if (styledLabel != null) {

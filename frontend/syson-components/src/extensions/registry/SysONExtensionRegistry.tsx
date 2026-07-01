@@ -11,7 +11,7 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 
-import { ApolloLink } from '@apollo/client';
+import { ApolloLink, Observable } from '@apollo/client';
 import { ExtensionRegistry, WorkbenchViewContribution, workbenchViewContributionExtensionPoint } from '@eclipse-sirius/sirius-components-core';
 import {
   diagramToolbarActionExtensionPoint,
@@ -127,7 +127,7 @@ const zhLocaleConfigurer: ApolloClientOptionsConfigurer = (currentOptions) => {
 
   return {
     ...currentOptions,
-    link: zhLocaleLink.concat(currentOptions.link),
+    link: currentOptions.link ? zhLocaleLink.concat(currentOptions.link) : zhLocaleLink,
   };
 };
 
@@ -160,7 +160,7 @@ const toolInLeftSidebarConfigurer: ApolloClientOptionsConfigurer = (currentOptio
 
   return {
     ...currentOptions,
-    link: toolSidebarLink.concat(currentOptions.link),
+    link: currentOptions.link ? toolSidebarLink.concat(currentOptions.link) : toolSidebarLink,
   };
 };
 
