@@ -37,48 +37,44 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
   React.useEffect(function() {
     var pendingSymbols: any[] = [];
 
-    // Fetch targetObjectId via GraphQL — try multiple field paths
+    // Fetch targetObjectId via REST API (queries PostgreSQL directly)
     if (editingContextId && representationId) {
-      callGraphQL('\n  query getRep($ecId:ID!,$repId:ID!){viewer{editingContext(editingContextId:$ecId){representation(representationId:$repId){id label description{id}}}}}', {
-        ecId: editingContextId,
-        repId: representationId,
-      }).then(function(result: any) {
-        var descId = result && result.data && result.data.viewer && result.data.viewer.editingContext && result.data.viewer.editingContext.representation && result.data.viewer.editingContext.representation.description && result.data.viewer.editingContext.representation.description.id;
-        if (descId) {
-          var m1 = descId.match(/sourceElementId=([^&]+)/);
-          var m2 = descId.match(/sourceId=([^&]+)/);
-          var parentId = (m1 ? m1[1] : '') || (m2 ? m2[1] : '');
-          console.log('[OV-1] desc.id=' + descId + '\n  sourceElementId=' + (m1 ? m1[1] : '') + ' sourceId=' + (m2 ? m2[1] : ''));
+      fetch(PLOTTING_ORIGIN + '/api/targetObjectId/' + encodeURIComponent(representationId))
+        .then(function(r: any) { if (!r.ok) throw new Error('status ' + r.status); return r.json(); })
+        .then(function(data: any) {
+          var parentId = data && data.targetObjectId;
           if (parentId) {
             (window as any).__ov1TargetObjectId = parentId;
-            console.log('[OV-1] parentId resolved:', parentId, 'pending:', pendingSymbols.length);
+            console.log('[OV-1] parentId resolved from DB:', parentId, 'pending:', pendingSymbols.length);
             for (var p = 0; p < pendingSymbols.length; p++) {
               createPartUsage(pendingSymbols[p], parentId);
             }
             pendingSymbols = [];
-            return;
+          } else {
+            console.warn('[OV-1] parentId NOT found in DB');
           }
-        }
-        console.warn('[OV-1] parentId NOT found');
-      }).catch(function(e: any) { console.warn('[OV-1] query failed', e); });
+        }).catch(function(e: any) {
+          console.warn('[OV-1] parentId query failed', e.message || e);
+        });
     }
 
     function createPartUsage(symbolMsg: any, parentId: string) {
       var sid = symbolMsg._symbolId || '';
-      console.log('[OV-1] createPartUsage sid=' + sid + ' parent=' + parentId);
+      var symbolName = symbolMsg.name || '';
+      var descId = 'SysMLv2EditService-PartUsage' + (symbolName ? ':' + symbolName : '');
+      console.log('[OV-1] createPartUsage sid=' + sid + ' name=' + symbolName);
       callGraphQL(CREATE_CHILD, {
         input: {
           id: crypto.randomUUID(),
           editingContextId: editingContextId,
           objectId: parentId,
-          childCreationDescriptionId: 'SysMLv2EditService-PartUsage',
+          childCreationDescriptionId: descId,
         },
       }).then(function(result: any) {
-        console.log('[OV-1] createChild RESPONSE', JSON.stringify(result).substring(0, 500));
         var obj = result && result.data && result.data.createChild && result.data.createChild.object;
         if (obj && obj.id) {
           if (sid) symbolToPartUsageMap[sid] = obj.id;
-          console.log('[OV-1] PartUsage created', obj.id);
+          console.log('[OV-1] PartUsage created:', (symbolMsg.name || '(default)'), obj.id);
         } else {
           console.warn('[OV-1] createChild failed', JSON.stringify(result));
         }

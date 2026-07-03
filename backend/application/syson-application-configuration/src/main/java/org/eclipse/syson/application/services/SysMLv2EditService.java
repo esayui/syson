@@ -183,8 +183,16 @@ public class SysMLv2EditService implements IEditServiceDelegate {
 
     @Override
     public Optional<Object> createChild(IEditingContext editingContext, Object object, String childCreationDescriptionId) {
-        if (childCreationDescriptionId.startsWith(ID_PREFIX) && object instanceof Element container) {
-            EClass eClass = SysMLMetamodelHelper.toEClass(childCreationDescriptionId.substring(ID_PREFIX.length()));
+        // Support name parameter: SysMLv2EditService-PartUsage:MyName
+        String initName = null;
+        String resolvedId = childCreationDescriptionId;
+        int colonIdx = childCreationDescriptionId.lastIndexOf(':');
+        if (colonIdx > 0 && childCreationDescriptionId.startsWith(ID_PREFIX)) {
+            initName = childCreationDescriptionId.substring(colonIdx + 1);
+            resolvedId = childCreationDescriptionId.substring(0, colonIdx);
+        }
+        if (resolvedId.startsWith(ID_PREFIX) && object instanceof Element container) {
+            EClass eClass = SysMLMetamodelHelper.toEClass(resolvedId.substring(ID_PREFIX.length()));
             EObject eObject = SysmlFactory.eINSTANCE.create(eClass);
             Optional<EClass> intermediateContainerClass = new GetIntermediateContainerCreationSwitch(container).doSwitch(eClass);
             if (intermediateContainerClass.isPresent() && eObject instanceof Element newElement) {
@@ -199,6 +207,9 @@ public class SysMLv2EditService implements IEditServiceDelegate {
                 membership.getOwnedRelatedElement().add(newElement);
             }
             new ElementInitializerSwitch().doSwitch(eObject);
+            if (initName != null && !initName.isEmpty() && eObject instanceof Element newElement) {
+                newElement.setDeclaredName(initName);
+            }
             if (eObject instanceof ViewUsage viewUsage) {
                 this.createDiagram(editingContext, viewUsage);
             }
