@@ -18,8 +18,6 @@ const HIDE_RIGHT_PANEL_STYLE_ID = 'ov1-blank-hide-right-panel';
 
 const CREATE_CHILD = '\n  mutation createChild($input: CreateChildInput!) {\n    createChild(input: $input) {\n      __typename\n      ... on CreateChildSuccessPayload { object { id } }\n      ... on ErrorPayload { message }\n    }\n  }';
 
-const DELETE_FROM_MODEL = '\n  mutation deleteFromModel($input: DeleteFromModelInput!) {\n    deleteFromModel(input: $input) {\n      __typename\n      ... on ErrorPayload { message }\n    }\n  }';
-
 var symbolToPartUsageMap: Record<string, string> = {};
 
 function callGraphQL(query: string, variables: any) {
@@ -33,7 +31,6 @@ function callGraphQL(query: string, variables: any) {
 export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref) {
   var editingContextId = (props && props.editingContextId) || '';
   var representationId = (props && props.representationId) || '';
-
   React.useEffect(function() {
     var pendingSymbols: any[] = [];
 
@@ -73,7 +70,16 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
       }).then(function(result: any) {
         var obj = result && result.data && result.data.createChild && result.data.createChild.object;
         if (obj && obj.id) {
-          if (sid) symbolToPartUsageMap[sid] = obj.id;
+          if (sid) {
+            symbolToPartUsageMap[sid] = obj.id; // temporary: Sirius ID
+            // Resolve EMF elementId for later delete
+            fetch(PLOTTING_ORIGIN + '/api/elementId/' + encodeURIComponent(editingContextId) + '/' + encodeURIComponent(obj.id))
+              .then(function(r) { if (r.ok) return r.json(); throw new Error('no mapping'); })
+              .then(function(data: any) {
+                if (data.elementId) symbolToPartUsageMap[sid] = data.elementId;
+                console.log('[OV-1] EMF elementId resolved:', data.elementId);
+              }).catch(function(){});
+          }
           console.log('[OV-1] PartUsage created:', (symbolMsg.name || '(default)'), obj.id);
         } else {
           console.warn('[OV-1] createChild failed', JSON.stringify(result));
@@ -101,17 +107,31 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
       }
 
       if (msg.type === 'deleteSymbol') {
-        var pid = symbolToPartUsageMap[msg.symbolId];
-        var ids = pid ? [pid] : [msg.symbolId];
-        callGraphQL(DELETE_FROM_MODEL, {
-          input: { id: crypto.randomUUID(), editingContextId: editingContextId, elementIds: ids },
-        }).then(function() {
-          if (pid) delete symbolToPartUsageMap[msg.symbolId];
-        }).catch(function(e: any) {});
+        console.info('[OV-1] deleteSymbol received, symbolId=' + msg.symbolId);
+        var puId = symbolToPartUsageMap[msg.symbolId];
+        console.info('[OV-1] deleteSymbol mapped PartUsage=' + puId);
+        // deleteOv1PartUsage mutation (goes through proper Sirius event pipeline)
+        var elId = puId || msg.symbolId;
+        console.info('[OV-1] deleteOv1PartUsage elementId=' + elId);
+        callGraphQL('mutation deleteOv1PartUsage($input: DeleteOv1PartUsageInput!) { deleteOv1PartUsage(input: $input) { __typename ... on ErrorPayload { message } } }', {
+          input: { id: crypto.randomUUID(), editingContextId: editingContextId, elementId: elId },
+        }).then(function(result: any) {
+          var payload = result && result.data && result.data.deleteOv1PartUsage;
+          if (payload && payload.__typename === 'ErrorPayload') {
+            console.warn('[OV-1] deleteOv1PartUsage failed', payload.message);
+          } else {
+            if (puId) delete symbolToPartUsageMap[msg.symbolId];
+            console.info('[OV-1] delete OK');
+          }
+        }).catch(function(e: any) { console.warn('[OV-1] delete error', e); });
       }
     }
 
     window.addEventListener('message', handleMessage);
+
+    // TODO: RM→iframe delete sync requires Sirius WebSocket subscription
+    // Currently only iframe→RM direction is supported
+
     return function() {
       var el = document.getElementById(HIDE_RIGHT_PANEL_STYLE_ID);
       if (el) el.remove();

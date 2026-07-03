@@ -31,26 +31,16 @@ public class Ov1ElementRenameController {
     @PostMapping("/api/ov1/rename")
     public ResponseEntity<?> renameElement(@RequestBody RenameRequest request) {
         var ctx = this.editingContextSearchService.findById(request.editingContextId());
-        System.out.println("[OV-1 rename] ctx found=" + ctx.isPresent());
-        if (ctx.isEmpty()) {
-            return ResponseEntity.badRequest().body("ctx_not_found");
-        }
+        if (ctx.isEmpty()) return ResponseEntity.badRequest().body("ctx_not_found");
         var editingContext = ctx.get();
 
-        var found = this.objectSearchService.getObject(editingContext, request.elementId());
-        System.out.println("[OV-1 rename] element found=" + found.isPresent());
+        var found = this.objectSearchService.getObject(editingContext, request.elementId())
+                .filter(Element.class::isInstance).map(Element.class::cast);
+        if (found.isEmpty()) return ResponseEntity.badRequest().body("element_not_found");
 
-        var el = found.filter(Element.class::isInstance).map(Element.class::cast);
-
-        if (el.isEmpty()) {
-            return ResponseEntity.badRequest().body("element_not_found: " + request.elementId());
-        }
-        var element = el.get();
-        String oldName = element.getDeclaredName();
+        var element = found.get();
         element.setDeclaredName(request.newName());
         this.editingContextPersistenceService.persist(new Ov1RenameCause(UUID.randomUUID()), editingContext);
-        System.out.println("[OV-1 rename] SUCCESS: " + oldName + " -> " + request.newName());
-
         return ResponseEntity.ok().build();
     }
 
