@@ -192,6 +192,40 @@ sysONExtensionRegistry.addComponent(diagramToolbarActionExtensionPoint, {
   Component: DiagramSelectionSync,
 });
 
+// Apollo Link: intercept deleteTreeItem to sync RM deletions → OV-1 iframe
+const deleteTreeItemInterceptor: ApolloClientOptionsConfigurer = (currentOptions) => {
+  const deleteLink = new ApolloLink((operation, forward) => {
+    return new Observable((observer: any) => {
+      const subscription = forward(operation).subscribe({
+        next: (response: any) => {
+          if (operation.operationName === 'deleteTreeItem') {
+            try {
+              const treeItemId = operation.variables?.input?.treeItemId;
+              console.info('[OV-1 Link] deleteTreeItem intercepted, treeItemId=' + treeItemId);
+              if (treeItemId) {
+                if ((window as any).__ov1OnDeleteItem) {
+                  (window as any).__ov1OnDeleteItem(treeItemId);
+                } else {
+                  console.info('[OV-1 Link] __ov1OnDeleteItem not set');
+                }
+              }
+            } catch(e) { console.warn('[OV-1 Link] error', e); }
+          }
+          observer.next(response);
+        },
+        error: (err: any) => observer.error(err),
+        complete: () => observer.complete(),
+      });
+      return () => subscription.unsubscribe();
+    });
+  });
+  return { ...currentOptions, link: currentOptions.link ? deleteLink.concat(currentOptions.link) : deleteLink };
+};
+sysONExtensionRegistry.putData(apolloClientOptionsConfigurersExtensionPoint, {
+  identifier: `syson_${apolloClientOptionsConfigurersExtensionPoint.identifier}_deleteTreeItemInterceptor`,
+  data: [deleteTreeItemInterceptor],
+});
+
 sysONExtensionRegistry.addComponent(navigationBarMenuIconExtensionPoint, {
   identifier: `syson_${navigationBarMenuIconExtensionPoint.identifier}`,
   Component: SysONNavigationBarMenuIcon,

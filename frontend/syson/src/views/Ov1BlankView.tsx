@@ -11,14 +11,15 @@
  *     Obeo - initial API and implementation
  *******************************************************************************/
 
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 
 const PLOTTING_ORIGIN = 'http://localhost:3100';
 const HIDE_RIGHT_PANEL_STYLE_ID = 'ov1-blank-hide-right-panel';
 
 const CREATE_CHILD = '\n  mutation createChild($input: CreateChildInput!) {\n    createChild(input: $input) {\n      __typename\n      ... on CreateChildSuccessPayload { object { id } }\n      ... on ErrorPayload { message }\n    }\n  }';
 
-var symbolToPartUsageMap: Record<string, string> = {};
+var symbolToPartUsageMap: Record<string, string> = {};   // _symbolId → EMF elementId
+var symbolToSiriusMap: Record<string, string> = {};       // _symbolId → Sirius object ID (for tree matching)
 
 function callGraphQL(query: string, variables: any) {
   return fetch('http://localhost:8080/api/graphql', {
@@ -31,6 +32,7 @@ function callGraphQL(query: string, variables: any) {
 export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref) {
   var editingContextId = (props && props.editingContextId) || '';
   var representationId = (props && props.representationId) || '';
+  var iframeRef = useRef<HTMLIFrameElement>(null);
   React.useEffect(function() {
     var pendingSymbols: any[] = [];
 
@@ -42,6 +44,13 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
           var parentId = data && data.targetObjectId;
           if (parentId) {
             (window as any).__ov1TargetObjectId = parentId;
+            // Pass targetObjectId to iframe via URL param update
+            if (iframeRef.current) {
+              var currentSrc = iframeRef.current.src;
+              if (currentSrc.indexOf('targetObjectId=') < 0) {
+                iframeRef.current.src = currentSrc + '&targetObjectId=' + encodeURIComponent(parentId);
+              }
+            }
             console.log('[OV-1] parentId resolved from DB:', parentId, 'pending:', pendingSymbols.length);
             for (var p = 0; p < pendingSymbols.length; p++) {
               createPartUsage(pendingSymbols[p], parentId);
@@ -71,8 +80,9 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
         var obj = result && result.data && result.data.createChild && result.data.createChild.object;
         if (obj && obj.id) {
           if (sid) {
-            symbolToPartUsageMap[sid] = obj.id; // temporary: Sirius ID
-            // Resolve EMF elementId for later delete
+            symbolToSiriusMap[sid] = obj.id; // Sirius object ID (for tree matching)
+            symbolToPartUsageMap[sid] = obj.id; // temporary until EMF resolved
+            // Resolve EMF elementId for deleteOv1PartUsage
             fetch(PLOTTING_ORIGIN + '/api/elementId/' + encodeURIComponent(editingContextId) + '/' + encodeURIComponent(obj.id))
               .then(function(r) { if (r.ok) return r.json(); throw new Error('no mapping'); })
               .then(function(data: any) {
@@ -129,10 +139,25 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
 
     window.addEventListener('message', handleMessage);
 
-    // TODO: RM→iframe delete sync requires Sirius WebSocket subscription
-    // Currently only iframe→RM direction is supported
+    // Listen for tree item deletions from RM. Cannot use polling (DB out of sync).
+    // Instead, expose a callback on window for Apollo Link to call when deleteTreeItem succeeds.
+    (window as any).__ov1OnDeleteItem = function(treeItemId: string) {
+      // Match by Sirius object ID (tree uses this, not EMF elementId)
+      for (var sid in symbolToSiriusMap) {
+        if (symbolToSiriusMap[sid] === treeItemId) {
+          delete symbolToSiriusMap[sid];
+          delete symbolToPartUsageMap[sid];
+          if (iframeRef.current && iframeRef.current.contentWindow) {
+            iframeRef.current.contentWindow.postMessage({ type: 'deleteSymbol', symbolId: sid }, PLOTTING_ORIGIN);
+          }
+          console.info('[OV-1] RM→iframe delete:', sid);
+          break;
+        }
+      }
+    };
 
     return function() {
+      delete (window as any).__ov1OnDeleteItem;
       var el = document.getElementById(HIDE_RIGHT_PANEL_STYLE_ID);
       if (el) el.remove();
       window.removeEventListener('message', handleMessage);
@@ -142,6 +167,7 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
   var src = PLOTTING_ORIGIN + '?representationId=' + encodeURIComponent(representationId) + '&editingContextId=' + encodeURIComponent(editingContextId);
 
   return React.createElement('iframe', {
+    ref: iframeRef,
     src: src,
     style: { width: '100%', height: '100%', border: 'none', display: 'block', background: 'rgb(25,40,79)' },
     title: 'OV-1 Plotting Tool',
