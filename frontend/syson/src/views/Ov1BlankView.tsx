@@ -44,14 +44,13 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
           var parentId = data && data.targetObjectId;
           if (parentId) {
             (window as any).__ov1TargetObjectId = parentId;
-            // Pass targetObjectId to iframe via URL param update
-            if (iframeRef.current) {
-              var currentSrc = iframeRef.current.src;
-              if (currentSrc.indexOf('targetObjectId=') < 0) {
-                iframeRef.current.src = currentSrc + '&targetObjectId=' + encodeURIComponent(parentId);
-              }
-            }
-            console.log('[OV-1] parentId resolved from DB:', parentId, 'pending:', pendingSymbols.length);
+            // Restore mapping from file
+            fetch(PLOTTING_ORIGIN + '/api/mapping/' + encodeURIComponent(representationId))
+              .then(function(r) { return r.json(); })
+              .then(function(mapping: any) {
+                for (var k in mapping) { symbolToSiriusMap[k] = mapping[k]; }
+              }).catch(function(){});
+            console.log('[OV-1] parentId resolved:', parentId, 'pending:', pendingSymbols.length);
             for (var p = 0; p < pendingSymbols.length; p++) {
               createPartUsage(pendingSymbols[p], parentId);
             }
@@ -80,8 +79,13 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
         var obj = result && result.data && result.data.createChild && result.data.createChild.object;
         if (obj && obj.id) {
           if (sid) {
-            symbolToSiriusMap[sid] = obj.id; // Sirius object ID (for tree matching)
-            symbolToPartUsageMap[sid] = obj.id; // temporary until EMF resolved
+            symbolToSiriusMap[sid] = obj.id;
+            symbolToPartUsageMap[sid] = obj.id;
+            // Persist mapping for closed-state cleanup
+            fetch(PLOTTING_ORIGIN + '/api/mapping/' + encodeURIComponent(representationId), {
+              method: 'PUT', headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(symbolToSiriusMap),
+            }).catch(function(){});
             // Resolve EMF elementId for deleteOv1PartUsage
             fetch(PLOTTING_ORIGIN + '/api/elementId/' + encodeURIComponent(editingContextId) + '/' + encodeURIComponent(obj.id))
               .then(function(r) { if (r.ok) return r.json(); throw new Error('no mapping'); })
@@ -147,6 +151,11 @@ export var Ov1BlankView = forwardRef<any, any>(function Ov1BlankView(props, _ref
         if (symbolToSiriusMap[sid] === treeItemId) {
           delete symbolToSiriusMap[sid];
           delete symbolToPartUsageMap[sid];
+          // Update persisted mapping
+          fetch(PLOTTING_ORIGIN + '/api/mapping/' + encodeURIComponent(representationId), {
+            method: 'PUT', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(symbolToSiriusMap),
+          }).catch(function(){});
           if (iframeRef.current && iframeRef.current.contentWindow) {
             iframeRef.current.contentWindow.postMessage({ type: 'deleteSymbol', symbolId: sid }, PLOTTING_ORIGIN);
           }

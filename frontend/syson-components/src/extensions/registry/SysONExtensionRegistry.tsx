@@ -201,12 +201,16 @@ const deleteTreeItemInterceptor: ApolloClientOptionsConfigurer = (currentOptions
           if (operation.operationName === 'deleteTreeItem') {
             try {
               const treeItemId = operation.variables?.input?.treeItemId;
-              console.info('[OV-1 Link] deleteTreeItem intercepted, treeItemId=' + treeItemId);
+              const ecId = operation.variables?.input?.editingContextId;
+              console.info('[OV-1 Link] deleteTreeItem treeItemId=' + treeItemId + ' ecId=' + ecId + ' cbSet=' + !!((window as any).__ov1OnDeleteItem));
               if (treeItemId) {
                 if ((window as any).__ov1OnDeleteItem) {
                   (window as any).__ov1OnDeleteItem(treeItemId);
-                } else {
-                  console.info('[OV-1 Link] __ov1OnDeleteItem not set');
+                } else if (ecId) {
+                  fetch('http://localhost:3100/api/cleanupByPartUsage/' + encodeURIComponent(ecId) + '/' + encodeURIComponent(treeItemId), { method: 'POST' })
+                    .then(function(r: any) { return r.json(); })
+                    .then(function(d: any) { console.info('[OV-1 Link] cleanup result:', d); })
+                    .catch(function(e: any) { console.warn('[OV-1 Link] cleanup failed:', e); });
                 }
               }
             } catch(e) { console.warn('[OV-1 Link] error', e); }
